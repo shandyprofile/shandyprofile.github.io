@@ -28,10 +28,10 @@
     "zsh": { "path": "/bin/zsh", "args": ["-l", "-i"] }
   },
 
-  "markdown.preview.scrollPreviewWithEditor": false,
-  "markdown.preview.scrollEditorWithPreview": false,
+  // "markdown.preview.scrollPreviewWithEditor": false,
+  // "markdown.preview.scrollEditorWithPreview": false,
 
   "pasteImage.path": "${projectRoot}/assets/img/${relativeFileDir}",
-"pasteImage.prefix": "/assets/img/${relativeFileDir}",
-"pasteImage.defaultName": "${currentFileNameWithoutExt}-${currentTime}"
+  "pasteImage.prefix": "/assets/img/${relativeFileDir}",
+  "pasteImage.defaultName": "${currentFileNameWithoutExt}-${currentTime}"
 }
