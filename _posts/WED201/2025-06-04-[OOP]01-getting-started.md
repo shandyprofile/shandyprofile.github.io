@@ -5,6 +5,7 @@ description: >-
   - Part 01: Important tags in HTML5
   - Part 02: Practical exercises with instructions 
   - Part 03: Self-practice exercises
+  - 
 author: [shandy]
 date: 2025-06-05
 categories: [Web Design, HTML5]
