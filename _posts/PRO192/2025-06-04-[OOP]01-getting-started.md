@@ -3,9 +3,10 @@ title: Getting Started
 description: >-
   The Object Oriented Programming using Java (PRO192)
 author: [shandy]
-date: 2025-06-04
+date: 2025-06-05
 categories: [(Java) Object-oriented programming, Basic Java Language]
 tags: [Getting Started]
+sort_index: 1
 # pin: true
 # media_subpath: '/posts/01'
 ---
