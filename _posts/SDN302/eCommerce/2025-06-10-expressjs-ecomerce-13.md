@@ -1,13 +1,13 @@
 ---
-title: 'Episode 10: Final Touches & Deployment'
+title: 'Episode 12: Deployment & Final Polish'
 description: >-
   Add loading/error states, empty cart state, optional deploy (Vercel/etc.)
 author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
-categories: [(ReactJS) Front-End web development, E-Commerce]
-tags: [Episode 10 – Final Touches & Deployment]
-sort_index: 11
+categories: [(ExpressJS) Server-Side development, E-Commerce]
+tags: [Episode 12 – Deployment & Final Polish]
+sort_index: 13
 # pin: true
 # media_subpath: '/posts/02'
 ---
