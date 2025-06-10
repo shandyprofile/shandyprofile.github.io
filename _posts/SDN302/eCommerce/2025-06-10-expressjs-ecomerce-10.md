@@ -5,7 +5,7 @@ description: >-
 author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
-categories: [(ExpressJS) Server-Side development, E-Commerce]
+categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
 tags: [Episode 9 – Secure Auth with JWT & Cookies]
 sort_index: 10
 # pin: true
