@@ -5,8 +5,8 @@ description: >-
 author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
-categories: [(ReactJS) Front-End web development, E-Commerce]
-tags: [Episode 4 – Connect with JSON-Server to fetch real product data]
+categories: [(ReactJS) Front-End web development, (ReactJS) E-Commerce]
+tags: [(ReactJS) E-Commerce]
 sort_index: 5
 # pin: true
 # media_subpath: '/posts/02'

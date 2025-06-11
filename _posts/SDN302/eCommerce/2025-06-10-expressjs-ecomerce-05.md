@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
 categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
-tags: [Episode 4 – Shopping Cart System]
+tags: [(ExpressJS) E-Commerce]
 sort_index: 5
 # pin: true
 # media_subpath: '/posts/02'

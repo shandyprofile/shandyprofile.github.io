@@ -6,8 +6,8 @@ description: >-
 author: [shandy]
 date: 2025-06-05
 updateDate: 2025-06-05
-categories: [(Java) Object-oriented programming, Object-oriented programming]
-tags: [Complexity, Object Terminology]
+categories: [(Java) Object-oriented programming, (Java) OOP]
+tags: [(Java) OOP]
 sort_index: 2
 # pin: true
 # media_subpath: '/posts/02'

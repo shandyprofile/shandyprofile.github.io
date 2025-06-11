@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
 categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
-tags: [Modern e-Commerce Web Platform]
+tags: [(ExpressJS) E-Commerce]
 sort_index: 1
 # pin: true
 # media_subpath: '/posts/02'

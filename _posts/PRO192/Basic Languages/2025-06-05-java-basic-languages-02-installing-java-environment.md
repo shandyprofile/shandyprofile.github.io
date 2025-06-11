@@ -6,8 +6,8 @@ description: >-
 author: [shandy]
 date: 2025-06-04
 updateDate: 2025-06-05
-categories: [(Java) Object-oriented programming, Basic Java Language]
-tags: [Installing Java Environments]
+categories: [(Java) Object-oriented programming, (Java) Basic Language]
+tags: [(Java) Basic Language]
 sort_index: 2
 # pin: true
 # media_subpath: '/posts/02'

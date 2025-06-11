@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-06-10
 updateDate: 2025-06-10
 categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
-tags: [Episode 3 – User Auth - Register, Login & JWT]
+tags: [(ExpressJS) E-Commerce]
 sort_index: 4
 # pin: true
 # media_subpath: '/posts/02'
@@ -104,8 +104,6 @@ router.post('/login', async (req, res) => {
 
 ## 4. Register the Route in app.js
 ```js
-Sao chép
-Chỉnh sửa
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 ```
