@@ -1,11 +1,10 @@
 ---
 title: Installing Java Environments
 description: >-
-  Get started with Chirpy basics in this comprehensive overview.
-  You will learn how to install, configure, and use your first Chirpy-based website, as well as deploy it to a web server.
+  Installing Java Environments
 author: [shandy]
 date: 2025-06-04
-updateDate: 2025-06-05
+updateDate: 2025-06-17
 categories: [(Java) Object-oriented programming, (Java) Basic Language]
 tags: [(Java) Basic Language]
 sort_index: 2
