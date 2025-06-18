@@ -4,7 +4,7 @@ description: >-
   Enable users to register and log in to the application securely using JWT tokens and HTTP-only cookies. Add basic authentication middleware.
 author: [shandy]
 date: 2025-06-10
-updateDate: 2025-06-10
+updateDate: 2025-06-18
 categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
 tags: [(ExpressJS) E-Commerce]
 sort_index: 4
@@ -55,9 +55,9 @@ Create routes/auth.js:
 ```js
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 
 // Register
 router.post('/register', async (req, res) => {
@@ -65,10 +65,11 @@ router.post('/register', async (req, res) => {
 
   try {
     const exists = await User.findOne({ email });
-    if (exists) return res.status(400).json({ msg: 'Email already in use' });
+    if (exists) return res.status(400).json({ msg: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashedPassword });
+    const user = new User({ email, password: hashedPassword });
+    await user.save();
 
     res.status(201).json({ msg: 'User registered successfully' });
   } catch (err) {
@@ -90,16 +91,22 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '1d' }
+      { expiresIn: '2h' }
     );
 
-    res
-      .cookie('token', token, { httpOnly: true, secure: false })
-      .json({ msg: 'Login successful' });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: false, // set to true in production with HTTPS
+      maxAge: 2 * 60 * 60 * 1000
+    });
+
+    res.json({ msg: 'Login successful' });
   } catch (err) {
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
+module.exports = router;
 ```
 
 ## 4. Register the Route in app.js
@@ -107,7 +114,27 @@ router.post('/login', async (req, res) => {
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 ```
-## 5. Create Auth Middleware
+
+## 5. Test with Postman
+- **POST /api/auth/register**
+
+```json
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+```
+- **POST /api/auth/login**
+```json
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+```
+
+> After login, check browser or Postman cookies: you should see a token cookie.
+
+## 6. Create Auth Middleware
 Create middleware/auth.js:
 
 ```js
@@ -127,6 +154,14 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = verifyToken;
+```
+Use it in protected routes like this:
+
+```js
+const auth = require('../middleware/auth');
+router.get('/protected', auth, (req, res) => {
+  res.json({ msg: `Hello ${req.user.id}, you are authorized.` });
+});
 ```
 6. Test with Postman
 ### Register:

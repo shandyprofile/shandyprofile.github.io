@@ -4,7 +4,7 @@ description: >-
   Build Login functionality with simple authentication (based on email/password in db.json) and use LocalStorage to save login state
 author: [shandy]
 date: 2025-06-10
-updateDate: 2025-06-10
+updateDate: 2025-06-18
 categories: [(ReactJS) Front-End web development, (ReactJS) E-Commerce]
 tags: [(ReactJS) E-Commerce]
 sort_index: 6

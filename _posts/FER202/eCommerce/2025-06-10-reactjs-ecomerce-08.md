@@ -4,7 +4,7 @@ description: >-
   Protect the Cart page so that only logged in users can access it. If they are not logged in, they will be redirected to the Login page.
 author: [shandy]
 date: 2025-06-10
-updateDate: 2025-06-10
+updateDate: 2025-06-18
 categories: [(ReactJS) Front-End web development, (ReactJS) E-Commerce]
 tags: [(ReactJS) E-Commerce]
 sort_index: 8
