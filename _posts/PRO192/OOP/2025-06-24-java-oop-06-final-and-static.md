@@ -1,5 +1,5 @@
 ---
-title: 'IV. Abstraction'
+title: '`Final` and `Static` Keyword'
 description: >-
   These two keywords are widely used in Java and play important roles in defining behavior for variables, methods, and classes.
 author: [shandy]
