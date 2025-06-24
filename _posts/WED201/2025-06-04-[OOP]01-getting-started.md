@@ -12,7 +12,7 @@ categories: [Web Design, HTML5]
 tags: [Getting started with HTML5]
 sort_index: 1
 # pin: true
-# media_subpath: '/posts/01'
+# media_subpath: '/posts/01' 
 ---
 ## 1. Choose a tool for coding
 
