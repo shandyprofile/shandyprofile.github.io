@@ -48,7 +48,7 @@ class Dog extends Animal {
 ```
 > Subclasses must implement all abstract methods, unless they are also declared abstract.
 
-## 4. Key Features
+### 4. Key Features
 
 | Feature                | Abstract Class                           |
 | ---------------------- | ---------------------------------------- |

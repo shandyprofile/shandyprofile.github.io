@@ -59,6 +59,7 @@ It provides:
 - Supports null elements
 
 **Common Implementations**
+
 | Class        | Description                               |
 | ------------ | ----------------------------------------- |
 | `ArrayList`  | Fast random access, resizable array       |
@@ -66,6 +67,7 @@ It provides:
 | `Vector`     | Legacy, synchronized version of ArrayList |
 
 **Useful Methods in List**
+
 | Method               | Description                     |
 | -------------------- | ------------------------------- |
 | `add(E e)`           | Adds element to the end         |
@@ -118,6 +120,7 @@ public class ListExample {
 - Order is not guaranteed (unless using specific implementations).
 
 **Common Implementations**
+
 | Class           | Description                                 |
 | --------------- | ------------------------------------------- |
 | `HashSet`       | Fastest access, does **not** maintain order |
@@ -146,6 +149,7 @@ public class SetExample {
 ```
 
 **Useful Methods in Set**
+
 | Method               | Description                                    |
 | -------------------- | ---------------------------------------------- |
 | `add(E e)`           | Adds an element (returns `false` if duplicate) |
@@ -173,6 +177,7 @@ for (String city : cities) {
 ```
 
 **Use Set**
+
 | Use Case                            | Recommended         |
 | ----------------------------------- | ------------------- |
 | Ensure uniqueness (no duplicates)   | Yes                   |
@@ -214,6 +219,7 @@ public class MapExample {
 }
 ```
 **Useful Methods in Map**
+
 | Method                    | Description                          |
 | ------------------------- | ------------------------------------ |
 | `put(K key, V value)`     | Adds or updates entry                |
@@ -241,6 +247,7 @@ idNames.put(2, "B");
 System.out.println(idNames); // Sorted by keys: {1=A, 2=B, 3=C}
 ```
 **Use Map**
+
 | Use Case                   | Recommended Implementation |
 | -------------------------- | -------------------------- |
 | Fast lookups by unique key | `HashMap`                  |
