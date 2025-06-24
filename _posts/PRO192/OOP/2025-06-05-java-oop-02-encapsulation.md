@@ -8,7 +8,7 @@ date: 2025-06-17
 updateDate:
 categories: [(Java) Object-oriented programming, (Java) OOP]
 tags: [(Java) OOP]
-sort_index: 2
+sort_index: 202
 # pin: true
 # media_subpath: '/posts/02'
 ---

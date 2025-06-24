@@ -3,11 +3,11 @@ title: 'IV. Abstraction'
 description: >-
   These two keywords are widely used in Java and play important roles in defining behavior for variables, methods, and classes.
 author: [shandy]
-date: 2025-06-23
+date: 2025-06-24
 updateDate:
 categories: [(Java) Object-oriented programming, (Java) OOP]
 tags: [(Java) OOP]
-sort_index: 6
+sort_index: 206
 # pin: true
 # media_subpath: '/posts/02'
 ---

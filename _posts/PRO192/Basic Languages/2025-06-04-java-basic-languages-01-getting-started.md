@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-06-05
 categories: [(Java) Object-oriented programming, (Java) Basic Language]
 tags: [(Java) Basic Language]
-sort_index: 1
+sort_index: 101
 # pin: true
 # media_subpath: '/posts/01'
 ---

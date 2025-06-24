@@ -7,7 +7,7 @@ date: 2025-06-17
 updateDate: 
 categories: [(Java) Object-oriented programming, (Java) Basic Language]
 tags: [(Java) Basic Language]
-sort_index: 3
+sort_index: 103
 # pin: true
 # media_subpath: '/posts/02'
 ---

@@ -4,10 +4,10 @@ description: >-
   The Java Collection Framework (JCF) is a unified architecture for representing and manipulating groups of objects.
 author: [shandy]
 date: 2025-06-23
-updateDate:
+updateDate: 2025-06-24
 categories: [(Java) Object-oriented programming, (Java) OOP]
 tags: [(Java) OOP]
-sort_index: 9
+sort_index: 209
 # pin: true
 # media_subpath: '/posts/02'
 ---

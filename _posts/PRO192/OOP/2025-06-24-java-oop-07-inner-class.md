@@ -4,11 +4,11 @@ description: >-
   Data abstraction is the process of hiding certain details and showing only essential information to the user.
   Abstraction can be achieved with either abstract classes or interfaces (which you will learn more about in the next chapter).
 author: [shandy]
-date: 2025-06-23
+date: 2025-06-24
 updateDate:
 categories: [(Java) Object-oriented programming, (Java) OOP]
 tags: [(Java) OOP]
-sort_index: 7
+sort_index: 207
 # pin: true
 # media_subpath: '/posts/02'
 ---

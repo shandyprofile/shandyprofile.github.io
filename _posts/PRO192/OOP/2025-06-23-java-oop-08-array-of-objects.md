@@ -4,10 +4,10 @@ description: >-
   In Java, an array of objects is simply an array where each element is a reference to an object. Instead of holding primitive types (int, char, etc.), the array holds instances of classes.
 author: [shandy]
 date: 2025-06-23
-updateDate:
+updateDate: 2025-06-24
 categories: [(Java) Object-oriented programming, (Java) OOP]
 tags: [(Java) OOP]
-sort_index: 8
+sort_index: 208
 # pin: true
 # media_subpath: '/posts/02'
 ---
