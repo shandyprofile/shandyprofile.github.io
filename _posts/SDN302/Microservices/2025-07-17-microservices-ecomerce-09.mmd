@@ -1,0 +1,36 @@
+graph TD
+  subgraph Clients
+    A[Frontend / API Tester]
+  end
+
+  subgraph API Gateway
+    G[ api-gateway - Express]
+  end
+
+  subgraph Microservices
+    U[ user-service - Express]
+    P[product-service - Express]
+    O[order-service - Express]
+    N[notification-service - HonoJS]
+  end
+
+  subgraph Infrastructure
+    M[(mongo - Docker Container)]
+    MQ[(RabbitMQ - optional)]
+    R[(Redis - optional)]
+  end
+
+  A --> G
+
+  G --> U
+  G --> P
+  G --> O
+  G --> N
+
+  U --> M
+  P --> M
+  O --> M
+
+  P --> R
+  O --> MQ
+  N --> MQ

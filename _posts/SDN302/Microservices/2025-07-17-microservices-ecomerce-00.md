@@ -48,3 +48,6 @@ By the end of the project, students will have hands-on experience in building, r
 | **CI/CD**                | GitHub Actions                          |
 | **Testing** *(Optional)* | Postman, Thunder Client                 |
 
+
+## E-commerce Microservices Architecture Diagram
+![alt text](assets/img/SDN302/architecture-diagram.png)

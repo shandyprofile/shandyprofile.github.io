@@ -115,5 +115,6 @@ node src/consumer.js
 ```
 
 ## 5. Diagram – Event Flow
-- Update later
+
+![alt text](assets/img/SDN302/rabbitMQ-diagram.png)
 

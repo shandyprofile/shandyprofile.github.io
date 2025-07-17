@@ -1,0 +1,27 @@
+graph TD
+  subgraph API Gateway
+    GATEWAY[API Gateway]
+  end
+
+  subgraph Services
+    USER[User Service]
+    PRODUCT[Product Service]
+    ORDER[Order Service]
+    NOTI[Notification Service]
+  end
+
+  subgraph Databases
+    USERDB[(User DB)]
+    PRODUCTDB[(Product DB)]
+    ORDERDB[(Order DB)]
+  end
+
+  GATEWAY --> USER
+  GATEWAY --> PRODUCT
+  GATEWAY --> ORDER
+
+  USER --> USERDB
+  PRODUCT --> PRODUCTDB
+  ORDER --> ORDERDB
+
+  ORDER -->|Send Event| NOTI
