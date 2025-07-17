@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant OrderService
+    participant RabbitMQ
+    participant NotificationService
+
+    OrderService->>RabbitMQ: Publish "order_created"
+    RabbitMQ-->>NotificationService: Push message
+    NotificationService->>NotificationService: Process & log event
