@@ -1,5 +1,5 @@
 ---
-title: Epoch 2: Maven Web Application Setup
+title: Epoch 2 - Maven Web Application Setup
 description: >-
   Ensure students can create a Maven Web Application in NetBeans with the correct Jakarta EE configuration by first updating the NetBeans template so it matches the project’s requirements (Tomcat 10, JSP, Servlet, JSTL).
 author: [shandy]
@@ -13,6 +13,7 @@ sort_index: 101
 ## Update templates Jakarta EE:
 
 ### 1. Open NetBeans Templates Manager
+
 - In NetBeans, go to: **Tools → Templates**
 - In the Templates dialog, expand: **Project → Web -> Servlet**
 - Update **javax** to **jakarta**:
