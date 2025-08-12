@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-08-12
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
-sort_index: 100
+sort_index: 103
 # pin: true
 # media_subpath: '/posts/01'
 ---
@@ -68,12 +68,12 @@ Web-based sales application with:
 | Epoch  | Title                                            | Description                                                                                                                                                                                                 |
 | ------ | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **1**  | **Project Introduction & Environment Setup**     | Overview of project objectives (E-Commerce Web App), required skills, and methodology. Install and configure **JDK 1.8\_231**, **NetBeans 13**, **Tomcat 10.0.23** with **Maven Web Application** template. |
-| **2**  | **Switching NetBeans Maven Template to Jakarta** | Demonstrate replacing `javax.*` imports with `jakarta.*` equivalents in the NetBeans Maven Web Application template. Verify compatibility with Tomcat 10.                                                   |
-| **3**  | **Project Structure & Git Setup**                | Create the base project folder structure for JSP, CSS, JS, and images. Initialize Git repository and push to remote (GitHub).                                                                               |
-| **4**  | **JDBC Driver Integration & DB Setup**           | Add MySQL JDBC driver dependency to `pom.xml`. Create MySQL database for the project. Set up sample tables (`users`, `products`, `orders`).                                                                 |
+| **2**  | **Switching NetBeans Maven Template to Jakarta** | Demonstrate replacing `javax.*` imports with `jakarta.*` equivalents in the NetBeans Maven Web Application template (Tools → Templates → Web → Servlets). Verify compatibility with Tomcat 10.              |
+| **3**  | **SQL Server Configuration**                     | Enable TCP/IP protocol, set port (1433), configure mixed authentication mode, enable SA account, and test connection with SSMS.                                                                             |
+| **4**  | **JDBC Driver Integration & DB Setup**           | Add SQL Server JDBC driver dependency to `pom.xml`. Create SQL Server database for the project. Set up sample tables (`users`, `products`, `orders`).                                                       |
 | **5**  | **Bootstrap Integration**                        | Add Bootstrap via CDN in JSP pages. Apply a base layout to improve UI styling.                                                                                                                              |
 | **6**  | **Hardcoded Login/Logout (Session or Cookie)**   | Create a login form (HTML + JSP). Validate user credentials using hardcoded values. Implement session or cookie-based login/logout. Show/hide content based on login status.                                |
-| **7**  | **JDBC Connection Test**                         | Connect to MySQL database and test connectivity via a simple JSP page. Output query results to confirm setup.                                                                                               |
+| **7**  | **JDBC Connection Test**                         | Connect to SQL Server database and test connectivity via a simple JSP page. Output query results to confirm setup.                                                                                          |
 | **8**  | **Login with Database (JSP Model 1)**            | Modify login form to validate credentials from the `users` table using JDBC queries.                                                                                                                        |
 | **9**  | **CRUD for Products (JSP Model 1)**              | Create JSP pages for listing, adding, editing, and deleting products using JDBC directly from JSP pages.                                                                                                    |
 | **10** | **Filter Implementation (Authentication)**       | Implement a servlet filter to restrict access to certain JSP pages unless logged in.                                                                                                                        |
@@ -81,6 +81,7 @@ Web-based sales application with:
 | **12** | **Shopping Cart (Session-based)**                | Create a simple cart stored in session, allowing users to add and remove products.                                                                                                                          |
 | **13** | **Order Placement & Confirmation (JSP Model 1)** | Implement order form submission, save data to DB, and display confirmation.                                                                                                                                 |
 | **14** | **JSP Model 1 Review & Refactor**                | Identify limitations of Model 1 (business logic inside JSP) and prepare for migration to MVC.                                                                                                               |
+
 
 ## Migration to MVC
 
@@ -92,8 +93,7 @@ Web-based sales application with:
 | **18** | **Product CRUD in MVC**                  | Move product management from JSP scriptlets to MVC structure.                                                                |
 | **19** | **Shopping Cart in MVC**                 | Store cart data in session via servlet controllers, display with JSP views.                                                  |
 | **20** | **Order Management in MVC**              | Handle order creation, database insertion, and order history retrieval.                                                      |
-| **21** | **Custom Tag Libraries**                 | Implement reusable tag libraries for UI components.                                                                          |
-| **22** | **Error Handling & Validation**          | Add server-side validation and error pages (404, 500).                                                                       |
-| **23** | **Final UI Polishing with Bootstrap**    | Improve layout, responsive design, and UI consistency.                                                                       |
-| **24** | **Deployment & Testing**                 | Deploy on Tomcat, test all functionalities, and fix bugs.                                                                    |
-| **25** | **Project Presentation & Documentation** | Create project report, class diagrams, and present features.                                                                 |
+| **21** | **Error Handling & Validation**          | Add server-side validation and error pages (404, 500).                                                                       |
+| **22** | **Final UI Polishing with Bootstrap**    | Improve layout, responsive design, and UI consistency.                                                                       |
+| **23** | **Deployment & Testing**                 | Deploy on Tomcat, test all functionalities, and fix bugs.                                                                    |
+| **24** | **Project Presentation & Documentation** | Create project report, class diagrams, and present features.                                                                 |

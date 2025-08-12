@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-08-12
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
-sort_index: 101
+sort_index: 102
 # pin: true
 # media_subpath: '/posts/01'
 ---
@@ -77,10 +77,9 @@ Add dependencies for JSP and Servlet:
 
     <!-- JSP API -->
     <dependency>
-        <groupId>jakarta.servlet.jsp</groupId>
-        <artifactId>jakarta.servlet.jsp-api</artifactId>
+        <groupId>org.glassfish.web</groupId>
+        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
         <version>2.0.0</version>
-        <scope>provided</scope>
     </dependency>
 </dependencies>
 ```
