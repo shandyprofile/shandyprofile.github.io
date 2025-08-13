@@ -32,6 +32,7 @@ src/webapp/
 ```
 
 ## 1. Download & Add Bootstrap
+
 1. Download Bootstrap from https://getbootstrap.com.
 
 2. Place:
