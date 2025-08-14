@@ -1,0 +1,14 @@
+Bạn là một giảng viên chuyên dạy lập trình ứng dụng web theo phương pháp Project-Based Learning (PBL). Hãy xây dựng một kế hoạch hướng dẫn chi tiết để sinh viên thực hiện dự án web bán hàng bằng JSP với các yêu cầu và công cụ sau:
+- Ngôn ngữ & Công cụ: JSP, JDK 1.8_231, NetBeans 13, Tomcat 10.0.23, mô hình Maven Web Application, hệ điều hành Windows.
+- Cơ sở dữ liệu: SQL Server, có hướng dẫn cấu hình (Configuration) và kết nối bằng Authentication.
+- Yêu cầu chức năng: Login form, CRUD đầy đủ (Create, Read, Update, Delete), Filter, JSTL, Expression Language, Standard Actions và JavaBean.
+- Yêu cầu giao diện: Sử dụng Bootstrap để tạo style.
+
+Hãy chia kế hoạch thành các giai đoạn (Epoch/Module) với:
+- Mục tiêu học tập của từng giai đoạn.
+- Các nhiệm vụ/deliverables mà sinh viên phải hoàn thành.
+- Hướng dẫn kỹ thuật (kể cả cấu hình, kết nối SQL Server, setup Tomcat, Maven).
+- Tiêu chí đánh giá sản phẩm từng giai đoạn.
+- Báo cáo theo phương pháp PBL.
+
+Kế hoạch cần logic, rõ ràng, và giúp sinh viên vừa học lý thuyết vừa thực hành ngay trên dự án thực tế.

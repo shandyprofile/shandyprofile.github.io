@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-08-12
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
-sort_index: 103
+sort_index: 100
 # pin: true
 # media_subpath: '/posts/01'
 ---

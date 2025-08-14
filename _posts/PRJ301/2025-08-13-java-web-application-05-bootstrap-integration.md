@@ -41,6 +41,7 @@ bootstrap.min.css → ./assets/css/
 bootstrap.bundle.min.js → ./assets/js/
 ```
 3. Link them:
+
 ```html
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>

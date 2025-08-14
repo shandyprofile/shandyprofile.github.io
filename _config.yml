@@ -204,6 +204,9 @@ compress_html:
   ignore:
     envs: [development]
 
+include:
+  - _posts
+
 exclude:
   - "*.gem"
   - "*.gemspec"
@@ -214,6 +217,11 @@ exclude:
   - purgecss.js
   - "*.config.js"
   - "package*.json"
+  - "**/*.html"
+  - "**/*.txt"
+  - "**/*.docx"
+  - "**/*.pdf"
+  - "**/*.mmd"
 
 jekyll-archives:
   enabled: [categories, tags]

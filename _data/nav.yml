@@ -1,0 +1,19 @@
+- title: Home
+  url: /
+  icon: "fa-fw fas fa-home"
+
+- title: Categories
+  url: /categories/
+  icon: "fa-fw fas fa-stream"
+
+- title: Tags
+  url: /tags/
+  icon: "fa-fw fas fa-tags"
+
+- title: Archives
+  url: /archives/
+  icon: "fa-fw fas fa-archive"
+
+- title: About
+  url: /about/
+  icon: "fa-fw fas fa-info-circle"
