@@ -14,21 +14,21 @@ sort_index: 105
 ## Architechture for project:
 
 ```
-src/webapp/
- ├─ assets/
- │   ├─ css/
- │   │   ├─ bootstrap.min.css
- │   │   └─ style.css
- │   ├─ js/
- │   │   ├─ bootstrap.bundle.min.js
- │   │   └─ main.js
- │   └─ images/
- │       └─ logo.png
- └─ views/
-     ├─ layout.jsp
-     ├─ home.jsp
-     └─ partials/
-         └─ homeBody.jsp
+/src/main/webapp
+├── /views
+│      ├──  layouts
+│           └── layout.jsp
+├──    ├──  pages
+│           ├── home.jsp
+│           └── home_content.jsp
+└── /assets
+       ├── css/
+            ├── bootstrap.min.css
+            └── style.css
+       ├── js/
+            ├── bootstrap.bundle.min.js
+            └── main.js
+       └── img/
 ```
 
 ## 1. Download & Add Bootstrap
@@ -37,14 +37,15 @@ src/webapp/
 
 2. Place:
 ```
-bootstrap.min.css → ./assets/css/
-bootstrap.bundle.min.js → ./assets/js/
+    bootstrap.min.css → ./assets/css/
+    bootstrap.bundle.min.js → ./assets/js/
 ```
 3. Link them:
 
 ```html
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+    
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 ```
 ## 2. Create views/layout.jsp
 A single, reusable layout that pulls in Bootstrap and renders a body section.
@@ -58,26 +59,26 @@ A single, reusable layout that pulls in Bootstrap and renders a body section.
 <head>
     <meta charset="UTF-8">
     <title>${param.pageTitle}</title>
-    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/views/home.jsp">
-        JSP Shop
-        </a>
-    </div>
+        <div class="container">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/views/home.jsp">
+                JSP Shop
+            </a>
+        </div>
     </nav>
 
     <main class="container py-4">
-        <jsp:include page="${param.bodyPage}" />
+        <jsp:include page="/views/pages/${param.bodyPage}" />
     </main>
 
     <footer class="bg-light border-top mt-5">
-    <div class="container py-3 text-center small text-muted">
-        © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
-    </div>
+        <div class="container py-3 text-center small text-muted">
+            © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
+        </div>
     </footer>
 
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
@@ -93,11 +94,10 @@ The actual content lives in partials **homeBody.jsp**.
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    request.setAttribute("pageTitle", "Home - JSP Shop");
-    request.setAttribute("bodyPage", "home_content.jsp");
-%>
-<jsp:include page="layout.jsp" />
+<jsp:include page="/views/layout/layout.jsp" >
+    <jsp:param name="pageTitle" value="Home - JSP Shop" />
+    <jsp:param name="bodyPage" value="home_content.jsp" />
+</jsp:include>
 ```
 
 - **./views/home_content.jsp**
@@ -178,3 +178,7 @@ To publish resources then web.xml:
 ```url
 http://localhost:8080/<your-context>/
 ```
+
+## 6. Source demo
+
+**Source demo:** [jsp-shop-05](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-05)
