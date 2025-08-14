@@ -14,7 +14,7 @@ sort_index: 105
 ## Architechture for project:
 
 ```
-/src/main/webapp
+/webapp
 ├── /views
 │      ├──  layouts
 │           └── layout.jsp
@@ -72,7 +72,7 @@ A single, reusable layout that pulls in Bootstrap and renders a body section.
     </nav>
 
     <main class="container py-4">
-        <jsp:include page="/views/pages/${param.bodyPage}" />
+        <jsp:include page="/views/pages/${contentPage}" />
     </main>
 
     <footer class="bg-light border-top mt-5">
