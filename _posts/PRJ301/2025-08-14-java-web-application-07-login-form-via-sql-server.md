@@ -212,3 +212,5 @@ public class UserDAO extends DBContext {
         // ...
     %>
 ```
+
+[Source Demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-07)
