@@ -170,7 +170,7 @@ ecommerce-microservices/
 └── mongo-data/ (optional volume mapping if not using Docker volume)
 ```
 
-![alt text](assets/img/SDN302/docker-folder-structure.png)
+![alt text](/assets/img/SDN302/docker-folder-structure.png)
 
 ### 6.1 Each Folder Contains
 

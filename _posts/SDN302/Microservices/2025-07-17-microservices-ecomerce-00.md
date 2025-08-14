@@ -50,4 +50,4 @@ By the end of the project, students will have hands-on experience in building, r
 
 
 ## E-commerce Microservices Architecture Diagram
-![alt text](assets/img/SDN302/architecture-diagram.png)
+![alt text](/assets/img/SDN302/architecture-diagram.png)
