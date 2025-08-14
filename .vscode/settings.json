@@ -1,0 +1,7 @@
+{
+    "pasteImage.path": "${projectRoot}",
+    "pasteImage.prefix": "/assets/img/",
+    "pasteImage.forceUnixStyleSeparator": true,
+    "pasteImage.basePath": "${projectRoot}",
+    "pasteImage.name": "${currentDate}-${random}",
+}

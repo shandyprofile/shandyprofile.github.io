@@ -26,11 +26,11 @@ Consider a course enrollment system for a program in a college or university. Ea
 
 The following structure diagram identifies the activities.
 
-![alt text](assets/img/PRO192/OOP/oop-1.png)
+![alt text](assets/img/PRO192/oop-1.png)
 
 
 If we switch our attention to the objects involved, we find a Course and a Hybrid Course. Focusing on a Course, we observe that it has a Course Code. We lookup the Code in the institution's Calendar to determine when that Course is offered.
 
 We say that a Course has a Code and uses a Grading Scheme and that a Hybrid Course is a kind of Course. The diagram below shows these relationships between the objects in this problem domain. The connectors identify the types of relationships. The closed circle connector identifies a has-a relationship, the open circle connector identifies a uses-a relationship and the arrow connector identifies an is-a-kind-of relationship.
 
-![alt text](assets/img/PRO192/OOP/oop-2.png)
+![alt text](assets/img/PRO192/oop-2.png)

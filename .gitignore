@@ -28,5 +28,9 @@ assets/js/dist
 
 # Draft
 _posts/*Draft*
+!_posts/*.md
 
-!*_posts/*.md
+# Mermaid & Images
+
+_posts/*/*.mmd
+_posts/*/*.png

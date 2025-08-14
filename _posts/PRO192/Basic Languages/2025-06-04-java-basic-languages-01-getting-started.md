@@ -61,7 +61,7 @@ The Java platform includes:
 - **JRE (Java Runtime Environment)**: Libraries and JVM needed to run Java applications.
 - **JVM (Java Virtual Machine)**: Core of the platform that runs bytecode.
 
-![1749043121839](assets/img/PRO192/2025-06-04-oop-getting-started/1749043121839.png)
+![1749043121839](assets/img/PRO192/1749043121839.png)
 
 ### Java Platform Editions
 
@@ -77,7 +77,7 @@ The Java platform includes:
 - Enables **portability**, **security**, and **performance optimization**.
 - Stored in `.class` files after compiling `.java` source files.
 
-![1749043071389](assets/img/PRO192/2025-06-04-oop-getting-started/1749043071389.png)
+![1749043071389](assets/img/PRO192/1749043071389.png)
 
 ## Example: A Simple Java Program
 
@@ -89,4 +89,4 @@ public class HelloWorld {
 }
 ```
 
-![1749043171651](assets/img/PRO192/2025-06-04-oop-getting-started/1749043171651.png)
+![1749043171651](assets/img/PRO192/1749043171651.png)
