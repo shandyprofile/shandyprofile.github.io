@@ -34,6 +34,7 @@ src/webapp/views/
 ```
 
 - Create **login.jsp**:
+
 ```jsp
 <jsp:include page="layout.jsp">
     <jsp:param name="pageTitle" value="Login" />
@@ -42,6 +43,7 @@ src/webapp/views/
 ```
 
 - Create **login_form_content.jsp**
+
 ```jsp
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <h2 class="mb-4">Login Form</h2>
@@ -62,12 +64,14 @@ src/webapp/views/
 ```
 
 - Create **home.jsp**:
+
 ```jsp
 <jsp:include page="layout.jsp">
     <jsp:param name="pageTitle" value="Login" />
     <jsp:param name="bodyPage" value="home_body.jsp" />
 </jsp:include>
 ```
+
 > **home_body** replaces: home_cookie_body or home_session_body
 
 ## Session-based and Cookie-based
@@ -107,6 +111,7 @@ The browser sends cookies automatically with each request to the same domain, en
 ### 1.3 Login/logout by Cookie-based
 
 - **views/login_cookie.jsp**
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="jakarta.servlet.http.*" %>
@@ -160,6 +165,7 @@ The browser sends cookies automatically with each request to the same domain, en
 ```
 
 - **views/logout_cookie.jsp**
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="jakarta.servlet.http.*" %>
@@ -214,6 +220,7 @@ On each request, the browser sends this Session ID, allowing the server to retri
 ### 1.3 Login/logout by Cookie-based
 
 - **views/login_session.jsp**
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="jakarta.servlet.http.*" %>
@@ -258,6 +265,7 @@ On each request, the browser sends this Session ID, allowing the server to retri
 ```
 
 - **views/logout_cookie.jsp**
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="jakarta.servlet.http.*" %>

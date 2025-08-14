@@ -90,6 +90,7 @@ A single, reusable layout that pulls in Bootstrap and renders a body section.
 The actual content lives in partials **homeBody.jsp**.
 
 - **/views/home.jsp**
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
