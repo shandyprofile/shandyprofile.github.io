@@ -1,5 +1,5 @@
 ---
-title: Epoch 7 - Login by SQL Server.
+title: Epoch 7 - Login by SQL Server
 description: >-
   Implement a basic login/logout feature using hardcoded credentials in JSP Model 1 architecture, with both Session and Cookie handling options.
 author: [shandy]
