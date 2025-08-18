@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-08-18
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
-sort_index: 108
+sort_index: 109
 # pin: true
 # media_subpath: '/posts/01'
 ---
@@ -335,3 +335,5 @@ public class HomeServlet extends HttpServlet {
     </session-config>
 </web-app>
 ```
+
+[Source Demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-09)
