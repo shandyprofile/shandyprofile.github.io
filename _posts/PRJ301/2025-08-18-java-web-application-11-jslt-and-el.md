@@ -1,7 +1,7 @@
 ---
-title: Epoch 10 – Validated login form
+title: Epoch 11 – JSTL and Expression Languages
 description: >-
-  Add and use JSTL in your Maven JSP/Servlet project.
+  Add and use JSTL and EL in your Maven JSP/Servlet project.
 author: [shandy]
 date: 2025-08-18
 categories: [(Java) Web Application, (PBL) Shopping Web]
