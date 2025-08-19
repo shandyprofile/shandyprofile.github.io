@@ -48,7 +48,6 @@ After running **build with dependences**.
 - home_content.jsp
 
 ```jsp
-
 <%
     <h2>Welcome, ${username} (Cookie Based)</h2>
 %>
@@ -59,13 +58,17 @@ After running **build with dependences**.
 
 ```jsp
 <c:if test="${not empty username}">
-    <h2>Welcome, ${username}!</h2>
+    <h2>Welcome, ${username} (Cookie Based)</h2>
+    
+    <form action="${pageContext.request.contextPath}/logout" method="post">
+        <button type="submit" class="btn btn-outline-primary">Logout</button>
+    </form>
 </c:if>
 
 <!-- Show message if user not logged in -->
 <c:if test="${empty username}">
     <h2 class="text-danger">You are not logged in.</h2>
-    <a href="login" class="btn btn-primary">Login</a>
+    <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login</a>
 </c:if>
 ```
 
