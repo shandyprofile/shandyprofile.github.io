@@ -80,7 +80,7 @@ Web-based sales application with:
 | ------ | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | **8** | **Introduction to MVC in JSP/Servlets**  | Explain MVC structure and its benefits over Model 1.
 | **9** | **Project Restructuring to MVC**         | Create `model`, `view`, `controller` packages. Move DB logic to DAO classes, servlets as controllers, and JSP as pure views. |
-| **10** | **Login/Logout in MVC**                  | Reimplement login/logout flow using MVC pattern with DAO and servlet-based validation.   
+| **10** | **Validation**                  | Reimplement logi validation.   
 
 | **11** | **JSTL & Expression Language (EL)**              | Replace Java scriptlets in JSP pages with JSTL tags and EL expressions for cleaner code.                                                                                                                    |
 | **12** | **Product CRUD in MVC**                  | Move product management from JSP scriptlets to MVC structure.                                                                |
