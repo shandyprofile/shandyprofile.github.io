@@ -4,6 +4,7 @@ description: >-
   Add and use JSTL and EL in your Maven JSP/Servlet project.
 author: [shandy]
 date: 2025-08-18
+updateDate: 2025-08-21
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
 sort_index: 112
