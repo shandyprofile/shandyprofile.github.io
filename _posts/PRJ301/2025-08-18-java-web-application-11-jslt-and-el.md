@@ -152,3 +152,5 @@ public class Product {
 ```
 
 ![](/assets/img/2025-08-19-11-31-08.png)
+
+[Source Demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-11)
