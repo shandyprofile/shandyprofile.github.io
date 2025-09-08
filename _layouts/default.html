@@ -15,10 +15,7 @@ layout: compress
 <!-- `site.alt_lang` can specify a language different from the UI -->
 <html lang="{{ page.lang | default: site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script>
+  
   <body>
     {% include sidebar.html lang=lang %}
 
@@ -86,4 +83,9 @@ layout: compress
 
     {% include_cached search-loader.html lang=lang %}
   </body>
+  <script type="module">
+    // import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    // mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({startOnLoad:true});
+  </script>
 </html>
