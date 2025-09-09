@@ -116,9 +116,9 @@ Ví dụ:
 
 ---
 
-## System of Linear Equations
+## II. System of Linear Equations
 
-### From Sentences to Equations
+### 1. From Sentences to Equations
 
 Quy tắc chuyển đổi
 
@@ -138,7 +138,7 @@ Quy tắc chuyển đổi
   - Thiếu phương trình hoặc ràng buộc dư thừa → vô số nghiệm.
   - Mâu thuẫn → vô nghiệm.
 
-### Ví dụ 1
+#### 1.1. Ví dụ 1
 
 ![](/assets/img/2025-09-08-23-19-57.png)
 
@@ -175,7 +175,7 @@ $$
 
 ---
 
-### Ví dụ 2
+#### 1.2. Ví dụ 2
 
 ![](/assets/img/![](/assets/img/2025-09-08-22-23-13.png).png)
 
@@ -195,7 +195,7 @@ Ví dụ nghiệm:
 - a = 10, b = 0
 - ... any pair summing to 10.
 
-Bổ sung câu để đủ nghiệm duy nhất: The apple costs twice the banana.” → a = 2b
+Bổ sung câu để đủ nghiệm duy nhất: "The apple costs twice the banana.” → a = 2b
 
 $$
 \begin{cases}
@@ -206,19 +206,155 @@ a - 2b = 0
 \text{solve: } 2b + b = 10 \Rightarrow b=\tfrac{10}{3},\; a=\tfrac{20}{3}.
 $$
 
-### Quizz
+---
+### 1.3. Quizzes
+
+#### Quizz 1
 
 You go two days in a row and collect this information:
 - Day 1: You bought an apple and a banana and they cost $10.
 - Day 2: You bought an apple and two bananas and they cost $12.
 
-Question: How much does each fruit cost?
+>**Question**: How much does each fruit cost?
 
+**Solution**:
+- Day 1: You bought an apple and a banana and they cost $10.
 
+![](/assets/img/2025-09-09-10-47-21.png)
 
+![](/assets/img/2025-09-09-10-50-23.png)
 
+- Day 2: You bought an apple and two bananas and they cost $12.
 
+![](/assets/img/2025-09-09-10-49-56.png)
 
+![](/assets/img/2025-09-09-10-50-55.png)
+
+- Solution: An apple costs $8, a banana costs $2. 
+
+---
+#### Quiz 2
+
+You go two days in a row and collect this information:
+- Day 1: You bought an apple and a banana and they cost $10.
+- Day 2: You bought two apples and two bananas and they cost $20.
+> **Question**: How much does each fruit cost? 
+
+- Day 1: You bought an apple and a banana and they cost $10.
+
+![](/assets/img/2025-09-09-10-47-21.png)
+
+- Day 2: You bought two apples and two bananas and they cost $20.
+
+![](/assets/img/2025-09-09-10-47-30.png)
+
+---
+
+![](/assets/img/2025-09-09-10-47-47.png)
+
+---
+#### Quiz 3
+
+You go two days in a row and collect this information:
+- Day 1: You bought an apple and a banana and they cost $10.
+- Day 2: You bought two apples and two bananas and they cost $24.
+> **Question**: How much does each fruit cost?
+
+![](/assets/img/2025-09-09-10-53-13.png)
+
+![](/assets/img/2025-09-09-10-53-19.png)
+
+### 2.2. Systems of equations
+
+![](/assets/img/2025-09-09-10-53-30.png)
+
+---
+
+![](/assets/img/2025-09-09-10-53-43.png)
+
+---
+
+![](/assets/img/2025-09-09-10-53-53.png)
+
+---
+
+![](/assets/img/2025-09-09-10-54-00.png)
+
+--- 
+
+### 2.3. A linear equation
+
+![](/assets/img/2025-09-09-10-54-26.png)
+
+### 2.4. From Linear equation to line
+
+![](/assets/img/2025-09-09-10-56-15.png)
+
+---
+
+![](/assets/img/2025-09-09-10-56-51.png)
+
+---
+
+![](/assets/img/2025-09-09-10-57-10.png)
+
+---
+
+![](/assets/img/2025-09-09-10-57-19.png)
+
+---
+
+![](/assets/img/2025-09-09-10-57-29.png)
+
+---
+
+![](/assets/img/2025-09-09-10-57-37.png)
+
+---
+
+![](/assets/img/2025-09-09-10-57-46.png)
+
+---
+
+### 2.5 Systems of equations as lines
+
+![](/assets/img/2025-09-09-10-58-53.png)
+
+---
+
+### A geometric notion of singularity
+
+![](/assets/img/2025-09-09-10-59-07.png)
+
+---
+
+![](/assets/img/2025-09-09-10-59-22.png)
+
+---
+
+### 2.6 Singular vs nonsingular matrices
+
+![](/assets/img/2025-09-09-10-59-48.png)
+
+### Linear dependence and independence 
+
+![](/assets/img/2025-09-09-11-01-50.png)
+
+### The determinant - Linear dependence between rows 
+
+![](/assets/img/2025-09-09-11-02-07.png)
+
+### The determinant
+
+![](/assets/img/2025-09-09-11-02-22.png)
+
+![](/assets/img/2025-09-09-11-02-38.png)
+
+### Determinant and singularity 
+
+![](/assets/img/2025-09-09-11-03-10.png)
+
+<!-- 
 
 ## II. Machine Learning Motivation
 
@@ -309,4 +445,4 @@ $$
 - Interpretation:  
   - Absolute value is the area of the parallelogram formed by the vectors.  
   - If det(A) = 0 → vectors are dependent → singular matrix.  
-  - If det(A) ≠ 0 → independent → unique solution.  
+  - If det(A) ≠ 0 → independent → unique solution.   -->

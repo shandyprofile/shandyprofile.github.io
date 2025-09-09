@@ -4,8 +4,8 @@ description: >-
   Mermaid demo
 author: [shandy]
 date: 2025-09-05
-categories: [Machine Learning, Math of Machine Learning]
-tags: [Machine Learning, Math of Machine Learning]
+categories: [Web Development with Python, Web Development with Python]
+tags: [Web Development with Python]
 sort_index: 100
 # pin: true
 # media_subpath: '/posts/01'

@@ -6,7 +6,7 @@ author: [shandy]
 date: 2025-09-05
 categories: [Machine Learning, Linear Algebra for Machine Learning]
 tags: [Machine Learning, Linear Algebra for Machine Learning]
-sort_index: 100
+sort_index: 111
 # pin: true
 # media_subpath: '/posts/01'
 ---
