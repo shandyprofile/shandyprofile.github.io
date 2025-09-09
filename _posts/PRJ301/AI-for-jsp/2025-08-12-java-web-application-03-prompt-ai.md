@@ -20,7 +20,7 @@ Before writing a prompt, clearly define the objective. Here are different use ca
 - **Use Case**: You want AI to generate predefined content dynamically, such as automated email replies or FAQ answers.  
 - **Example Prompt**:
 
-```prompt
+```
 You are an AI assistant helping Java Web developers. Generate a clear and concise response to the following FAQ question:
 Question: "What is the difference between a Servlet and a JSP?"
 Response format: A short technical explanation (50-100 words).
@@ -30,7 +30,7 @@ Response format: A short technical explanation (50-100 words).
 - **Use Case**: You want AI to check if user input (e.g., a password) follows certain security rules or recommend improvements.  
 - **Example Prompt**:  
 
-```prompt
+```
 Validate the following user password according to these rules:
 - At least 8 characters long
 - Contains a mix of uppercase, lowercase, numbers, and special characters
@@ -47,7 +47,7 @@ Return output in JSON format:
 - **Use Case**: You want AI to answer user queries dynamically in a chatbot.  
 - **Example Prompt**:  
 
-```prompt
+```
 You are an AI chatbot helping Java Web developers. Answer the following question in a friendly and professional manner:
 
 Question: "How can I connect a Java Servlet to a MySQL database?"
@@ -69,7 +69,7 @@ To get accurate and relevant responses, use these techniques:
 
 **Example Prompt**: 
 
-```prompt
+```
 Explain in simple terms what a Java Servlet is and how it processes HTTP requests. Keep the response under 100 words.
 ```
 
@@ -78,7 +78,7 @@ If you need JSON output for an API response, specify it explicitly.
 
 **Example Prompt**:  
 
-```prompt
+```
 Provide a JSON-formatted response for a user profile in a Java web application. Fields include:
 - "username" (string)
 - "email" (string)
@@ -98,7 +98,7 @@ If you expect code output, show an example.
 
 **Example Prompt**:  
 
-```prompt
+```
 Generate a Java Servlet that handles user login. The servlet should:
 - Accept username and password via POST request.
 - Validate credentials against a hardcoded list.
@@ -113,7 +113,7 @@ If your prompt includes user input, use delimiters like ### or <<< >>> to separa
 
 **Example Prompt**:  
 
-```prompt
+```
 ### INSTRUCTIONS ###
 You are an AI assistant for Java web developers. Answer the user's query in a technical and structured manner.
 ### USER QUERY ###
@@ -127,7 +127,7 @@ Use low temperature when you need reliable and structured responses.
 
 **Example Prompt**:  
 
-```prompt
+```
 You are an AI tutor for Java web development. Provide a step-by-step guide on how to configure a JDBC connection in a Servlet.
 Use structured, factual information.
 Temperature: 0.2 (accurate, consistent)
@@ -140,7 +140,7 @@ Use high temperature when you need creative or varied responses.
 
 **Example Prompt**:  
 
-```prompt
+```
 Generate a fun and engaging error message for a failed login attempt in a Java Web application. Make it humorous but still professional.
 Temperature: 0.9 (more creative, less predictable)
 Max Tokens: 50 (short response)
@@ -177,7 +177,7 @@ Summarize the advantages of using JSP over Servlets in 50 words or less.
 
 ## 3. Using Prompt for Generative AI (e.g., ChatGPT, Gemini, Copilot): Create Static Website with FruitShopWebApp
 
-```prompt
+```
 Create a modern, responsive Fruit Shop static website using **HTML5, CSS, and JavaScript**.  
 
 Requirements:
