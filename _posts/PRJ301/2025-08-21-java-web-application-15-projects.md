@@ -1,5 +1,5 @@
 ---
-title: Epoch 14 – Shopping Cart in MVC
+title: Epoch 15 – Project Final
 description: >-
   Implement a shopping cart feature using Servlets, Session, DAO, and JSP views. Users can add products to a cart, update quantities, and view their cart before placing an order.
 author: [shandy]
