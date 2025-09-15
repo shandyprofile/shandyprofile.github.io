@@ -27,7 +27,7 @@ Where:
 - `PATH` is a path on the server.
 - `HANDLER` is the function executed when the route is matched.
 
-> This tutorial assumes that an instance of **express** named **app** is created and the server is running. If you are not familiar with creating an app and starting it. See the [Hello world example](./2025-09-15-express-generator-01-installing).
+> This tutorial assumes that an instance of **express** named **app** is created and the server is running. If you are not familiar with creating an app and starting it. See the [Hello world example](https://shandyprofile.github.io/post/2025-09-15-express-generator-01-installing).
 
 The following examples illustrate defining simple routes.
 
