@@ -11,7 +11,7 @@ sort_index: 102
 # media_subpath: '/posts/02'
 ---
 
-Embedded below is essentially the simplest Express app you can create. It is a single file app — ***not*** what you’d get if you use the [Express generator](/posts/2025-09-15-express-generator-03-express-application-generator), which creates the scaffolding for a full app with numerous JavaScript files, Jade templates, and sub-directories for various purposes.
+Embedded below is essentially the simplest Express app you can create. It is a single file app — ***not*** what you’d get if you use the [Express generator](./2025-09-15-express-generator-03-express-application-generator), which creates the scaffolding for a full app with numerous JavaScript files, Jade templates, and sub-directories for various purposes.
 
 ```js
 const express = require('express')
@@ -31,7 +31,7 @@ This app starts a server and listens on port 3000 for connections. The app respo
 
 **Running Locally**
 
-First create a directory named `myapp`, change to it and run `npm init`. Then, install `express` as a dependency, as per the [installation guide](/posts/2025-09-15-express-generator-03-express-application-generator).
+First create a directory named `myapp`, change to it and run `npm init`. Then, install `express` as a dependency, as per the [installation guide](./2025-09-15-express-generator-03-express-application-generator).
 
 In the `myapp` directory, create a file named `app.js` and copy the code from the example above.
 
