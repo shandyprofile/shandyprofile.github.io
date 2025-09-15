@@ -1,6 +1,6 @@
 ---
 title: 'Express application generator'
-description: 
+description: ""
 author: [shandy]
 date: 2025-09-15
 updateDate: 2025-09-15
