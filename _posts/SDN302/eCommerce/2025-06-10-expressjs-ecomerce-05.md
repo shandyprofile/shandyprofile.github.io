@@ -7,7 +7,7 @@ date: 2025-06-10
 updateDate: 2025-06-18
 categories: [(ExpressJS) Server-Side development, (ExpressJS) E-Commerce]
 tags: [(ExpressJS) E-Commerce]
-sort_index: 5
+sort_index: 705
 # pin: true
 # media_subpath: '/posts/02'
 ---
