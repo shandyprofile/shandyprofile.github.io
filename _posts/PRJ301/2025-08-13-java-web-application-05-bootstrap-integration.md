@@ -96,7 +96,7 @@ The actual content lives in partials **homeBody.jsp**.
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/views/layout/layout.jsp" >
     <jsp:param name="pageTitle" value="Home - JSP Shop" />
-    <jsp:param name="bodyPage" value="home_content.jsp" />
+    <jsp:param name="contentPage" value="home_content.jsp" />
 </jsp:include>
 ```
 
