@@ -16,11 +16,7 @@ sort_index: 105
 ```
 /webapp
 ├── /views
-│      ├──  layouts
-│           └── layout.jsp
-├──    ├──  pages
-│           ├── home.jsp
-│           └── home_content.jsp
+├      └── home.jsp
 └── /assets
        ├── css/
             ├── bootstrap.min.css
@@ -47,83 +43,59 @@ sort_index: 105
     
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 ```
-## 2. Create views/layout.jsp
+## 2. Create a simple Home page
 A single, reusable layout that pulls in Bootstrap and renders a body section.
 
 **./webapp/views/layout.jsp**
 
 ```jsp
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>${param.pageTitle}</title>
-    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/views/home.jsp">
-                JSP Shop
-            </a>
-        </div>
-    </nav>
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - JSP Shop</title>
+        <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/views/home.jsp">
+                    JSP Shop
+                </a>
+            </div>
+        </nav>
 
-    <main class="container py-4">
-        <jsp:include page="/views/pages/${contentPage}" />
-    </main>
+        <main class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="h3 mb-3">Welcome to JSP Shop</h1>
+                            <p class="mb-0">
+                                This is a simple Home page.
+                                for consistent UI with Bootstrap.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-    <footer class="bg-light border-top mt-5">
-        <div class="container py-3 text-center small text-muted">
-            © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
-        </div>
-    </footer>
-
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-</body>
+        <footer class="bg-light border-top mt-5">
+            <div class="container py-3 text-center small text-muted">
+                © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
+            </div>
+        </footer>
+        <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+    </body>
 </html>
 ```
-## 3. Create a simple Home page
-**home.jsp** stays minimal: it only passes title and body into **layout.jsp**.
-The actual content lives in partials **homeBody.jsp**.
 
-- **/views/home.jsp**
-
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="/views/layout/layout.jsp" >
-    <jsp:param name="pageTitle" value="Home - JSP Shop" />
-    <jsp:param name="contentPage" value="home_content.jsp" />
-</jsp:include>
-```
-
-- **./views/home_content.jsp**
-
-```jsp
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div class="row justify-content-center">
-  <div class="col-lg-8">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h1 class="h3 mb-3">Welcome to JSP Shop</h1>
-        <p class="mb-0">
-          This is a simple Home page.
-          We’re using a shared 
-          <code>
-            views/layout.jsp
-          </code> 
-          for consistent UI with Bootstrap.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-## 4. Publish (serve) assets correctly
+## 3. Publish (serve) assets correctly
 Place your files under ./webapp/assets/.... They will be publicly available at:
 
 ```
@@ -162,7 +134,7 @@ To publish resources then web.xml:
 - <url-pattern>/assets/*</url-pattern> — This tells the servlet container to serve all requests starting with /assets/ directly from the file system under src/main/webapp/assets.
 - This avoids your MVC controllers intercepting these static files.
 
-## 5. Configure a welcome-file (open to Home by default)
+## 4. Configure a welcome-file (open to Home by default)
 
 - Update web.xml:
 
