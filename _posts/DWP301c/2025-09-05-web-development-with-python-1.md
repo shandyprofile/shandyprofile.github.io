@@ -25,7 +25,7 @@ sort_index: 101
 
 ## Introduction to Cloud Computing 
 
-NIST Definition of Cloud Computing
+NIST Definition of Cloud Computing 
 
 To establish a common understanding, the US National Institute of Standards and Technology (NIST) defines cloud computing as:
 
