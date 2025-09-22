@@ -30,8 +30,8 @@ sort_index: 109
   │     ├── web.xml
   ├── views/
   │     ├── login.jsp
-  │     ├── logout.jsp
   │     ├── home.jsp
+  │     ├── logout.jsp (Move to LogoutServlet.java)
 ```
 
 ## 2. Why restructure from Model 1?
@@ -149,9 +149,9 @@ public class LoginServlet extends HttpServlet {
         UserDAO users = new UserDAO();
         String uName = users.CheckUser(username, password);
         if (uName != null) {
-            Cookie cookie1 = new Cookie("username", uName);
-            cookie1.setMaxAge(60 * 60); // 1 hour
-            response.addCookie(cookie1);
+            Cookie cookie = new Cookie("username", uName);
+            cookie.setMaxAge(60 * 60); // 1 hour
+            response.addCookie(cookie);
 
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
@@ -165,7 +165,7 @@ public class LoginServlet extends HttpServlet {
 
 - URL: "/logout"
 
-```
+```java
 package Controllers;
 
 import java.io.IOException;
@@ -237,47 +237,25 @@ public class HomeServlet extends HttpServlet {
 
 **(F) login.jsp (Views)**
 
+1. Remove all java-codes
+2. Update URL of action
+
 ```jsp
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Login - JSP Shop" />
-</jsp:include>
+    ...
+    <form action="${pageContext.request.contextPath}/login" method="post" class="col-md-4">
+    ...
 ```
 
-**(G) login_form_content.jsp**
+**(G) home.jsp (Views)**
 
+1. Remove all java-codes
+2. Update URL of logout button (Method type POST)
 ```jsp
-<h2 class="mb-4">Login Form</h2>
-<form action="${pageContext.request.contextPath}/login" method="post" class="col-md-4">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-```
-
-**(H) home.jsp (Views)**
-
-```jsp
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Home - JSP Shop" />
-</jsp:include>
-```
-
-**(I) home_content.jsp**
-
-```jsp
-<h2>Welcome, ${username} (Cookie Based)</h2>
-
-<form action="${pageContext.request.contextPath}/logout" method="post">
-    <button type="submit" class="btn btn-outline-primary">Logout</button>
-</form>
+    ...
+    <form action="${pageContext.request.contextPath}/logout" method="post">
+        <button type="submit" class="btn btn-outline-primary">Logout</button>
+    </form>
+    ...
 ```
 
 ### web.xml Changes
