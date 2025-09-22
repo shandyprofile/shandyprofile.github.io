@@ -29,13 +29,9 @@ sort_index: 109
   ├── WEB-INF/
   │     ├── web.xml
   ├── views/
-  │     ├── pages
-  │     │     ├── login.jsp
-  │     │     ├── login-content.jsp
-  │     │     ├── home.jsp
-  │     │     ├── home-content.jsp
-  │     ├── layouts
-  │     │     ├── layout.jsp
+  │     ├── login.jsp
+  │     ├── logout.jsp
+  │     ├── home.jsp
 ```
 
 ## 2. Why restructure from Model 1?
@@ -141,8 +137,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setAttribute("contentPage", "login_form_content.jsp");
-        request.getRequestDispatcher("/views/pages/login.jsp").forward(request,response);
+        request.getRequestDispatcher("/views/login.jsp").forward(request,response);
     } 
 
     @Override
@@ -232,9 +227,8 @@ public class HomeServlet extends HttpServlet {
             return;
         }
 
-        request.setAttribute("contentPage", "home_content.jsp");
         request.setAttribute("username", username);
-        request.getRequestDispatcher("/views/pages/home.jsp").forward(request,response);
+        request.getRequestDispatcher("/views/home.jsp").forward(request,response);
     } 
 }
 ```

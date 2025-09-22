@@ -72,11 +72,9 @@ Follow this folder structure:
   ├── WEB-INF/
   │     ├── web.xml
   ├── views/
-  │     ├── pages
-  │     │     ├── login.jsp
-  │     │     ├── home.jsp
-  │     ├── layouts
-  │     │     ├── layout.jsp
+  │     ├── login.jsp
+  │     ├── logout.jsp
+  │     ├── home.jsp
 ```
 
 - Move all JDBC code from JSP to DAO classes in /DALs.

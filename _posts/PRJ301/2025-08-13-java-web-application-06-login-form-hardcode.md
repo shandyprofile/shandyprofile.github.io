@@ -11,151 +11,6 @@ sort_index: 106
 # media_subpath: '/posts/01'
 ---
 
-## Architechture for project:
-
-```
-/views/
-    ├── layouts
-        ├── layout.jsp
-    ├── pages
-        ├── login.jsp
-        ├── login_form_content.jsp
-        ├── logout.jsp
-        ├── home.jsp
-        ├── home_content.jsp
-```
-
-- Update webcome file in web.xml:
-
-```xml
-<welcome-file-list>
-    <welcome-file>views/pages/home.jsp</welcome-file>
-</welcome-file-list>
-```
-
-- layout.jsp:
-
-```jsp
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>${param.pageTitle}</title>
-    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/views/pages/home.jsp">
-                JSP Shop
-            </a>
-        </div>
-    </nav>
-
-    <main class="container py-4">
-        <jsp:include page="/views/pages/${contentPage}" />
-    </main>
-
-    <footer class="bg-light border-top mt-5">
-        <div class="container py-3 text-center small text-muted">
-            © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
-        </div>
-    </footer>
-
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-</body>
-</html>
-```
-
-- Create **login.jsp**:
-
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="jakarta.servlet.*" %>
-
-<%
-    if ("POST".equalsIgnoreCase(request.getMethod())) {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        if ("admin".equals(username) && "123".equals(password)) {
-            response.sendRedirect("home.jsp");
-            return;
-        } else {
-            request.setAttribute("loginError", "Username or password are failed!");
-        }
-    }
-
-    request.setAttribute("contentPage", "login_form_content.jsp");
-%>
-
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Login - JSP Shop" />
-</jsp:include>
-```
-
-- Create **login_form_content.jsp**
-
-```jsp
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<h2 class="mb-4">Login Form</h2>
-<form action="" method="post" class="col-md-4">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-```
-
-- Create **home.jsp**:
-
-```jsp
-
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="jakarta.servlet.*" %>
-
-<%
-    // Get stoge
-
-    request.setAttribute("username", "admin");
-    request.setAttribute("contentPage", "home_content.jsp");
-%>
-
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Home - JSP Shop" />
-</jsp:include>
-
-```
-
-- Create **home_content.jsp:**
-
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="jakarta.servlet.*" %>
-
-<h2>Welcome, ${username} (Cookie Based)</h2>
-<a href="${pageContext.request.contextPath}/views/pages/logout.jsp">Logout</a>
-```
-
-- Create **logout.jsp:**
-
-```jsp
-<%
-    response.sendRedirect(request.getContextPath() + "/views/pages/login.jsp");
-%>
-```
-
 ## Session-based and Cookie-based
 
 Structure it so each file has two clearly labeled sections:
@@ -190,36 +45,19 @@ The browser sends cookies automatically with each request to the same domain, en
 | `response.addCookie(cookie)` | Sends cookie to client                                     |
 | `request.getCookies()`       | Returns an array of cookies sent by the client             |
 
-### 1.3 Login/logout by Cookie-based
+### 1.3 Using by Cookie-Based
 
-- Update **views/login.jsp**
+- Add cookie-based:
 
-```jsp
-<%@ page import="jakarta.servlet.*" %>
-
-<%
-    // ...
-    if ("admin".equals(username) && "123".equals(password)) {
-        Cookie cookie = new Cookie("username", username);
-        cookie.setMaxAge(60 * 60); // 1 hour
-        response.addCookie(cookie);
-
-        response.sendRedirect("home.jsp");
-        return;
-    } else {
-        request.setAttribute("loginError", "Username or password are failed!");
-    }
-
-    // ...
-%>
+```java
+    Cookie cookie = new Cookie("username", username);
+    cookie.setMaxAge(60 * 60); // 1 hour
+    response.addCookie(cookie);
 ```
 
-- Update **views/home.jsp**
+- Get cookie-based:
 
-```jsp
-<%@ page import="jakarta.servlet.*" %>
-
-<%
+```java
     // Get stoge
     String username = null;
     Cookie[] cookies = request.getCookies();
@@ -231,43 +69,25 @@ The browser sends cookies automatically with each request to the same domain, en
             }
         }
     }
-
-    if (username == null) {
-        response.sendRedirect(request.getContextPath() + "/views/pages/login.jsp");
-        return;
-    }
-
-    request.setAttribute("username", "admin");
-    request.setAttribute("contentPage", "home_content.jsp");
-%>
 ```
 
-- Update **views/logout.jsp**
-
-```jsp
-<%@ page import="jakarta.servlet.http.*" %>
-
-<%
+- Remove cookie-based:
+  
+```java
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie c : cookies) {
             if ("username".equals(c.getName())) {
                 c.setMaxAge(0);
-                c.setPath(request.getContextPath());
                 response.addCookie(c);
             }
         }
     }
-
-    response.sendRedirect(request.getContextPath() + "/views/pages/login.jsp");
-%>
 ```
-
-[Source demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-06)
 
 ## Option 2. Session-based Login/Logout Approach
 
-### 1.1 Theory - Session-based Authentication
+### 2.1 Theory - Session-based Authentication
 
 Session-based authentication is a method of maintaining user login state by storing session data on the server.
 When a user successfully logs in, the server creates a HttpSession object containing the user’s information (e.g., username, role).
@@ -289,7 +109,7 @@ On each request, the browser sends this Session ID, allowing the server to retri
 | Dependent on cookies (by default) | If the user disables cookies, session tracking requires URL rewriting.                                             |
 | Session fixation risk             | If not handled correctly, attackers could hijack a session ID.                                                     |
 
-### 1.2 Commonly Used Cookie Methods in JSP
+### 2.2 Commonly Used Cookie Methods in JSP
 
 | **Method**                                        | **Description**                                                              |
 | ------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -304,49 +124,165 @@ On each request, the browser sends this Session ID, allowing the server to retri
 | `session.getLastAccessedTime()`                   | Returns the last time the client sent a request with this session.           |
 | `session.setMaxInactiveInterval(int seconds)`     | Sets the maximum inactive time before the session expires.                   |
 
-### 1.3 Login/logout by Cookie-based
+### 2.3 Using Session-based
 
-- Update **views/login.jsp**
+- Add Session-based
 
-```jsp
-<%@ page import="jakarta.servlet.*" %>
-
-<%
-    // ...
-    if ("admin".equals(username) && "123".equals(password)) {
-        session.setAttribute("username", username);
-        response.sendRedirect("home.jsp");
-        return;
-    } else {
-        request.setAttribute("loginError", "Username or password are failed!");
-    }
-
-    // ...
-%>
+```java
+    HttpSession session = request.getSession();
+    session.setAttribute("username", username);
 ```
 
-- Update **views/home.jsp**
+- Get Session-based
 
-```jsp
-<%@ page import="jakarta.servlet.*" %>
-
-<%
-    // Get stoge
+```java
+    HttpSession session = request.getSession(false);
     String username = session.getAttribute("username");
     request.setAttribute("username", username);
-    request.setAttribute("contentPage", "home_content.jsp");
-%>
 ```
 
-- Update **views/logout.jsp**
+- Remove Session-based
+
+```java
+    HttpSession session = request.getSession();
+    session.invalidate();
+```
+
+## Architechture for project:
+
+```
+/views/
+    ├── pages
+        ├── login.jsp
+        ├── logout.jsp
+        ├── home.jsp
+```
+
+- Update webcome file in web.xml:
+
+```xml
+<welcome-file-list>
+    <welcome-file>views/home.jsp</welcome-file>
+</welcome-file-list>
+```
+
+- Create **login.jsp**:
 
 ```jsp
-<%@ page import="jakarta.servlet.http.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="jakarta.servlet.*" %>
 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login - JSP Shop</title>
+        <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/views/home.jsp">
+                    JSP Shop
+                </a>
+            </div>
+        </nav>
+         
+        <main class="container py-4">
+            <%
+                if ("POST".equalsIgnoreCase(request.getMethod())) {
+                    String username = request.getParameter("username");
+                    String password = request.getParameter("password");
+
+                    if ("admin".equals(username) && "123".equals(password)) {
+                        // SET Cookie-based (1.3) or Session-based (2.3)
+
+                        response.sendRedirect(request.getContextPath() + "/views/home.jsp");
+                        return;
+                    } else {
+                        request.setAttribute("loginError", "Username or password are failed!");
+                    }
+                }
+            %>
+            
+            <h2 class="mb-4">Login Form</h2>
+                <form action="" method="post" class="col-md-4">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </h2>
+        </main>
+
+        <footer class="bg-light border-top mt-5">
+            <div class="container py-3 text-center small text-muted">
+                © 2025 Hieu Nguyen - AI lecturer - FPT University Can Tho
+            </div>
+        </footer>
+        <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+    </body>
+</html>
+```
+
+- Update content in **home.jsp**:
+
+```jsp
+...
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <%
+                        String username = null;
+                        
+                        // Get Cookie-based (1.3) or Session-based (2.3)
+
+                        if (username == null) {
+                            response.sendRedirect(request.getContextPath() + "/views/login.jsp");
+                            return;
+                        }
+
+                        request.setAttribute("username", username);
+                    %>
+                    
+                    <h1 class="h3 mb-3">
+                        Welcome ${username} to JSP Shop
+                        <a class="m-5" href="${pageContext.request.contextPath}/views/logout.jsp">Logout</a>
+                    </h1>
+                    <p class="mb-0">
+                        This is a simple Home page.
+                        for consistent UI with Bootstrap.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+...
+```
+
+- Create **logout.jsp:**
+
+```jsp
 <%
-    session.invalidate();
-    response.sendRedirect(request.getContextPath() + "/views/pages/login.jsp");
+    // Remove Cookie-based (1.3) or Session-based (2.3)
+
+    response.sendRedirect(request.getContextPath() + "/views/login.jsp");
 %>
 ```
+
+
 
 [Source demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-06)

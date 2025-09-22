@@ -15,14 +15,9 @@ sort_index: 107
 
 ```
 /views/
-    ├── layouts
-        ├── layout.jsp
-    ├── pages
-        ├── login.jsp
-        ├── login_form_content.jsp
-        ├── logout.jsp
-        ├── home.jsp
-        ├── home_content.jsp
+    ├── login.jsp
+    ├── logout.jsp
+    ├── home.jsp
 /src/
     ├── DALs
         ├── UserDAO.java
@@ -55,8 +50,8 @@ CREATE TABLE Users (
 );
 
 INSERT INTO Users (Username, Password, Role) VALUES
-(N'admin', 'admin123', N'ADMIN'),
-(N'john', '123456', N'CUSTOMER');
+(N'admin', '123456x@X', N'ADMIN'),
+(N'user', '123456x@X', N'CUSTOMER');
 ```
 
 ## Code project
@@ -86,10 +81,6 @@ public class User {
     
     public static boolean isEmpty(User user) {
         return user.getId().isEmpty() && user.getName().isEmpty();
-    }
-
-    public User(String string, String string0, String string1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getId() {
