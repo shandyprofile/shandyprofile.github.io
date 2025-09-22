@@ -152,10 +152,9 @@ On each request, the browser sends this Session ID, allowing the server to retri
 
 ```
 /views/
-    ├── pages
-        ├── login.jsp
-        ├── logout.jsp
-        ├── home.jsp
+    ├── login.jsp
+    ├── logout.jsp
+    ├── home.jsp
 ```
 
 - Update webcome file in web.xml:
