@@ -37,6 +37,7 @@ This promotes code reuse, hierarchical classification, and polymorphism.
 | **`extends` keyword**        | Used to declare that one class inherits another     |
 
 ---
+
 | Concept      | Description                                |
 | ------------ | ------------------------------------------ |
 | Inheritance  | One class inherits another                 |
