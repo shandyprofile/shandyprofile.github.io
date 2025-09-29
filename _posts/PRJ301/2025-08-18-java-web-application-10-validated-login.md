@@ -92,6 +92,9 @@ It ensures:
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
         // Validate password format first
         // if (!PasswordValidator.isMinLength(password, 8)) {
         //     request.setAttribute("loginError", "Password must be at least 8 characters long.");
@@ -101,25 +104,23 @@ It ensures:
         //     return;
         // }
         
-
         if (!PasswordValidator.isValid(password)) {
             request.setAttribute("loginError", "Password must contain uppercase, lowercase, number, special char, and be at least 8 characters.");
-            
-            request.setAttribute("contentPage", "login_form_content.jsp");
-            request.getRequestDispatcher("views/pages/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request,response);
             return;
         }
         
-        // Authenticate with database
-        String uName = userDAO.CheckUser(username, password);
+        UserDAO users = new UserDAO();
+        String uName = users.CheckUser(username, password);
+        if (uName != null) {
+            Cookie cookie1 = new Cookie("username", uName);
+            cookie1.setMaxAge(60 * 60); // 1 hour
+            response.addCookie(cookie1);
 
-        if (user != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("home");
+            response.sendRedirect(request.getContextPath() + "/home");
         } else {
-            request.setAttribute("loginError", "Invalid username or password.");
-            request.getRequestDispatcher("views/pages/login.jsp").forward(request, response);
+            request.setAttribute("loginError", "Username or password are failed!");
+            request.getRequestDispatcher("/views/login.jsp").forward(request,response);
         }
     }
 
