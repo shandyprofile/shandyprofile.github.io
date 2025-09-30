@@ -126,7 +126,7 @@ It ensures:
 
 ```
 
-- Update **Login form (login_form_content.jsp):**
+- Update **Login form (login.jsp):**
 
 ```jsp
 
