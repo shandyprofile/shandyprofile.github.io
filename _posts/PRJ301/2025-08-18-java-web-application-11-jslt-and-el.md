@@ -45,7 +45,7 @@ After running **build with dependences**.
 
 ## 3. Example: Replace Scriptlets with JSTL + EL
 
-- home_content.jsp
+- home.jsp
 
 ```jsp
 <%
@@ -113,10 +113,10 @@ public class Product {
     
     request.setAttribute("products", products);
 
-    request.getRequestDispatcher("/views/pages/home.jsp").forward(request, response);
+    request.getRequestDispatcher("/views/home.jsp").forward(request, response);
 ```
 
-- Update home_content.jsp
+- Update home.jsp
 
 ```jsp
 
@@ -152,5 +152,3 @@ public class Product {
 ```
 
 ![](/assets/img/2025-08-19-11-31-08.png)
-
-[Source Demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-11)

@@ -1,5 +1,5 @@
 ---
-title: Epoch 12 – CRUD Products
+title: Epoch 13 – CRUD Products
 description: >-
   Add and use JSTL and EL in your Maven JSP/Servlet project.
 author: [shandy]
@@ -7,7 +7,7 @@ date: 2025-08-18
 updateDate: 2025-08-21
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
-sort_index: 112
+sort_index: 113
 # pin: true
 # media_subpath: '/posts/01'
 ---
@@ -147,35 +147,34 @@ public class ProductDAO extends DBContext {
 ```java
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if ("username".equals(c.getName())) {
-                    username = c.getValue();
-                    break;
-                }
-            }
-        }
+        // String username = null;
+        // Cookie[] cookies = request.getCookies();
+        // if (cookies != null) {
+        //     for (Cookie c : cookies) {
+        //         if ("username".equals(c.getName())) {
+        //             username = c.getValue();
+        //             break;
+        //         }
+        //     }
+        // }
 
-        if (username == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
+        // if (username == null) {
+        //     response.sendRedirect(request.getContextPath() + "/login");
+        //     return;
+        // }
 
-        request.setAttribute("contentPage", "home_content.jsp");
         request.setAttribute("username", username);
         
         ProductDAO productDAO = new ProductDAO();
         List<Product> products = productDAO.GetAllProducts();
         request.setAttribute("products", products);
     
-        request.getRequestDispatcher("/views/pages/home.jsp").forward(request,response);
+        request.getRequestDispatcher("/views/home.jsp").forward(request,response);
     } 
 // ...
 ```
 
-- Update home-content.jsp
+- Update home.jsp
 
 ```jsp
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -226,7 +225,7 @@ public class ProductDAO extends DBContext {
                             <img height='50px' src="./assets/images/${p.getImage()}" alt="${p.getName()}"/>
                         </td>
                         <td>
-                            
+                            // Add Edit/Delete action
                         </td>
                     </tr>
                 </c:forEach>
@@ -291,7 +290,7 @@ public class ProductServlet extends HttpServlet {
         switch (action) {
             case "add":
                 request.setAttribute("contentPage", "addProduct_content.jsp");
-                request.getRequestDispatcher("/views/pages/addProduct.jsp").forward(request,response);
+                request.getRequestDispatcher("/views/addProduct.jsp").forward(request,response);
                 break;
             case "update":
                 
@@ -356,17 +355,10 @@ public class ProductServlet extends HttpServlet {
 ```
 
 > Create Add page
-- Create views/pages/addProduct.jsp
+- Create views/addProduct.jsp
 
 ```jsp
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Add Product - JSP Shop" />
-</jsp:include>
-```
 
-- Create views/pages/addProduct-content.jsp
-
-```jsp
 <h2 class="mb-4">Add Product</h2>
 <form action="${pageContext.request.contextPath}/product?action=add" method="post" class="col-md-4">
     <div class="mb-3">
