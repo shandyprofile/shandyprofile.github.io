@@ -66,7 +66,7 @@ app.use(viewContext);
   <a class="navbar-brand" href="/">MyShop</a>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ms-auto">
-      {{#if user}}
+      "{{#if user}}"
         <li class="nav-item">
           <a class="nav-link" href="/cart">Cart ({{user.cartCount}})</a>
         </li>
