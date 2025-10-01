@@ -1,5 +1,5 @@
 ---
-title: 'Episode 8: Using Cookies for Cart & Auth in Handlebars Views'
+title: 'Episode 9: Using Cookies for Cart & Auth in Handlebars Views'
 description: >-
   Allow Handlebars views to all pages
 author: [shandy]
@@ -66,26 +66,26 @@ app.use(viewContext);
   <a class="navbar-brand" href="/">MyShop</a>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ms-auto">
-      {{"{{#if user}}"}}
+      {% raw %}{{#if user}}{% endraw %}
         <li class="nav-item">
-          <a class="nav-link" href="/cart">Cart ({{user.cartCount}})</a>
+          <a class="nav-link" href="/cart">Cart ({% raw %}{{user.cartCount}}{% endraw %})</a>
         </li>
         <li class="nav-item">
-          <span class="nav-link">Hello, {{user.email}}</span>
+          <span class="nav-link">Hello, {% raw %}{{user.email}}{% endraw %}</span>
         </li>
         <li class="nav-item">
           <form action="/api/auth/logout" method="POST">
             <button class="btn btn-link nav-link" type="submit">Logout</button>
           </form>
         </li>
-      {{else}}
+      {% raw %}{{else}}{% endraw %}
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
-      {{/if}}
+      {% raw %}{{/if}}{% endraw %}
     </ul>
   </div>
 </nav>
@@ -112,23 +112,23 @@ In views/cart.hbs:
 ```handlebars
 <h2>Your Shopping Cart</h2>
 
-{{#if cart.length}}
+{% raw %}{{#if cart.length}}{% endraw %}
   <ul class="list-group mb-3">
-    {{#each cart}}
+    {% raw %}{{#each cart}}{% endraw %}
       <li class="list-group-item d-flex justify-content-between">
         <div>
-          <strong>{{this.product.name}}</strong> ({{this.quantity}})
+          <strong>{% raw %}{{this.product.name}}{% endraw %}</strong> ({% raw %}{{this.quantity}}{% endraw %})
         </div>
-        <div>${{this.product.price}}</div>
+        <div>${% raw %}{{this.product.price}}{% endraw %}</div>
       </li>
-    {{/each}}
+    {% raw %}{{/each}}{% endraw %}
   </ul>
   <form action="/api/orders/checkout" method="POST">
     <button class="btn btn-success">Checkout</button>
   </form>
-{{else}}
+{% raw %}{{else}}{% endraw %}
   <p>Your cart is empty.</p>
-{{/if}}
+{% raw %}{{/if}}{% endraw %}
 ```
 ## 5. Enable Logout Button
 In routes/auth.js:
@@ -142,5 +142,5 @@ router.post('/logout', (req, res) => {
 
 > Notes:
 > - res.locals.user is accessible in any view thanks to middleware.
-> - You can later show admin panels with {{#if (eq user.role "admin")}} using a Handlebars helper.
+> - You can later show admin panels with {% raw %}{{#if (eq user.role "admin")}}{% endraw %} using a Handlebars helper.
 > - Don’t forget CSRF protection if doing full POST forms in production.

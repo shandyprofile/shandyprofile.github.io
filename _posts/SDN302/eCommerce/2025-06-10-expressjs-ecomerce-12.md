@@ -104,7 +104,7 @@ views/admin-dashboard.handlebars:
 
 ```hbs
 <h1>Admin Dashboard</h1>
-<p>Welcome, {{user.email}}</p>
+<p>Welcome, {% raw %}{{user.email}}{% endraw %}</p>
 
 <ul>
   <li><a href="/admin/products">Manage Products</a></li>
@@ -118,11 +118,11 @@ views/admin-dashboard.handlebars:
 In Handlebars layout:
 
 ```hbs
-{{#if user}}
-  {{#ifEquals user.role "admin"}}
+{% raw %}{{#if user}}{% endraw %}
+  {% raw %}{{#ifEquals user.role "admin"}}{% endraw %}
     <a href="/admin">Admin Dashboard</a>
-  {{/ifEquals}}
-{{/if}}
+  {% raw %}{{/ifEquals}}{% endraw %}
+{% raw %}{{/if}}{% endraw %}
 ```
 Create custom Handlebars helper ifEquals:
 

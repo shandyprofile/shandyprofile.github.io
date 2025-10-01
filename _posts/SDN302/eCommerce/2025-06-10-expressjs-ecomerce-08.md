@@ -44,12 +44,12 @@ views/layouts/main.hbs:
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{title}}</title>
+  <title>{% raw %}{{title}}{% endraw %}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
   <div class="container mt-5">
-    {{body}}
+    {% raw %}{{body}}{% endraw %}
   </div>
 </body>
 </html>
@@ -86,17 +86,17 @@ app.use('/', pageRoutes);
 <h1 class="mb-4">Product List</h1>
 
 <div class="row">
-  {{#each products}}
+  {% raw %}{{#each products}}{% endraw %}
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-body">
-          <h5>{{this.name}}</h5>
-          <p>Price: ${{this.price}}</p>
-          <a href="/product/{{this._id}}" class="btn btn-primary btn-sm">View</a>
+          <h5>{% raw %}{{this.name}}{% endraw %}</h5>
+          <p>Price: ${% raw %}{{this.price}}{% endraw %}</p>
+          <a href="/product/{% raw %}{{this._id}}{% endraw %}" class="btn btn-primary btn-sm">View</a>
         </div>
       </div>
     </div>
-  {{/each}}
+  {% raw %}{{/each}}{% endraw %}
 </div>
 ```
 ## 7. Create Product Detail View
@@ -115,9 +115,9 @@ router.get('/product/:id', async (req, res) => {
 - Create `views/product-detail.hbs`:
 
 ```handlebars
-<h2>{{product.name}}</h2>
-<p><strong>Price:</strong> ${{product.price}}</p>
-<p>{{product.description}}</p>
+<h2>{% raw %}{{product.name}}{% endraw %}</h2>
+<p><strong>Price:</strong> ${% raw %}{{product.price}}{% endraw %}</p>
+<p>{% raw %}{{product.description}}{% endraw %}</p>
 <a href="/" class="btn btn-secondary btn-sm">Back</a>
 ```
 ## 8. Render Auth Pages
