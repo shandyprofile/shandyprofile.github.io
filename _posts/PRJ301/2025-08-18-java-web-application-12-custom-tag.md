@@ -103,61 +103,59 @@ sort_index: 112
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
     
 <t:layout pageTitle="Home - JSP Shop">
-    <main class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <c:if test="${not empty username}">
-                            <h1 class="h3 mb-3">
-                            Welcome ${username} to JSP Shop
-                                <form class="d-inline m-5" action="${pageContext.request.contextPath}/logout" method="post">
-                                    <button type="submit" class="btn btn-outline-primary">Logout</button>
-                                </form>
-                            </h1>
-                            <p class="mb-0">
-                                This is a simple Home page.
-                                for consistent UI with Bootstrap.
-                            </p>
-                        </c:if>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <c:if test="${not empty username}">
+                        <h1 class="h3 mb-3">
+                        Welcome ${username} to JSP Shop
+                            <form class="d-inline m-5" action="${pageContext.request.contextPath}/logout" method="post">
+                                <button type="submit" class="btn btn-outline-primary">Logout</button>
+                            </form>
+                        </h1>
+                        <p class="mb-0">
+                            This is a simple Home page.
+                            for consistent UI with Bootstrap.
+                        </p>
+                    </c:if>
 
-                        <!-- Show message if user not logged in -->
-                        <c:if test="${empty username}">
-                            <h1 class="text-danger">You are not logged in.</h2>
-                            <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login</a>
-                        </c:if>
-                    </div>
+                    <!-- Show message if user not logged in -->
+                    <c:if test="${empty username}">
+                        <h1 class="text-danger">You are not logged in.</h2>
+                        <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login</a>
+                    </c:if>
                 </div>
             </div>
         </div>
+    </div>
 
-        <hr/>
-        <h3>Available Products</h3>
-        <c:choose>
-            <c:when test="${not empty requestScope.products}">
-                <table class="table table-bordered">
-                    <thead>
+    <hr/>
+    <h3>Available Products</h3>
+    <c:choose>
+        <c:when test="${not empty requestScope.products}">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="p" items="${products}" varStatus="status">
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Price</th>
+                            <td>${status.index + 1}</td>
+                            <td>${p.name}</td>
+                            <td><fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VND" /></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="p" items="${products}" varStatus="status">
-                            <tr>
-                                <td>${status.index + 1}</td>
-                                <td>${p.name}</td>
-                                <td><fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VND" /></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </c:when>
-            <c:otherwise>
-                <p class="text-muted">No products available at the moment.</p>
-            </c:otherwise>
-        </c:choose>
-    </main>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <p class="text-muted">No products available at the moment.</p>
+        </c:otherwise>
+    </c:choose>
 </t:layout>
 ```
