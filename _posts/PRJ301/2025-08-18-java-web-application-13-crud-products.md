@@ -19,7 +19,6 @@ sort_index: 113
   ├── Controllers
   │     ├── LoginServlet.java
   │     ├── ProductServlet.java
-  │     ├── HomeServlet.java
   │     ├── LogoutServlet.java
   ├── Models
   │     ├── User.java
@@ -140,7 +139,7 @@ public class Product {
 
 ### 1. Read all products
 
-- Create DALs/ProductDAO.java:
+- Create **DALs/ProductDAO.java**:
 
 ```java
 public class ProductDAO extends DBContext {
@@ -174,7 +173,7 @@ public class ProductDAO extends DBContext {
 }
 ```
 
-- Replace HomeServlet.java to ProductServlet.java
+- Replace **HomeServlet.java** to **ProductServlet.java**
 
 ```java
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -192,7 +191,7 @@ public class ProductDAO extends DBContext {
 // ...
 ```
 
-- Rename home.jsp to product-management/listProduct.jsp
+- Rename **home.jsp** to **product-management/listProduct.jsp**
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -261,7 +260,7 @@ public class ProductDAO extends DBContext {
 
 ### 2. Add new product
 
-- Update DALs/ProductDAO.java:
+- Update **DALs/ProductDAO.java**:
 
 ```java
     // ...
@@ -354,7 +353,7 @@ public class ProductServlet extends HttpServlet {
 }
 ```
 
-- Update Button Add Product in listProduct.jsp into line 29.
+- Update **listProduct.jsp** in line 29 add a code for "**Add Product**" button.
 
 ```jsp
 <!-- line 29 -->
@@ -365,8 +364,7 @@ public class ProductServlet extends HttpServlet {
 </a>
 ```
 
-> Create Add page
-- Create `views/product-management/addProduct.jsp`
+- Create Add Product page as `views/product-management/addProduct.jsp`
 
 ```jsp
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -434,7 +432,7 @@ public class ProductServlet extends HttpServlet {
     }
 ```
 
-- Update Controllers/ProductServlet.java:
+- Update **Controllers/ProductServlet.java**:
 
 ```java
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -485,7 +483,7 @@ public class ProductServlet extends HttpServlet {
     }
 ```
 
-- Update listProduct.jsp
+- Update **listProduct.jsp**
 
 ```jsp
     <!-- Line 61 -->
@@ -496,7 +494,7 @@ public class ProductServlet extends HttpServlet {
     </td>
 ```
 
-- Create updateProduct.jsp
+- Create **updateProduct.jsp**
 
 ```jsp
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -545,7 +543,7 @@ public class ProductServlet extends HttpServlet {
 
 ### 4. Delete product by id
 
-- Update DALs/ProductDAO.java:
+- Update **DALs/ProductDAO.java**:
 
 ```java
     public boolean DeleteProductById(String id) {
@@ -563,7 +561,7 @@ public class ProductServlet extends HttpServlet {
     }
 ```
 
-- Update Controllers/ProductServlet.java:
+- Update **Controllers/ProductServlet.java**:
 
 ```java
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -610,7 +608,7 @@ public class ProductServlet extends HttpServlet {
     }
 ```
 
-- Update listProduct.jsp
+- Update **listProduct.jsp**
 
 ```jsp
     <!-- Line 61 -->
