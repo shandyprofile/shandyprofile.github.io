@@ -1,7 +1,7 @@
 ---
-title: Epoch 13.5 – CRUD Products
+title: Epoch 13.5 – CRUD Products (JPA)
 description: >-
-  Add and use JSTL and EL in your Maven JSP/Servlet project.
+  Upgrade CRUD Product using JPA (ORM)
 author: [shandy]
 date: 2025-08-18
 updateDate: 2025-08-21
@@ -12,40 +12,310 @@ sort_index: 114
 # media_subpath: '/posts/01'
 ---
 
-## 1. SQL Products
+## Architechture Project
 
-
-```sql
-CREATE TABLE Products (
-    id INT PRIMARY KEY IDENTITY(1,1),
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    price DECIMAL(10, 2) NOT NULL,
-    quantity INT NOT NULL,
-    image VARCHAR(100) NOT NULL
-);
-
-INSERT INTO Products (name, description, price, quantity, image)
-VALUES
-('Laptop Dell XPS 13', '13-inch Ultrabook with Intel i7 processor', 1299.99, 10, 'product1.jpg'),
-('iPhone 15 Pro', 'Apple smartphone with A17 Bionic chip', 999.00, 20, 'product1.jpg'),
-('Sony WH-1000XM5', 'Noise-cancelling wireless headphones', 349.99, 15, 'product1.jpg'),
-('Logitech MX Master 3S', 'Ergonomic wireless mouse', 99.99, 30, 'product1.jpg'),
-('Samsung 4K Monitor 27"', 'Ultra HD monitor with HDR support', 299.50, 12, 'product1.jpg');
+```
+/src
+  ├── controllers/
+  │     ├── LoginServlet.java
+  │     ├── LogoutServlet.java
+  │     ├── ProductServlet.java
+  ├── models/
+  │     ├── User.java
+  │     ├── Product.java
+  ├── repositories/             //  Replace DALs (DAO)
+  │     ├── UserRepository.java
+  │     ├── ProductRepository.java
+  ├── Utils/
+  │     ├── JPAUtil.java        //  That is EntityManagerFactory
+                                //  Replace DBContext.java
+  ├── filters/
+  │     ├── AuthFilter.java (lọc quyền truy cập)
+  │
+/webapp
+  ├── META-INF/
+  │     ├── persistence.xml     //  JPA Configuration
+  ├── WEB-INF/
+  │     ├── web.xml
+  │     ├── tags/
+  │     ├── layout.tag  
+  ├── views/
+  │     ├── login.jsp
+  │     ├── home.jsp
+  │     ├── product-management/
+  │     │     ├── addProduct.jsp  
+  │     │     ├── updateProduct.jsp  
+  │     │     ├── listProduct.jsp
+  │     │     ├── deleteProduct.jsp  
 ```
 
-## 2. Code CRUD
+## Install JPA in Hibernate
 
-Update Models/Product.java
+Add dependencies into porm.xml in projects:
+
+```xml
+<!-- JPA API -->
+<dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+    <version>3.1.0</version>
+</dependency>
+
+<!-- Hibernate Core -->
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.3.0.Final</version>
+</dependency>
+```
+
+> **Make sure** you have `Build with dependencies` **before running the project**
+
+## 1. persistence.xml?
+
+`persistence.xml` is the main configuration file used by JPA (Jakarta Persistence API) to define how your Java application connects to a database and manages entities.
+
+It is typically placed inside:
+
+```
+src/main/resources/META-INF/persistence.xml
+```
+
+This file tells the JPA provider (such as Hibernate, EclipseLink, etc.):
+- Which entities (models) to manage.
+- How to connect to the database (JDBC settings).
+- Which JPA provider and dialect to use.
+- Optional settings like auto table creation, logging, caching, etc.
+
+### 1.1 Persistence Unit
+
+Inside persistence.xml, you define one or more persistence units — each representing a separate database configuration.
+
+Each persistence unit is identified by a name:
+
+```xml
+<persistence-unit name="JSPShop">
+    ...
+</persistence-unit>
+```
+
+> Note: **name** of **persistence-unit**. That is a name which select in DBContext. **We need exact name.**
+
+When your code calls:
 
 ```java
-public class Product {
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("JSPShop");
+```
+
+JPA looks up the configuration with the name **JSPShop** from persistence.xml and uses it to connect to the database.
+
+### 1.2 Example of persistence.xml in JSPShop:
+
+Here’s a typical configuration using **Hibernate** with SQL Server:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+  <persistence-unit name="MyAppPU">
+    <!-- Register entity classes -->
+    <class>com.example.app.models.User</class>
+    <class>com.example.app.models.Product</class>
+
+    <!-- Database connection properties -->
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="jakarta.persistence.jdbc.url" value="<CONNECTIONSTRING>"/>
+      <property name="jakarta.persistence.jdbc.user" value="<USER>"/>
+      <property name="jakarta.persistence.jdbc.password" value="<PASSWORDS>"/>
+
+      <!-- Hibernate properties -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
+```
+
+You need to fill all SQL Server infomation same as DBContext:
+- `<CONNECTIONSTRING>`: Connection String
+- `<USER>` and `<PASSWORDS>`: User login into SQL Server.
+
+### 1.3 Key Elements
+
+| Tag / Property                               | Description                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------- |
+| `<persistence-unit name="...">`              | Defines a configuration group for JPA. Each unit has its own DB connection. |
+| `<class>`                                    | Lists all entity classes that should be managed by JPA.                     |
+| `jakarta.persistence.jdbc.driver`            | The JDBC driver used to connect to the database.                            |
+| `jakarta.persistence.jdbc.url`               | The database connection URL.                                                |
+| `jakarta.persistence.jdbc.user` / `password` | Credentials for the DB connection.                                          |
+| `hibernate.hbm2ddl.auto`                     | Defines schema generation strategy: `create`, `update`, `validate`, `none`. |
+| `hibernate.show_sql`                         | Prints SQL statements in the console for debugging.                         |
+| `hibernate.format_sql`                       | Formats SQL output for better readability.                                  |
+
+Common `hibernate.hbm2ddl.auto` Values:
+
+| Value         | Behavior                                                      |
+| ------------- | ------------------------------------------------------------- |
+| `create`      | Drops and recreates the database schema on every startup.     |
+| `create-drop` | Creates schema at startup and drops it when the app stops.    |
+| `update`      | Updates schema automatically to match entities (most common). |
+| `validate`    | Checks that schema matches entities; throws error if not.     |
+| `none`        | Does nothing (manual schema management).                      |
+
+## 2. Update code-behind
+
+- Step 1: Using `JPAUtil.java` instead of `DBConect.java` 
+- Step 2: Update `Models` by **anonymous parammeter** in `private variables`
+- Step 3: Using `Repositories` pattern to contain data instead of `DALs`
+- Step 4: Apply `Repositories` for `Servlets`.
+
+### 2.1 JPAUtil.java (Old DBConect.java)
+
+The JPA-based equivalent, which replaces DBContext.java.
+
+```java
+package Utils;
+
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+public class JPAUtil {
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("JSPShop");
+
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return emf;
+    }
+
+    public static void close() {
+        emf.close();
+    }
+}
+```
+
+### 2.2 Update Models:
+
+Update User Model (User.java)
+
+```java
+package Models;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserID")
     private int id;
+
+    @Column(name = "Username", nullable = false, length = 50, unique = true)
     private String name;
-    private double price;
+
+    @Column(name = "Password", nullable = false, length = 255)
+    private String password;
+
+    @Column(name = "Role", nullable = false, length = 20)
+    private String role;
+
+    public User() {
+        this.id = -1;
+        this.name = "";
+        this.password = "";
+        this.role = "";
+    }
+
+    public User(int id, String name, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public static boolean isEmpty(User user) {
+        return user == null || (user.getName() == null || user.getName().isEmpty());
+    }
+}
+```
+
+Update Product Models (Product.java):
+
+```java
+package Models;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Products")
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private double price;
+
+    @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    @Column(name = "image", nullable = false, length = 100)
     private String image;
+
+    public Product() {
+        this.id = 0;
+        this.name = "";
+        this.price = 0;
+        this.description = "";
+        this.quantity = 0;
+        this.image = "";
+    }
+
+    public Product(String name, double price, String description, int quantity, String image) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.quantity = quantity;
+        this.image = image;
+    }
 
     public Product(int id, String name, double price, String description, int quantity, String image) {
         this.id = id;
@@ -59,7 +329,6 @@ public class Product {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -67,31 +336,27 @@ public class Product {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -99,561 +364,206 @@ public class Product {
     public String getImage() {
         return image;
     }
-
     public void setImage(String image) {
         this.image = image;
     }
 }
 ```
 
-### 1. Read all products
+### 2.2 Repository Layer (replace DALs)
 
-- Create DALs/ProductDAO.java:
+Create UserRepository (Replace DALs/UserDAO.java)
 
 ```java
-public class ProductDAO extends DBContext {
-    public ProductDAO() {
-        super();
+package Repositories;
+
+import Models.User;
+import Utils.JPAUtil;
+import jakarta.persistence.*;
+import java.util.List;
+
+public class UserRepository {
+    private EntityManager em;
+
+    public UserRepository() {
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
     }
 
-    public List<Product> GetAllProducts() {
-        List<Product> listProducts = new ArrayList<>();
-        String query = "Select * from Products";
+    public List<User> getAll() {
+        String sql = "SELECT * FROM Users";
+        Query query = em.createNativeQuery(sql, User.class);
+        return query.getResultList();
+    }
+
+    public User checkUser(String username, String password) {
+        String sql = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(query);            
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Product product = new Product(
-                        rs.getInt("id"), 
-                        rs.getString("name"), 
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getInt("quantity"),
-                        rs.getString("image"));
-                
-                listProducts.add(product); 
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+            Query query = em.createNativeQuery(sql, User.class);
+            query.setParameter(1, username);
+            query.setParameter(2, password);
+
+            return (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
-        
-        return listProducts;
+    }
+
+    public void addUser(User user) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(user);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUser(User user) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(user);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(int id) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            User user = em.find(User.class, id);
+            if (user != null) {
+                em.remove(user);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void close() {
+        if (em.isOpen()) {
+            em.close();
+        }
     }
 }
 ```
 
-- Update HomeServlet.java
+Create ProductRepository (Replace DALs/ProductDAO.java)
+
 
 ```java
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String username = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if ("username".equals(c.getName())) {
-                    username = c.getValue();
-                    break;
-                }
-            }
-        }
+package Repositories;
 
-        if (username == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
-        request.setAttribute("username", username);
-        
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> products = productDAO.GetAllProducts();
-        request.setAttribute("products", products);
-    
-        request.getRequestDispatcher("/views/home.jsp").forward(request,response);
-    } 
-// ...
-```
-
-- Update home.jsp
-
-```jsp
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-    
-<c:if test="${not empty username}">
-    <h2>Welcome, ${username} (Cookie Based)</h2>
-    
-    <form action="${pageContext.request.contextPath}/logout" method="post">
-        <button type="submit" class="btn btn-outline-primary">Logout</button>
-    </form>
-</c:if>
-
-<!-- Show message if user not logged in -->
-<c:if test="${empty username}">
-    <h2 class="text-danger">You are not logged in.</h2>
-    <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login</a>
-</c:if>
-    
-    
-<hr/>
-    
-<h3>Available Products</h3>
-<c:choose>
-    <c:when test="${not empty requestScope.products}">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="p" items="${products}" varStatus="status">
-                    <tr>
-                        <td>${status.index + 1}</td>
-                        <td>${p.getName()}</td>
-                        <td>${p.getDescription()}</td>
-                        <td><fmt:formatNumber value="${p.getPrice()}" type="currency" currencySymbol="VND" /></td>
-                        <td>${p.getQuantity()}</td>
-                        <td>
-                            <img height='50px' src="./assets/images/${p.getImage()}" alt="${p.getName()}"/>
-                        </td>
-                        <td>
-                            // Add Edit/Delete action
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:when>
-    <c:otherwise>
-        <p class="text-muted">No products available at the moment.</p>
-    </c:otherwise>
-</c:choose>
-```
-
-### 2. Add new product
-
-- Update DALs/ProductDAO.java:
-
-```java
-    // ...
-    public boolean CreateProduct(String name, double price, String description, int quantity, String img) {
-        String query = "INSERT INTO Products (name, description, price, quantity, image)\n" +
-"VALUES (?, ?, ?, ?, ?);";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, description);
-            ps.setDouble(3, price);
-            ps.setInt(4, quantity);
-            ps.setString(5, img);
-            int rs = ps.executeUpdate();
-            return rs > 0;
-            
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return false;        
-    }
-```
-
-- Create Controllers/ProductServlet.java
-
-```java
-    package Controllers;
-
-import DALs.ProductDAO;
 import Models.Product;
-import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import Utils.JPAUtil;
+import jakarta.persistence.*;
+import java.util.List;
 
-/**
- *
- * @author shandy
- */
-public class ProductServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String action = request.getParameter("action");
-        
-        switch (action) {
-            case "add":
-                request.setAttribute("contentPage", "addProduct_content.jsp");
-                request.getRequestDispatcher("/views/addProduct.jsp").forward(request,response);
-                break;
-            case "update":
-                
-                break;
-                
-            case "delete":
-                
-                break;
-        }
+public class ProductRepository {
+    private EntityManager em;
 
-        
-    } 
+    public ProductRepository() {
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
+    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String action = request.getParameter("action");
-        
-        switch (action) {
-            case "add":
-                AddActionPost(request, response);
-                break;
-            case "update":
-                
-                break;
-                
-            case "delete":
-                
-                break;
+    public List<Product> getAllProducts() {
+        String sql = "SELECT * FROM Products";
+        Query query = em.createNativeQuery(sql, Product.class);
+        return query.getResultList();
+    }
+
+    public Product getProductById(int id) {
+        String sql = "SELECT * FROM Products WHERE id = ?";
+        try {
+            Query query = em.createNativeQuery(sql, Product.class);
+            query.setParameter(1, id);
+            return (Product) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
-    
-    private void AddActionPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String price = request.getParameter("price");
-        String quantity = request.getParameter("quantity");
-        String img = request.getParameter("img");
-        
-        ProductDAO products = new ProductDAO();
-        boolean rs = products.CreateProduct(name, Double.parseDouble(price), description, Integer.parseInt(quantity), img);
-        if (rs) {           
-            response.sendRedirect(request.getContextPath() + "/home");
-        } else {
-            request.setAttribute("contentPage", "addProduct_content.jsp");
-            request.setAttribute("error", "Add products Error!");
-            request.getRequestDispatcher("/views/pages/addProduct.jsp").forward(request,response);
+
+    public boolean createProduct(String name, double price, String description, int quantity, String img) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Product product = new Product(name, price, description, quantity, img);
+            em.persist(product);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+            return false;
         }
+    }
+
+    public boolean updateProductById(int id, String name, double price, String description, int quantity, String img) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                product.setName(name);
+                product.setPrice(price);
+                product.setDescription(description);
+                product.setQuantity(quantity);
+                product.setImage(img);
+                em.merge(product);
+            }
+            tx.commit();
+            return product != null;
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteProductById(int id) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                em.remove(product);
+            }
+            tx.commit();
+            return product != null;
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void close() {
+        if (em.isOpen()) em.close();
     }
 }
 ```
 
-- Update Button Add Product in home page: (home_content.jsp) into line 29.
+### 2.3 Using JPA via Repositories
 
-```jsp
-<!-- line 29 -->
-
-<a href="${pageContext.request.contextPath}/product?action=add" 
-   class="btn btn-primary">
-   Add product 
-</a>
-```
-
-> Create Add page
-- Create views/addProduct.jsp
-
-```jsp
-
-<h2 class="mb-4">Add Product</h2>
-<form action="${pageContext.request.contextPath}/product?action=add" method="post" class="col-md-4">
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" name="name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" id="description" name="description" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="text" id="price" name="price" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="quantity" class="form-label">Quantity</label>
-        <input type="text" id="quantity" name="quantity" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="img" class="form-label">Image</label>
-        <input type="text" id="img" name="img" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Product</button>
-    <a href="${pageContext.request.contextPath}/home" class="btn btn-outline-info">Back</a>
-    
-    <p style="color:red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : ""%></p>
-</form>
-```
-
-### 3. Update product by id
-
-- Update DALs/ProductDAO.java:
+Replace DAOs to Repositories. Example in LoginServlet.java:
 
 ```java
-    public boolean UpdateProductById(String id, String name, double price, String description, int quantity, String img) {
-        String query = "Update Products SET "
-                + "name = ?, "
-                + "description = ?, "
-                + "price = ?, "
-                + "quantity = ?, "
-                + "image = ? "
-                + "where id = ? ;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, description);
-            ps.setDouble(3, price);
-            ps.setInt(4, quantity);
-            ps.setString(5, img);
-            ps.setString(6, id);
-            int rs = ps.executeUpdate();
-            return rs > 0;
-            
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return false;        
-    }
+// Replace
+UserDAO users = new UserDAO();
+String uName = users.CheckUser(username, password);
+
+// To 
+UserRepository userRepository = new UserRepository();
+String uName = userRepository.CheckUser(username, password);
 ```
 
-- Update Controllers/ProductServlet.java:
+> **Same as another places**
 
-```java
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        //...
-            case "update":
-                String idProduct = request.getParameter("id");
-                ProductDAO productDAO = new ProductDAO();
-                Product pro = productDAO.GetProductById(Integer.parseInt(idProduct));
-                request.setAttribute("product", pro);
-                request.setAttribute("contentPage", "updateProduct_content.jsp");
-                request.getRequestDispatcher("/views/pages/updateProduct.jsp").forward(request,response);
-                break;
-        //...
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        // ...
-        
-            case "update":
-                UpdateActionPost(request, response);
-                break;
-
-        // ...
-    }
-
-    private void UpdateActionPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String price = request.getParameter("price");
-        String quantity = request.getParameter("quantity");
-        String img = request.getParameter("img");
-        
-        ProductDAO products = new ProductDAO();
-        boolean rs = products.UpdateProductById(id, name, Double.parseDouble(price), description, Integer.parseInt(quantity), img);
-        if (rs) {           
-            response.sendRedirect(request.getContextPath() + "/home");
-        } else {
-            request.setAttribute("contentPage", "updateProduct_content.jsp");
-            request.setAttribute("error", "Update products error!");
-            request.getRequestDispatcher("/views/pages/updateProduct.jsp").forward(request,response);
-        }
-    }
-```
-
-- Update home-content.jsp
-
-```jsp
-    <!-- Line 61 -->
-    <td>
-        <a href="${pageContext.request.contextPath}/product?action=update&id=${p.getId()}" class="btn btn-warning">
-            Update
-        </a>
-    </td>
-```
-
-- Create updateProduct.jsp
-
-```jsp
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Update Product - JSP Shop" />
-</jsp:include>
-```
-
-- Create updateProduct-content.jsp
-
-```jsp
-<h2 class="mb-4">Add Product</h2>
-<form action="${pageContext.request.contextPath}/product?action=update" method="post" class="col-md-4">
-    <div class="mb-3">
-        <label for="id" class="form-label">Id</label>
-        <input type="text" id="id" name="id" class="form-control" readonly value="${product.getId()}" >
-    </div>
-    
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" name="name" class="form-control" value="${product.getName()}" required>
-        
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" id="description" name="description" class="form-control" value="${product.getDescription()}" required>
-    </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="text" id="price" name="price" class="form-control" value="${product.getPrice()}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="quantity" class="form-label">Quantity</label>
-        <input type="text" id="quantity" name="quantity" class="form-control" value="${product.getQuantity()}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="img" class="form-label">Image</label>
-        <input type="text" id="img" name="img" class="form-control" value="${product.getImage()}" required>
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Update Product</button>
-    <a href="${pageContext.request.contextPath}/home" class="btn btn-outline-info">Back</a>
-    
-    <p style="color:red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : ""%></p>
-
-</form>
-```
-
-### 4. Delete product by id
-
-- Update DALs/ProductDAO.java:
-
-```java
-    public boolean DeleteProductById(String id) {
-        String query = "Delete Products where id = ? ;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, id);
-            int rs = ps.executeUpdate();
-            return rs > 0;
-            
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return false; 
-    }
-```
-
-- Update Controllers/ProductServlet.java:
-
-```java
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        //...
-            case "delete":
-                String idProduct1 = request.getParameter("id");
-                ProductDAO productDAO1 = new ProductDAO();
-                Product pro1 = productDAO1.GetProductById(Integer.parseInt(idProduct1));
-                request.setAttribute("product", pro1);
-                request.setAttribute("contentPage", "deleteProduct_content.jsp");
-                request.getRequestDispatcher("/views/pages/deleteProduct.jsp").forward(request,response);
-                break;
-        //...
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        // ...
-        
-            case "update":
-                DeleteActionPost(request, response);
-                break;
-
-        // ...
-    }
-
-    private void DeleteActionPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        
-        ProductDAO products = new ProductDAO();
-        boolean rs = products.DeleteProductById(id);
-        if (rs) {           
-            response.sendRedirect(request.getContextPath() + "/home");
-        } else {
-            request.setAttribute("contentPage", "deleteProduct_content.jsp");
-            request.setAttribute("error", "Delete products error!");
-            request.getRequestDispatcher("/views/pages/deleteProduct.jsp").forward(request,response);
-        }
-    }
-```
-
-- Update home-content.jsp
-
-```jsp
-    <!-- Line 61 -->
-    <td>
-        <a href="${pageContext.request.contextPath}/product?action=update&id=${p.getId()}" class="btn btn-warning">
-            Update
-        </a>
-
-        <a href="${pageContext.request.contextPath}/product?action=delete&id=${p.getId()}" class="btn btn-danger">
-            Delete
-        </a>
-    </td>
-```
-
-- Create deleteProduct.jsp
-
-```jsp
-<jsp:include page="../layouts/layout.jsp" >
-    <jsp:param name="pageTitle" value="Delete Product - JSP Shop" />
-</jsp:include>
-```
-
-- Create deleteProduct-content.jsp
-
-```jsp
-<h2 class="mb-4">Add Product</h2>
-<form action="${pageContext.request.contextPath}/product?action=delete" method="post" class="col-md-4">
-    <div class="mb-3">
-        <label for="id" class="form-label">Id</label>
-        <input type="text" id="id" name="id" class="form-control" readonly value="${product.getId()}" >
-    </div>
-    
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" class="form-control" value="${product.getName()}" readonly>
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" id="description" class="form-control" value="${product.getDescription()}" readonly>
-    </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="text" id="price" class="form-control" value="${product.getPrice()}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label for="quantity" class="form-label">Quantity</label>
-        <input type="text" id="quantity" class="form-control" value="${product.getQuantity()}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label for="img" class="form-label">Image</label>
-        <input type="text" id="img" class="form-control" value="${product.getImage()}" readonly>
-    </div>
-    
-    <button type="submit" class="btn btn-danger">Delete Product</button>
-    
-    <a href="${pageContext.request.contextPath}/home" class="btn btn-outline-info">Back</a>
-
-    <p style="color:red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : ""%></p>
-
-</form>
-```
-
-[Source Demo](https://github.com/shandyprofile/java-jsp-shop-basic/tree/main/jsp-shop-12)
+`GOOD LUCK!!! :D`
