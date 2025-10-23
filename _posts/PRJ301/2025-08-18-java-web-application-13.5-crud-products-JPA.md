@@ -116,7 +116,7 @@ Here’s a typical configuration using **Hibernate** with SQL Server:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
-  <persistence-unit name="MyAppPU">
+  <persistence-unit name="JSPShop">
     <!-- Register entity classes -->
     <class>Models.User</class>
     <class>Models.Product</class>
