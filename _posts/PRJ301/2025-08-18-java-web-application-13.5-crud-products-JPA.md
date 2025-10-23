@@ -118,8 +118,8 @@ Here’s a typical configuration using **Hibernate** with SQL Server:
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
   <persistence-unit name="MyAppPU">
     <!-- Register entity classes -->
-    <class>com.example.app.models.User</class>
-    <class>com.example.app.models.Product</class>
+    <class>Models.User</class>
+    <class>Models.Product</class>
 
     <!-- Database connection properties -->
     <properties>
