@@ -165,16 +165,104 @@ Common `hibernate.hbm2ddl.auto` Values:
 | `validate`    | Checks that schema matches entities; throws error if not.     |
 | `none`        | Does nothing (manual schema management).                      |
 
-## 2. Update code-behind
+## 2. Introduction to JPA Entities
 
-- Step 1: Using `JPAUtil.java` instead of `DBConect.java` 
-- Step 2: Update `Models` by **anonymous parammeter** in `private variables`
-- Step 3: Using `Repositories` pattern to contain data instead of `DALs`
+In JPA (Jakarta Persistence API), an Entity is a lightweight, persistent domain object that represents a table in a relational database.
+Each instance of an entity corresponds to a single row (record) in that table.
+
+An Entity is a POJO (Plain Old Java Object) class that is managed by the JPA provider and mapped to a database table through annotations or XML mapping.
+It defines the structure of the data, including fields (columns), relationships, and metadata that describe how the object maps to the database.
+
+**Keynotes:**
+
+1. Annotated with @Entity: Declares that the class is a JPA entity and should be persisted to the database.
+2. Has a Primary Key (@Id): Every entity must have a field that uniquely identifies it in the database.
+3. Serializable and Public: Entities should be serializable and have a public or protected no-argument constructor.
+4. Mapped to a Table (@Table): Optionally specifies the exact database table name. If omitted, the class name is used as the table name by default.
+5. Fields Represent Columns: 
+- Each attribute (field) corresponds to a column in the database.
+- JPA automatically maps them, but you can override with @Column.
+6. Can Participate in Relationships: Entities can be related to other entities (e.g., One-to-Many, Many-to-One) using JPA relationship annotations.
+
+**Main materials:**
+
+```mermaid
+classDiagram
+    class Persistence {
+        +createEntityManagerFactory()
+    }
+
+    class EntityManagerFactory {
+        +createEntityManager()
+        +close()
+    }
+
+    class EntityManager {
+        +persist(entity)
+        +merge(entity)
+        +remove(entity)
+        +find(entityClass, id)
+        +createQuery(query)
+        +getTransaction()
+        +close()
+    }
+
+    class EntityTransaction {
+        +begin()
+        +commit()
+        +rollback()
+    }
+
+    class Query {
+        +getResultList()
+        +getSingleResult()
+        +setParameter()
+    }
+
+    class Entity {
+        +id
+        +fields
+    }
+
+    Persistence --> EntityManagerFactory : creates
+    EntityManagerFactory --> EntityManager : creates
+    EntityManager --> EntityTransaction : manages
+    EntityManager --> Query : creates
+    EntityManager --> Entity : manages
+```
+
+| Component                | Class / Annotation                                            | Purpose                                                                                              | Example / Notes                                                                                |
+| ------------------------ | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **Entity**               | `@Entity`                                                     | Represents a database table. Managed by Hibernate / Jakarta Persistence.                             | `@Entity class Product { ... }`                                                                |
+| **EntityManagerFactory** | `jakarta.persistence.EntityManagerFactory`                    | Creates and manages `EntityManager` instances. Heavy resource; usually created once per application. | `EntityManagerFactory emf = Persistence.createEntityManagerFactory("unitName");`               |
+| **EntityManager**        | `jakarta.persistence.EntityManager`                           | Manages entity instances; performs CRUD, queries, and transactions.                                  | `EntityManager em = emf.createEntityManager();`                                                |
+| **EntityTransaction**    | `jakarta.persistence.EntityTransaction`                       | Manages transactions for write operations (persist, merge, remove).                                  | `EntityTransaction tx = em.getTransaction(); tx.begin(); ... tx.commit();`                     |
+| **Persistence**          | `jakarta.persistence.Persistence`                             | Utility class to create `EntityManagerFactory` from `persistence.xml`.                               | `Persistence.createEntityManagerFactory("unitName");`                                          |
+| **Query / TypedQuery**   | `jakarta.persistence.Query`, `jakarta.persistence.TypedQuery` | Create and execute JPQL/SQL queries.                                                                 | `Query q = em.createQuery("SELECT p FROM Product p"); List<Product> list = q.getResultList();` |
+
+---
+**How to update code-behide:**
+- Step 1: Create `EntityManagerFactory`: Using `JPAUtil.java` instead of `DBConect.java`
+- Step 2: Update `Entity` for `Models` by **anonymous parammeter** in `private variables`
+- Step 3: Create `Repositories` pattern to contain data instead of `DALs`
 - Step 4: Apply `Repositories` for `Servlets`.
 
-### 2.1 JPAUtil.java (Old DBConect.java)
+### 2.1 EntityManagerFactory: JPAUtil.java (instead of DBConect.java)
 
-The JPA-based equivalent, which replaces DBContext.java.
+- Class/Interface: jakarta.persistence.EntityManagerFactory
+- Factory for creating EntityManager instances.
+- Represents a persistence unit defined in persistence.xml.
+- Heavy-weight object; usually created once per application and shared across multiple EntityManagers.
+
+| Responsibility          | Description                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- |
+| Create EntityManager    | Provides `createEntityManager()` method to create a new `EntityManager` (lightweight, short-lived).     |
+| Manage persistence unit | Reads configuration from `persistence.xml`, including DB connection, JPA provider, and mapping classes. |
+| Resource management     | Handles connection pools, caching, and other resources at the persistence unit level.                   |
+| Thread-safe             | Can be safely shared across multiple threads, unlike `EntityManager` which is **not thread-safe**.      |
+
+---
+**The JPA-based equivalent, which replaces DBContext.java.**
 
 ```java
 package Utils;
@@ -196,9 +284,39 @@ public class JPAUtil {
 }
 ```
 
-### 2.2 Update Models:
+### 2.2 Update Models to an Entity ()
 
-Update User Model (User.java)
+An Entity is a Java class annotated with `@Entity` that represents a table in the database. Hibernate or JPA manages its persistence.
+
+Maps class fields to table columns, encapsulates business data, and interacts with EntityManager for CRUD and query operations.
+
+| Feature                 | Annotation / Mechanism                                 | Description                                                               | Example                                                                         |
+| ----------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Primary Key**         | `@Id`, `@GeneratedValue`                               | Unique identifier of the entity. Can auto-generate values.                | `@Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;`      |
+| **Columns**             | `@Column`                                              | Maps Java fields to DB columns. Supports length, nullability, uniqueness. | `@Column(name="product_name", nullable=false, length=100) private String name;` |
+| **Relationships**       | `@OneToOne`, `@OneToMany`, `@ManyToOne`, `@ManyToMany` | Links entities together; supports cascading and fetching strategies.      | `@OneToMany(mappedBy="product") private List<Order> orders;`                    |
+| **Transient Fields**    | `@Transient`                                           | Field not persisted in DB.                                                | `@Transient private int tempCalculation;`                                       |
+| **Embedded Objects**    | `@Embedded`, `@Embeddable`                             | Reuse complex types or composite keys within the entity.                  | `@Embedded private Address address;`                                            |
+| **Lifecycle Callbacks** | `@PrePersist`, `@PostLoad`, etc.                       | Execute custom logic at certain points of the entity lifecycle.           | `@PrePersist void setCreatedAt() { this.createdAt = LocalDateTime.now(); }`     |
+| **Optimistic Locking**  | `@Version`                                             | Tracks entity version for concurrent updates.                             | `@Version private int version;`                                                 |
+| **Named Queries**       | `@NamedQuery`, `@NamedQueries`                         | Predefined JPQL queries for reuse.                                        | `@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")`          |
+
+---
+**Entity Validation:**
+
+| Feature                       | Annotation / Mechanism                   | Description                                       | Example                                                  |
+| ----------------------------- | ---------------------------------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| **Not Null / Required**       | `@NotNull`                               | Field must not be null                            | `@NotNull private String name;`                          |
+| **Not Empty / Not Blank**     | `@NotEmpty`, `@NotBlank`                 | String or collection must not be empty            | `@NotBlank private String description;`                  |
+| **Size Constraints**          | `@Size(min=, max=)`                      | Restrict length of strings or size of collections | `@Size(max=100) private String title;`                   |
+| **Number Constraints**        | `@Min`, `@Max`, `@Positive`, `@Negative` | Restrict numeric values                           | `@Min(0) @Max(1000) private int quantity;`               |
+| **Pattern / Regex**           | `@Pattern(regexp="...")`                 | Field must match a regex pattern                  | `@Pattern(regexp="\\d{10}") private String phoneNumber;` |
+| **Email / Format Validation** | `@Email`                                 | Validate email addresses                          | `@Email private String email;`                           |
+| **Custom Validation**         | `@Constraint(validatedBy=...)`           | Implement custom validation logic                 | Custom `Validator` class for complex rules               |
+| **Cascade Validation**        | `@Valid`                                 | Validates nested / embedded objects               | `@Valid @Embedded private Address address;`              |
+
+---
+**Update User Model (User.java)**
 
 ```java
 package Models;
@@ -271,7 +389,7 @@ public class User {
 }
 ```
 
-Update Product Models (Product.java):
+**Update Product Models (Product.java):**
 
 ```java
 package Models;
@@ -370,9 +488,102 @@ public class Product {
 }
 ```
 
-### 2.2 Repository Layer (replace DALs)
+### 2.3 Create Repositories Layer (replace DALs)
 
-Create UserRepository (Replace DALs/UserDAO.java)
+We can create a generic repository to handle any entity type:
+
+| Component              | Definition / Role                                                                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **EntityManager**      | Core interface in JPA to manage entities (CRUD, queries). Handles persistence context.                                                    |
+| **EntityTransaction**  | Manages transactions for write operations (persist, merge, remove). Must begin/commit/rollback explicitly in RESOURCE_LOCAL transactions. |
+| **Query / TypedQuery** | Used to create and execute JPQL or SQL queries. `TypedQuery<T>` is type-safe.                                                             |
+| **Repository**         | Design pattern that abstracts persistence operations (CRUD and queries) into a reusable class. Encapsulates EntityManager logic.          |
+
+Relationship:
+
+```mermaid
+classDiagram
+    class EntityManager {
+        +persist(entity)
+        +merge(entity)
+        +remove(entity)
+        +find(entityClass, id)
+        +createQuery(query)
+        +getTransaction()
+        +close()
+    }
+
+    class EntityTransaction {
+        +begin()
+        +commit()
+        +rollback()
+        +isActive()
+    }
+
+    class Query {
+        +getResultList()
+        +getSingleResult()
+        +setParameter()
+        +executeUpdate()
+    }
+
+    EntityManager --> EntityTransaction : manages
+    EntityManager --> Query : creates
+```
+
+#### 2.3.1 EntityManager:
+
+- Class/Interface: jakarta.persistence.EntityManager
+
+Using for:
+- Core interface to manage entity instances.
+- Performs CRUD operations, queries, and manages the persistence context.
+- Not thread-safe, should be used per unit of work (e.g., per request).
+
+| Method                                          | Purpose                                                 |
+| ----------------------------------------------- | ------------------------------------------------------- |
+| `persist(Object entity)`                        | Make a transient entity managed and schedule insert.    |
+| `merge(Object entity)`                          | Merge detached entity into current persistence context. |
+| `remove(Object entity)`                         | Mark entity for deletion.                               |
+| `find(Class<T> entityClass, Object primaryKey)` | Retrieve entity by primary key.                         |
+| `createQuery(String jpql)`                      | Create JPQL query.                                      |
+| `getTransaction()`                              | Get the `EntityTransaction` to manage transactions.     |
+| `close()`                                       | Close the EntityManager and release resources.          |
+
+#### 2.3.2 EntityTransaction:
+
+- Class / Interface: jakarta.persistence.EntityTransaction
+
+Using for:
+- Manage transactions for write operations (persist, merge, remove).
+- Each EntityManager has its own EntityTransaction.
+
+| Method       | Purpose                                  |
+| ------------ | ---------------------------------------- |
+| `begin()`    | Start a transaction.                     |
+| `commit()`   | Commit changes to the database.          |
+| `rollback()` | Rollback transaction if an error occurs. |
+| `isActive()` | Check if transaction is active.          |
+
+
+#### 2.3.3. Query/TypedQuery
+
+- Classes/Interfaces: jakarta.persistence.Query, jakarta.persistence.TypedQuery
+
+Using for:
+- Execute JPQL (Java Persistence Query Language) or native SQL queries.
+- Retrieve single or multiple entities.
+- TypedQuery<T> provides type-safe query results.
+
+| Method                                    | Purpose                                                    |
+| ----------------------------------------- | ---------------------------------------------------------- |
+| `setParameter(String name, Object value)` | Bind a parameter to the query.                             |
+| `getResultList()`                         | Return a list of results.                                  |
+| `getSingleResult()`                       | Return a single result; throws exception if none/multiple. |
+| `executeUpdate()`                         | For update/delete queries.                                 |
+
+
+#### 2.3.4 Implement for JSPShop
 
 ```java
 package Repositories;
@@ -550,7 +761,7 @@ public class ProductRepository {
 }
 ```
 
-### 2.3 Using JPA via Repositories
+### 2.4 Using JPA via Repositories
 
 Replace DAOs to Repositories. Example in LoginServlet.java:
 
