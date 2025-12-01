@@ -37,8 +37,8 @@ The course is divided into three main phases:
 ## Project Requirements
 ### 1. Environment
 - Operating System: Windows 10 or later
-- JDK: 1.8_231 (Java SE 8)
-- IDE: NetBeans 13
+- JDK: Java SE 24
+- IDE: NetBeans 25
 - Web Server: Apache Tomcat 10.0.23
 - Database: SQL Server 2019 or later
 - Build Tool: Maven (Maven Web Application model)
@@ -65,6 +65,7 @@ Web-based sales application with:
 
 ## Jakarta JSP Maven Web App
 
+
 | Epoch  | Title                                            | Description                                                                                                                                                                                                 |
 | ------ | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **1**  | **Project Introduction & Environment Setup**     | Overview of project objectives (E-Commerce Web App), required skills, and methodology. Install and configure **JDK 1.8\_231**, **NetBeans 13**, **Tomcat 10.0.23** with **Maven Web Application** template. |
@@ -74,6 +75,7 @@ Web-based sales application with:
 | **5**  | **Bootstrap Integration**                        | Add Bootstrap via CDN in JSP pages. Apply a base layout to improve UI styling.                                                                                                                              |
 | **6**  | **Hardcoded Login/Logout (Session or Cookie)**   | Create a login form (HTML + JSP). Validate user credentials using hardcoded values. Implement session or cookie-based login/logout. Show/hide content based on login status.                                |
 | **7**  | **Login with Database (JSP Model 1)**            | Modify login form to validate credentials from the `users` table using JDBC queries.                                                                                                                                                                                                                         |
+
 ## Migration to MVC (JSP model 2)
 
 | Epoch  | Title                                    | Description                                                                                                                  |
