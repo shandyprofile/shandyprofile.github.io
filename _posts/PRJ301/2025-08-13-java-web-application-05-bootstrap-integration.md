@@ -44,9 +44,9 @@ sort_index: 105
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 ```
 ## 2. Create a simple Home page
-A single, reusable layout that pulls in Bootstrap and renders a body section.
+A single, reusable home page that pulls in Bootstrap and renders a body section.
 
-**./webapp/views/layout.jsp**
+**./webapp/views/home.jsp**
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
