@@ -129,22 +129,23 @@ On each request, the browser sends this Session ID, allowing the server to retri
 - Add Session-based
 
 ```java
-    HttpSession session = request.getSession();
+    // HttpSession session = request.getSession();
     session.setAttribute("username", username);
 ```
 
 - Get Session-based
 
 ```java
-    HttpSession session = request.getSession(false);
-    String username = session.getAttribute("username");
+    String username = null;
+    // HttpSession session = request.getSession(false);
+    username = (String)session.getAttribute("username");
     request.setAttribute("username", username);
 ```
 
 - Remove Session-based
 
 ```java
-    HttpSession session = request.getSession();
+    // HttpSession session = request.getSession();
     session.invalidate();
 ```
 
