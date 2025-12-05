@@ -28,7 +28,6 @@ sort_index: 112
 - Update layout.tag (WEB_INF/Tags/layout.tag):
 
 ```jsp
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ tag body-content="scriptless" %>
 <%@ attribute name="pageTitle" required="true" %>
 <!DOCTYPE html>
@@ -70,6 +69,7 @@ sort_index: 112
 
 ```jsp
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <t:layout pageTitle="Login - JSP Shop">
     <h2 class="mb-4">Login Form</h2>
@@ -96,6 +96,7 @@ sort_index: 112
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
     
 <t:layout pageTitle="Home - JSP Shop">
     <div class="row justify-content-center">

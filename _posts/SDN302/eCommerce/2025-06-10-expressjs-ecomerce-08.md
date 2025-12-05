@@ -1,5 +1,5 @@
 ---
-title: 'Episode 8: Integrating Handlebars for Server-Side Views'
+title: 'Episode 7: Integrating Handlebars for Server-Side Views'
 description: >-
   Use Handlebars as the templating engine to serve HTML pages (e.g. home, product list, product details, login page) directly from the backend.
 author: [shandy]
