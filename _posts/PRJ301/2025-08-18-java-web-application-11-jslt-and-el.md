@@ -4,6 +4,7 @@ description: >-
   Add and use JSTL and EL in your Maven JSP/Servlet project.
 author: [shandy]
 date: 2025-08-18
+update: 2025-12-05
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
 sort_index: 111
@@ -72,7 +73,16 @@ After running **build with dependences**.
 </c:if>
 ```
 
-- Continues create a basic product model (Models/Product.java)
+> Go on comment checking username in HomeServlet.java line 40 - 43.
+
+```java
+//        if (username == null) {
+//            response.sendRedirect(request.getContextPath() + "/login");
+//            return;
+//        }
+```
+
+## 4. Continues create a basic product model (Models/Product.java)
 
 ```java
 public class Product {
