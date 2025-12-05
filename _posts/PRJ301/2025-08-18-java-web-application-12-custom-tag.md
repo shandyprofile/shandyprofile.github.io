@@ -28,6 +28,7 @@ sort_index: 112
 - Update layout.tag (WEB_INF/Tags/layout.tag):
 
 ```jsp
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ tag body-content="scriptless" %>
 <%@ attribute name="pageTitle" required="true" %>
 <!DOCTYPE html>
@@ -35,7 +36,7 @@ sort_index: 112
 <head>
     <meta charset="UTF-8">
     <title>${pageTitle}</title>
-    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 <body>
@@ -68,11 +69,6 @@ sort_index: 112
 ### Login.jsp:
 
 ```jsp
-<%@page import="DALs.UserDAO"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="jakarta.servlet.*" %>
-
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:layout pageTitle="Login - JSP Shop">
@@ -97,7 +93,6 @@ sort_index: 112
 ### Home.jsp
 
 ```jsp
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
