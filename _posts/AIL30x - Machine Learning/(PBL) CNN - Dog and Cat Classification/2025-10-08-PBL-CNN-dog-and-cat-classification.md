@@ -1,16 +1,80 @@
 ---
-title: "Systems of Linear: two variables"
+title: "Dog and cat classification"
 description: >-
   Mermaid demo
 author: [shandy]
-date: 2025-09-05
-categories: [Machine Learning, Linear Algebra for Machine Learning]
-tags: [Machine Learning, Linear Algebra for Machine Learning]
+date: 2025-10-08
+categories: [Machine Learning, (PBL) Dog and cat classification]
+tags: [CNN, (PBL) Dog and cat classification]
 sort_index: 101
 # pin: true
 # media_subpath: '/posts/01'
 ---
 
+## Project 1: Guideline TensorFlow for AI – Get to Know TensorFlow
+
+| **Epoch**                                                           | **Learning Objective**                        | **Core Topics / Activities**                                           | **Expected Outcome**                                         |
+| ------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **1. Introduction to TensorFlow & Setup**                           | Understand TensorFlow basics and installation | TensorFlow installation, GPU setup, tensor operations, eager execution | TensorFlow environment ready and basic operations understood |
+| **2. Tensor, Variables & Operations**                               | Learn about TensorFlow data structures        | Tensors, Variables, Rank, Shape, Broadcasting, Basic math ops          | Ability to manipulate tensors effectively                    |
+| **3. Automatic Differentiation & GradientTape**                     | Understand backpropagation in TensorFlow      | GradientTape, computing gradients, optimization basics                 | Ability to compute and apply gradients manually              |
+| **4. Linear Regression & Optimizers**                               | Build and train a simple regression model     | tf.keras basics, loss functions, GradientDescentOptimizer              | Implemented first end-to-end ML model                        |
+
+
+### Evaluation – Project 1:
+
+| **Evaluation criteria**                                         | **Requirement**                                           | **Weight (%)** |
+| ------------------------------------------------------------- | ----------------------------------------------------------- | ---------------- |
+| **A. Understand Tensor & Gradient** | Explain the role of Tensor and Gradient in training | 20% |
+| **B. Reasonable model structure** | The model has full Input, Hidden, Output, Activation | 25% |
+| **C. Reasonable training results** | Loss gradually decreases, Accuracy/Loss report correctly | 25% |
+| **D. Explain results & clean code** | Clear code, with comments, understand the meaning of the functions | 20% |
+| **E. Report results** | Has a reasonable Loss graph or output description | 10% |
+| **Meets the requirements when:** Score ≥ 70% and the model runs successfully | | |
+
+## Project 2: Guideline Neural Network from Scratch in TensorFlow
+
+- Understand Neural Network, CNN, and Transfer Learning architecture.
+- Process image data and train Dogs vs Cats classification model.
+- Evaluate, optimize, and visualize results.
+
+| **Epoch**                                                           | **Learning Objective**                        | **Core Topics / Activities**                                           | **Expected Outcome**                                         |
+| ------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| 5. Building Neural Networks with Keras | Create neural network models using Keras API | Sequential model, Dense layers, activation functions, compile & fit | Built a working neural network for basic classification |
+| 6. Image Data Preparation | Handle real-world image datasets | ImageDataGenerator, rescaling, augmentation, splitting data | Dataset ready for training CNN |
+| 7. Convolutional Neural Network (CNN) Basics | Build and train CNNs for image recognition | Conv2D, MaxPooling2D, Flatten, Dropout | Built CNN achieving 80–85% accuracy on training data |
+| 8. Transfer Learning with Pretrained Models | Improve accuracy and efficiency | VGG16, MobileNetV2, feature extraction, fine-tuning | Model accuracy improved >90%, reduced training time |
+
+### Evaluation – Project 2:
+
+| **Evaluation Criteria** | **Requirement Description** | **Weight (%)** |
+| ------------------------------------------------------------------- | -------------------------------------------------------- | ---------------- |
+| **A. Data Pipeline** | Data is processed correctly (rescale, augment, split appropriately) | 20% |
+| **B. Model Architecture** | CNN model has reasonable structure, standard activation | 25% |
+| **C. Training & Validation** | Successful training, clear accuracy/loss graph | 25% |
+| **D. Transfer Learning Implementation** | Correctly apply pre-trained model techniques | 20% |
+| **E. Reporting & Analysis of results** | Describe why the model works well/badly | 10% |
+| **Meets requirements when:** Accuracy ≥ 85% and score ≥ 70% total | | |
+
+## Project 3: Guideline Deploy Models with TensorFlow Serving and Flask
+
+- Learn how to save, load, and deploy a TensorFlow model.
+- Create a REST API using Flask to receive images and return results.
+- Get familiar with TensorFlow Serving (Docker).
+
+| **Epoch**                                                           | **Learning Objective**                        | **Core Topics / Activities**                                           | **Expected Outcome**                                         |
+| ------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **10. Model Saving & Loading** | Save and reuse models | - `model.save()` and `tf.keras.models.load_model()`<br>- SavedModel, H5, TF Lite formats | Save/restore models successfully |
+| **11. Flask API for Prediction** | Create API to serve models | - Flask server<br>- Endpoint `/predict` to upload images<br>- Predict and return JSON results | Flask API runs and returns accurate results |
+| **12. TensorFlow Serving & Optimization** | Optimize & deploy real products | - TensorFlow Serving via Docker<br>- Quantization, Pruning<br>- Real-time inference demo | Models can run outside the dev environment |
+
+### Evaluation – Project 3:
+
+Deployment Functionality (40%) – Flask API correctly predicts and handles requests
+
+Integration & Design (30%) – Clean integration between TensorFlow, Flask, and frontend
+
+Testing & Reporting (30%) – Demonstrated end-to-end tests and user documentation
 ## I. Systems of Equations and Sentences
 ### 1. “Linear algebra is systems of linear equations.”
 
@@ -27,7 +91,7 @@ $$
 
 ![](/assets/img/2025-09-08-22-27-55.png)
 
-> That's a **systems of linear equations** (Basic linear regression).
+> Đây chính là một **systems of linear equations** (mô hình linear regression cơ bản).
 
 ### 2. “When you think of equations, you think of sentences.”
 

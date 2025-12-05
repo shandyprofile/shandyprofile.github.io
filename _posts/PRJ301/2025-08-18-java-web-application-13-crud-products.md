@@ -4,7 +4,7 @@ description: >-
   Add and use JSTL and EL in your Maven JSP/Servlet project.
 author: [shandy]
 date: 2025-08-18
-updateDate: 2025-08-21
+updateDate: 2025-12-10
 categories: [(Java) Web Application, (PBL) Shopping Web]
 tags: [(Java - PBL) Shopping Web]
 sort_index: 113
@@ -287,22 +287,7 @@ public class ProductDAO extends DBContext {
 - Create `Controllers/ProductServlet.java` (by URL **/product**)
 
 ```java
-    package Controllers;
-
-import DALs.ProductDAO;
-import Models.Product;
-import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-/**
- *
- * @author shandy
- */
-public class ProductServlet extends HttpServlet {
-    @Override
+    // ...
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String action = request.getParameter("action") != null ? request.getParameter("action") : "";
@@ -318,6 +303,10 @@ public class ProductServlet extends HttpServlet {
         }
     } 
 
+    private void doGetAdd(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getRequestDispatcher("/views/product-management/addProduct.jsp").forward(request,response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -328,10 +317,6 @@ public class ProductServlet extends HttpServlet {
                 doPostAdd(request, response);
                 break;
         }
-    }
-
-    private void doGetAdd(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/views/product-management/addProduct.jsp").forward(request,response);
     }
     
     private void doPostAdd(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -350,7 +335,7 @@ public class ProductServlet extends HttpServlet {
             request.getRequestDispatcher("/views/product-management/addProduct.jsp").forward(request,response);
         }
     }
-}
+    // ...
 ```
 
 - Update **listProduct.jsp** in line 29 add a code for "**Add Product**" button.
@@ -406,6 +391,30 @@ public class ProductServlet extends HttpServlet {
 - Update DALs/ProductDAO.java:
 
 ```java
+    public Product GetProductById(int id) {
+        String query = "Select * from Products where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);            
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Product product = new Product(
+                        rs.getInt("id"), 
+                        rs.getString("name"), 
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("quantity"),
+                        rs.getString("image"));
+                
+                return product;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return null;
+    }
+
     public boolean UpdateProductById(String id, String name, double price, String description, int quantity, String img) {
         String query = "Update Products SET "
                 + "name = ?, "
@@ -457,29 +466,41 @@ public class ProductServlet extends HttpServlet {
     private void doGetUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String idProduct = request.getParameter("id");
         
-        ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.GetProductById(Integer.parseInt(idProduct));
+        if (idProduct != null) {
+            ProductDAO productDAO = new ProductDAO();
+            Product product = productDAO.GetProductById(Integer.parseInt(idProduct));
+            
+            if (product != null) {
+                request.setAttribute("product", product);
+                request.getRequestDispatcher("/views/product-management/updateProduct.jsp").forward(request,response);
+                return;
+            }
+        } 
         
-        request.setAttribute("product", product);
-        request.getRequestDispatcher("/views/product-management/updateProduct.jsp").forward(request,response);
+        response.sendRedirect(request.getContextPath() + "/product");
     }
 
     private void doPostUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String price = request.getParameter("price");
-        String quantity = request.getParameter("quantity");
-        String img = request.getParameter("img");
         
-        ProductDAO products = new ProductDAO();
-        boolean rs = products.UpdateProductById(id, name, Double.parseDouble(price), description, Integer.parseInt(quantity), img);
-        if (rs) {           
-            response.sendRedirect(request.getContextPath() + "/product");
-        } else {
-            request.setAttribute("error", "Update products error!");
-            request.getRequestDispatcher("/views/product-management/updateProduct.jsp").forward(request,response);
+        if (id != null) {
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            String price = request.getParameter("price");
+            String quantity = request.getParameter("quantity");
+            String img = request.getParameter("img");
+
+            ProductDAO products = new ProductDAO();
+            boolean rs = products.UpdateProductById(id, name, Double.parseDouble(price), description, Integer.parseInt(quantity), img);
+
+            if (rs) {           
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
         }
+        
+        request.setAttribute("error", "Update products error!");
+        request.getRequestDispatcher("/views/product-management/updateProduct.jsp").forward(request,response);
     }
 ```
 
@@ -586,25 +607,34 @@ public class ProductServlet extends HttpServlet {
     private void doGetDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String idProduct = request.getParameter("id");
         
-        ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.GetProductById(Integer.parseInt(idProduct));
-        
-        request.setAttribute("product", product);
-        request.getRequestDispatcher("/views/product-management/deleteProduct.jsp").forward(request,response);
+        if (idProduct != null) {
+            ProductDAO productDAO = new ProductDAO();
+            Product product = productDAO.GetProductById(Integer.parseInt(idProduct));
+
+            if (product != null) {
+                request.setAttribute("product", product);
+                request.getRequestDispatcher("/views/product-management/deleteProduct.jsp").forward(request,response);
+                return;
+            }
+        }
+        response.sendRedirect(request.getContextPath() + "/product");
     }
 
     private void doPostDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
         
-        ProductDAO products = new ProductDAO();
-        boolean rs = products.DeleteProductById(id);
-        
-        if (rs) {           
-            response.sendRedirect(request.getContextPath() + "/product");
-        } else {
-            request.setAttribute("error", "Delete products error!");
-            request.getRequestDispatcher("/views/product-management/deleteProduct.jsp").forward(request,response);
+        if (id != null) {
+            ProductDAO products = new ProductDAO();
+            boolean rs = products.DeleteProductById(id);
+
+            if (rs) {           
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
         }
+        
+        request.setAttribute("error", "Delete products error!");
+        request.getRequestDispatcher("/views/product-management/deleteProduct.jsp").forward(request,response);
     }
 ```
 

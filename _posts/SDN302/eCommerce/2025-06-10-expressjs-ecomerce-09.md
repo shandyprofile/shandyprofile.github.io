@@ -1,5 +1,5 @@
 ---
-title: 'Episode 9: Using Cookies for Cart & Auth in Handlebars Views'
+title: 'Episode 8: Using Cookies for Cart & Auth in Handlebars Views'
 description: >-
   Allow Handlebars views to all pages
 author: [shandy]
