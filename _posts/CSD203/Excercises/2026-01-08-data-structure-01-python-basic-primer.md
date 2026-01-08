@@ -4,8 +4,8 @@ description: >-
   Practice for Python Primer such as Parking System Programming Assignments
 author: [shandy]
 date: 2025-09-05
-categories: [Data Structure and Algorithms, Exercises]
-tags: [Data Structure and Algorithms - Exercises]
+categories: [(Python) Data Structure and Algorithms, Exercises]
+tags: [(Python) Data Structure and Algorithms - Exercises]
 sort_index: 401
 # pin: true
 # media_subpath: '/posts/01'
