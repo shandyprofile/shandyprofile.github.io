@@ -82,59 +82,7 @@ Build a data-driven system that estimates house prices using historical transact
 > - No evaluation metric is discussed
 > - Focus remains on business value
 
-## II. Analytic Approach (Data-Oriented Thinking)
-### 1. Purpose of the Analytic Approach
-
-Once the business problem is clearly understood, the next step is to determine how data analysis can answer the question.
-
-The analytic approach involves:
-- Clarifying the type of question being asked
-- Selecting the most appropriate analytical method
-
-### 2. Mapping the Question to an Analytic Approach
-
-The refined analytical question is:
-- “Given the characteristics of a house, what price should we estimate?”
-
-This question requires:
-- A numerical output
-- Prediction based on historical patterns
-
-> This is a **Regression Problem**
-
-### 3. Selecting the Type of Analysis
-
-| Question Type           | Analytic Approach    |
-| ----------------------- | -------------------- |
-| Predict a numeric value | Regression           |
-| Yes / No decision       | Classification       |
-| Discover patterns       | Clustering           |
-| Describe trends         | Descriptive Analysis |
-
-For house price prediction:
-- **Regression analysis** is the most appropriate
-- Machine Learning may be used to capture complex relationships
-
-### 4. Why Machine Learning May Be Used
-
-Machine Learning can:
-- Identify non-linear relationships between features and price
-- Improve prediction accuracy compared to simple rules
-
-However:
-- ML is a tool, not the objective
-- The choice of model comes after this step
-
-## III. Comparison of the Two Approaches
-
-| Problem Approach           | Analytic Approach         |
-| -------------------------- | ------------------------- |
-| Focuses on goals and value | Focuses on methods        |
-| Business-driven            | Data-driven               |
-| Defines what success means | Defines how to measure it |
-| No models mentioned        | Model types identified    |
-
-## IV. BUSINESS PROBLEM STATEMENT (*Important*)
+## II. BUSINESS PROBLEM STATEMENT (*Important*)
 (Professional Standard Template for Data Science Projects)
 
 ### 1. Business Context
