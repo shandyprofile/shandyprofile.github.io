@@ -1,12 +1,12 @@
 ---
-title: House Price Prediction – Business Understanding
+title: House Price Prediction – Analytic Approach
 description: >-
-  Practice for Python Primer such as Parking System Programming Assignments
+  Analytic Approach from bussiness understanding to Analysis design software.
 author: [shandy]
 date: 2025-09-05
 categories: [Data Sciences, (PBL) House Price Prediction]
 tags: [Data Sciences - House Price Prediction]
-sort_index: 401
+sort_index: 402
 # pin: true
 # media_subpath: '/posts/01'
 ---
