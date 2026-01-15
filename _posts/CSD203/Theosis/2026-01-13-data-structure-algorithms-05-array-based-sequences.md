@@ -618,6 +618,8 @@ Queue Discipline (FIFO)
 
 ![](/assets/img/2026-01-15-07-42-42.png)
 
+![](/assets/img/2026-01-15-08-42-49.png)
+
 Main queue operations:
 - enqueue(object): inserts an element at the end of the queue
 - object dequeue(): removes and returns the element at the front of the queue
@@ -638,7 +640,69 @@ Time Complexity (Array-Based Queue)
 | `first`    | O(1) |
 | `is_empty` | O(1) |
 
-Queue ADT function:
+### Array-Based Queue Implementation
+A queue can be efficiently implemented using an array of fixed size N in a circular fashion.
+
+Instead of shifting elements, the array is treated as circular, wrapping around when the end is reached.
+
+![](/assets/img/2026-01-15-08-30-01.png)
+
+Two integer variables are used to track the queue:
+- f: index of the front element
+- r: index immediately past the rear element
+
+> Important rule
+> - Array location r is always kept empty
+> - This helps distinguish between full and empty states
+
+```
+Array indices: 0  1  2  3  4  ...  N-1
+Queue wraps around using modulo arithmetic
+```
+
+### Size Operation
+
+![](/assets/img/2026-01-15-08-32-28.png)
+
+```
+Algorithm size()
+	return (N - f + r) mod N
+```
+
+Explanation:
+- Computes the number of elements stored
+- Works correctly even when indices wrap around
+
+### isEmpty Operation
+
+```
+Algorithm isEmpty()
+    return (f = r)
+```
+
+Explanation:
+- When f == r, the queue contains no elements
+
+### Enqueue Operation (Full Queue Case)
+
+The enqueue operation inserts an element at position r
+
+After insertion: r <- (r + 1) mod N
+
+```
+Algorithm enqueue(o)
+	if size() = N <- 1 then
+		throw FullQueueException
+	 else  
+		Q[r] <- o
+		r <- (r + 1) mod N
+```
+
+In this case:
+- enqueue throws an exception
+- The specific exception type is implementation-dependent
+
+### Queue ADT function:
 
 | Operation        | Return Value | Queue (first <- Q <- last) |
 |------------------|--------------|---------------------------|
@@ -666,8 +730,6 @@ Indirect applications
 - Auxiliary data structure for algorithms
 - Component of other data structures
 
-
-
 Array-based Queue
 - Use an array of size N in a circular fashion
 - Two variables keep track of the front and rear
@@ -694,7 +756,43 @@ Operation enqueue throws an exception if the array is full
 This exception is implementation-dependent
 ```
 
-
 ## Stack
 
-Update soon
+### Abstract Data Type (ADT)
+
+An Abstract Data Type (ADT) is an abstraction of a data structure.
+It defines what operations are supported and how the data behaves,
+without specifying how the data is implemented.
+
+An ADT specifies:
+- Data stored
+- Operations on the data
+- Error conditions associated with operations
+
+![](/assets/img/2026-01-15-08-41-30.png)
+---
+**Example: ADT for a Stock Trading System**
+
+**Data Stored:** Buy and sell orders
+
+Supported Operations
+
+```
+order buy(stock, shares, price)
+order sell(stock, shares, price)
+void cancel(order)
+```
+
+**Error Conditions**
+- Buying or selling a nonexistent stock
+- Canceling a nonexistent order
+
+### Basic Terminologies of Queue
+
+Front: Position of the entry in a queue ready to be served, that is, the first entry that will be removed from the queue, is called the front of the queue. It is also referred as the head of the queue.
+
+Rear: Position of the last entry in the queue, that is, the one most recently added, is called the rear of the queue. It is also referred as the tail of the queue.
+
+Size: Size refers to the current number of elements in the queue.
+
+Capacity: Capacity refers to the maximum number of elements the queue can hold.
