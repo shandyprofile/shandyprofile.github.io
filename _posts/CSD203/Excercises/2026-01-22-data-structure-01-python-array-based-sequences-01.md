@@ -1,5 +1,5 @@
 ---
-title: "Array-based Sequences: Queue, Stack
+title: "Array-based Sequences - Queue, Stack"
 description: >-
   Practice for Array-based Sequences such as 
 author: [shandy]
