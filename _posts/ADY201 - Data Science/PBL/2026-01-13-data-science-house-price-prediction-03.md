@@ -1,9 +1,10 @@
 ---
-title: Data Understanding
+title: House Price Prediction – Data Understanding
 description: >-
   Analytic Approach from bussiness understanding to Analysis design software.
 author: [shandy]
-date: 2025-09-05
+date: 2026-01-13
+update: 2026-01-22
 categories: [Data Sciences, (PBL) House Price Prediction]
 tags: [Data Sciences - House Price Prediction]
 sort_index: 403
