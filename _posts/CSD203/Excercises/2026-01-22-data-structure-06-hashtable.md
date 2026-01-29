@@ -11,7 +11,7 @@ sort_index: 405
 # media_subpath: '/posts/01'
 ---
 
-## HashTable using Linked list
+## 1. HashTable using Linked list
 
 ![](/assets/img/2026-01-29-07-28-27.png)
 
@@ -221,7 +221,7 @@ Ex:
 Load factor: 0.6
 ```
 
-## Student Record Management System Using Hash Table
+## 2. Student Record Management System Using Hash Table
 
 Universities need to store and retrieve student records efficiently.
 Searching student information using linear data structures becomes slow when the number of students increases.
@@ -334,6 +334,145 @@ Hash Table:
 [1] -> empty
 [2] -> S123 -> S305
 [3] -> S450
+```
+
+### Exit Program
+
+```
+EXIT
+```
+
+## 3. Assignment: String-Based Hash Table for Dictionary Lookup
+
+Many real-world applications rely on **string keys**, such as usernames, URLs, email addresses, and dictionary words.
+
+In this assignment, you will implement a **hash table that uses string-based** hash functions to efficiently store and retrieve words and their definitions.
+
+Collisions must be handled using **separate chaining with linked lists**.
+
+You are not allowed to use Python built-in dictionaries or hashing utilities.
+
+### Data Model
+
+| Attribute | Type   | Description                    |
+| --------- | ------ | ------------------------------ |
+| word      | string | Dictionary word (key)          |
+| meaning   | string | Definition of the word         |
+| next      | Node   | Pointer to next node in bucket |
+
+### Hash Table Structure
+
+| Component | Description |                        |
+| --------- | ----------- | ---------------------- |
+| table     | List        | Array of linked lists  |
+| size      | int         | Number of buckets      |
+| count     | int         | Number of stored words |
+
+### DictionaryLookup class
+
+| Function                | Description                    |
+| ----------------------- | ------------------------------ |
+| `hash_function(word)`   | Compute hash index from string |
+| `insert(word, meaning)` | Add or update word             |
+| `search(word)`          | Find word definition           |
+| `delete(word)`          | Remove word                    |
+| `display()`             | Show full hash table           |
+| `collision_count()`     | Return number of collisions    |
+
+
+### Hash Function Specification (String-based)
+
+Hash Formula:
+
+```python
+hash = 0
+for each character c in word:
+    hash = (hash * 31 + ASCII(c)) % table_size
+```
+
+> - 31 is a commonly used prime number
+> - ASCII(c) is the ASCII value of character c
+
+### Input Specification
+
+The program reads commands from standard input.
+
+Add or Update Student
+
+```
+ADD ADD <word> <meaning>
+```
+
+Ex:
+
+```
+ADD algorithm "a step-by-step procedure"
+```
+
+Output:
+
+```
+Word 'algorithm' inserted at index 4
+```
+
+or
+
+```
+Word 'algorithm' updated at index 4
+```
+
+### Search Word
+
+```
+FIND <word>
+```
+
+Output:
+
+```
+Meaning of 'algorithm': a step-by-step procedure
+```
+
+or
+
+```
+Word 'algorithm' not found
+```
+
+### Delete Word
+
+```
+REMOVE <word>
+```
+
+Output:
+
+```
+Word 'algorithm' removed from index 4
+```
+
+or
+
+```
+Word 'algorithm' not found
+```
+
+### Display All Students
+
+```
+DISPLAY
+```
+
+Output:
+
+```
+Hash Table:
+Hash Table:
+[0] -> empty
+[1] -> data["..."] -> structure["..."]
+[2] -> empty
+[3] -> queue["..."]
+[4] -> algorithm["a step-by-step procedure"] -> array["a list"]
 ```
 
 ### Exit Program
