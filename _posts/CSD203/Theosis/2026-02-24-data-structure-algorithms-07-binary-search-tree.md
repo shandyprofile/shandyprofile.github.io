@@ -192,45 +192,43 @@ Let's say we want to search for the number key, We start at the root. Then:
 6. If at any iteration, key is found, return True. If the node is null, return False.
 
 ```python
-// Node structure
-class Node {
-    constructor(item) {
-        this.data = item;
-        this.left = null;
-        this.right = null;
-    }
-}
+# Node structure
+class Node:
+    def __init__(self, item):
+        self.data = item
+        self.left = None
+        self.right = None
 
-function search(root, key) {
-  
-    // root is null -> return false
-    if (root === null) return false;
+def search(root, key):
+   
+    # root is null -> return false
+    if root is None:
+        return False
 
-    // if root has key -> return true
-    if (root.data === key) return true;
+    # if root has key -> return true
+    if root.data == key:
+        return True
 
-    if (key > root.data) return search(root.right, key);
+    if key > root.data:
+        return search(root.right, key)
 
-    return search(root.left, key);
-}
+    return search(root.left, key)
 
-// Creating BST
-//    6
-//   / \
-//  2   8
-//     / \
-//    7   9
+# Creating BST
+#     6
+#   / \
+#   2   8
+#      / \
+#     7   9
+root = Node(6)
+root.left = Node(2)
+root.right = Node(8)
+root.right.left = Node(7)
+root.right.right = Node(9)
 
-const root = new Node(6);
-root.left = new Node(2);
-root.right = new Node(8);
-root.right.left = new Node(7);
-root.right.right = new Node(9);
-
-const key = 7;
-
-// Searching for key in the BST
-console.log(search(root, key));
+key = 7
+# Searching for key in the BST
+print(search(root, key))
 ```
 
 ### 3. Deletion in Binary Search Tree (BST)
