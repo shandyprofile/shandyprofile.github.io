@@ -76,8 +76,58 @@ A new key is inserted at the position that maintains the BST property. We start 
 ....
 
 ```python
+from collections import deque
+
+# Node structure
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+def getHeight(root, h):
+    if root is None:
+        return h - 1
+    return max(getHeight(root.left, h + 1), getHeight(root.right, h + 1))
+
+def levelOrder(root):
+    queue = deque()
+    queue.append((root, 0))
+
+    lastLevel = 0
+    height = getHeight(root, 0)
+
+    while queue:
+        node, lvl = queue.popleft()
+
+        if lvl > lastLevel:
+            print()
+            lastLevel = lvl
+
+        # all levels are printed
+        if lvl > height:
+            break
+
+        # printing null node
+        print("N" if node.data == -1 else node.data, end=" ")
+
+        # null node has no children
+        if node.data == -1:
+            continue
+
+        if node.left is None:
+            queue.append((Node(-1), lvl + 1))
+        else:
+            queue.append((node.left, lvl + 1))
+
+        if node.right is None:
+            queue.append((Node(-1), lvl + 1))
+        else:
+            queue.append((node.right, lvl + 1))
+#Driver Code Ends
 
 def insert(root, key):
+ 
     # If the tree is empty, return a new node
     if root is None:
         return Node(key)
@@ -90,6 +140,38 @@ def insert(root, key):
 
     # Return the (unchanged) node pointer
     return root
+#Driver Code Starts
+
+# Create BST
+#       22
+#      /  \
+#     12   30
+#     / \   
+#    8  20
+#       / \
+#      15  30
+
+root = None
+root = insert(root, 22)
+root = insert(root, 12)
+root = insert(root, 30)
+root = insert(root, 8)
+root = insert(root, 20)
+root = insert(root, 30)
+root = insert(root, 15)
+
+# print the level order 
+# traversal of the BST
+levelOrder(root)
+```
+
+Output:
+
+```
+22 
+12 30 
+8 20 N 30 
+N N 15 N N N 
 ```
 
 ### 2. Searching in Binary Search Tree (BST)
@@ -253,6 +335,25 @@ def delNode(root, x):
         root.right = delNode(root.right, succ.data)
 
     return root
+
+if  __name__ == "__main__":
+    root = Node(10)
+    root.left = Node(5)
+    root.right = Node(15)
+    root.right.left = Node(12)
+    root.right.right = Node(18)
+    
+    x = 15
+    root = delNode(root, x)
+    levelOrder(root)
+```
+
+Output
+
+```
+10 
+5 18 
+N N 12 N 
 ```
 
 ### 4. Binary Search Tree (BST) Traversals – Inorder, Preorder, Post Order
