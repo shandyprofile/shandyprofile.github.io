@@ -155,7 +155,14 @@ console.log(search(root, key));
 
 Given the root of a Binary Search Tree (BST) and an integer x, delete the node with value x from the BST while maintaining the BST property.
 
+Input: x = 15
+
 ![](/assets/img/2026-02-26-07-24-02.png)
+
+Output: [[10], [5, 18], [N, N, 12, N]]
+Explanation:  The node with value x (15) is deleted from BST.
+
+![](/assets/img/2026-02-26-07-53-37.png)
 
 Deleting a node in a BST means removing the target node while ensuring that the tree remains a valid BST. Depending on the structure of the node to be deleted, there are three possible scenarios:
 
@@ -216,105 +223,36 @@ The deletion process in BST depends on the number of children of the node.
 This ensures that the BST property remains intact after every deletion.
 
 ```python
-const Denque = require("denque");
+# Get inorder successor (smallest in right subtree)
+def getSuccessor(curr):
+    curr = curr.right
+    while curr is not None and curr.left is not None:
+        curr = curr.left
+    return curr
 
-// Node structure
-class Node {
-    constructor(x) {
-        this.data = x;
-        this.left = null;
-        this.right = null;
-    }
-}
+# Delete a node with value x from BST
+def delNode(root, x):
+    if root is None:
+        return root
 
-// Calculate Height
-function getHeight(root, h) {
-    if (root === null) return h - 1;
-    return Math.max(getHeight(root.left, h + 1),
-                    getHeight(root.right, h + 1));
-}
-
-// Print Level Order
-function levelOrder(root) {
-    const q = new Denque();
-    q.push([root, 0]);
-
-    let lastLevel = 0;
-    
-    // function to get height of the tree
-    const height = getHeight(root, 0);
-
-// printing level order  of the tree
-    while (!q.isEmpty()) {
-        const [node, lvl] = q.shift();
-
-        if (lvl > lastLevel) {
-            console.log();
-            lastLevel = lvl;
-        }
+    if root.data > x:
+        root.left = delNode(root.left, x)
+    elif root.data < x:
+        root.right = delNode(root.right, x)
+    else:
         
-          // all levels are printed
-        if (lvl > height) break;
-     
-    //   printing null nodes
-        if (node.data !== -1)
-            process.stdout.write(node.data + " ");
-        else
-            process.stdout.write("N ");
-         
-        //  null node has no children
-        if (node.data === -1) continue;
+        # node with 0 or 1  children
+        if root.left is None:
+            return root.right
+        if root.right is None:
+            return root.left
+        
+        #  Node with 2 children
+        succ = getSuccessor(root)
+        root.data = succ.data
+        root.right = delNode(root.right, succ.data)
 
-        if (node.left === null) q.push([new Node(-1), lvl + 1]);
-        else q.push([node.left, lvl + 1]);
-
-        if (node.right === null) q.push([new Node(-1), lvl + 1]);
-        else q.push([node.right, lvl + 1]);
-    }
-}
-
-// Get inorder successor (smallest in right subtree)
-function getSuccessor(curr) {
-    curr = curr.right;
-    while (curr !== null && curr.left !== null)
-        curr = curr.left;
-    return curr;
-}
-
-// Delete a node with value x from BST
-function delNode(root, x) {
-    if (root === null)
-        return root;
-
-    if (root.data > x)
-        root.left = delNode(root.left, x);
-    else if (root.data < x)
-        root.right = delNode(root.right, x);
-    else {
-        // Node with 0 or 1 child
-        if (root.left === null)
-            return root.right;
-        if (root.right === null)
-            return root.left;
-
-        // Node with 2 children
-        const succ = getSuccessor(root);
-        root.data = succ.data;
-        root.right = delNode(root.right, succ.data);
-    }
-    return root;
-}
-
-// Driver code
-let root = new Node(10);
-root.left = new Node(5);
-root.right = new Node(15);
-root.right.left = new Node(12);
-root.right.right = new Node(18);
-
-const x = 15;
-root = delNode(root, x);
-levelOrder(root);
+    return root
 ```
 
 ### 4. Binary Search Tree (BST) Traversals – Inorder, Preorder, Post Order
