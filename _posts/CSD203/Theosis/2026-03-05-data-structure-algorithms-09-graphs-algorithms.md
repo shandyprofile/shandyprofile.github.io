@@ -610,8 +610,9 @@ A cycle is a path that starts and ends at the same vertex, following the directi
 
 ![](/assets/img/2026-03-05-07-47-14.png)
 
-- **Output**:  true
+- **Output**: true
 - **Explanation**:  There is a cycle 0 -> 1 -> 2 -> 0.
+
 ---
 - **Input**: adj[][] = [[2], [0], []]
 

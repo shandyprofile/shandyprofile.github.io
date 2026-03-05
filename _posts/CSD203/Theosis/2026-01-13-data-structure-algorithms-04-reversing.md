@@ -1,5 +1,5 @@
 ---
-title: Object-Oriented Programming
+title: Reversing
 description: >-
   This chapter introduces the Python programming language, focusing on basic data types and operators. It explains how the Python interpreter works, how variables and objects are created, and the difference between mutable and immutable types. Students also learn about common built-in data structures such as lists, tuples, sets, and dictionaries, as well as how to use arithmetic, logical, and comparison operators in Python.
 author: [shandy]
