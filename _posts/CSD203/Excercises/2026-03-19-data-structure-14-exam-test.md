@@ -11,6 +11,116 @@ sort_index: 413
 # media_subpath: '/posts/01'
 ---
 
+## Rule examination: 
+
+Students are ONLY allowed to use:
+- Software tools must be used: pycharm or visual studio code and python 3.x.
+- His/her own study materials like presentation slides, notes, sample codes, program examples, electronic books stored on his/her computer only.
+
+**Instructions**
+
+1. Step 1: Naming the main file with Qx.py, for example: Q1.py, Q2.py, Q3.py...
+2. Step 2:
+   - Prepare to submit answer:
+   - For each question (e.g., question 1), please create two sub-folders: run and src.
+   - Copy *.py file into run folder.
+   - Rename Qx.py to Qx.exe.
+   - Copy *.py file into src folder.
+3. Step 3: Submit solution for each question:
+   - Choose question number (e.g., 1) in PEA software, and then attach the corresponding solution folder (e.g., 1).
+   - Click the Submit button to finish submitting this question.
+
+## Template code:
+
+```python
+# --FIXED PART - DO NOT EDIT ANY THINGS HERE--
+# --START FIXED PART--------------------------
+import sys
+from unittest import case
+# --END FIXED PART--------------------------
+
+# --SYSTEM MODULES - @STUDENT: IMPORT SYSTEM MODULES HERE:
+
+
+# --YOUR-OWN MODULES - @STUDENT: IMPORT YOUR-OWN MODULES HERE:
+# from <fileName> import <className>
+# For example, the file Node.py contains a class named Node,
+# The statement to import class Node is: from Node import Node
+
+
+# --Change the name of input and output file based on practical paper
+input_file = "input.txt"
+output_file = "output.txt"
+
+# --VARIABLES - @STUDENT: DECLARE YOUR GLOBAL VARIABLES HERE:
+
+
+
+# --ALGORITHM - @STUDENT: ADD YOUR-OWN CLASS OR METHODS HERE (IF YOU NEED):
+
+
+# --FIXED PART - DO NOT EDIT ANY THINGS HERE--
+# --This part is used for Automated Marking Software
+# --START FIXED PART--------------------------
+def set_file():
+    global input_file, output_file
+    length = len(sys.argv)
+    input_file = input_file if length < 2 else sys.argv[1]
+    output_file = output_file if length < 2 else sys.argv[2]
+
+
+all_lines_of_input = ""
+result_for_output = ""
+
+
+def read_file():
+    global input_file, all_lines_of_input  # import more global variables your own (if you need)
+    with open(input_file, 'r') as file:
+        all_lines_of_input = file.readlines()
+
+
+# --START FIXED PART--------------------------
+def solve():
+    global all_lines_of_input, result_for_output  # import more global variables your own (if you need)
+    
+    for line in all_lines_of_input:
+        words = line.split(" ")
+
+        if words[0] == 'INSERT':
+            print("INSERT")
+            result_for_output += "INSERT\n"
+        elif words[0] == 'TRAVERSE':
+            print("TRAVERSE")
+            result_for_output += "TRAVERSE\n"
+        elif words[0] == 'KTH':
+            print("KTH")
+            result_for_output += "KTH\n"
+        else:
+            print("Order")
+    
+    # result_for_output = ""
+    # --END FIXED PART--------------------------
+    # ALGORITHM - @STUDENT: ADD YOUR CODE HERE:
+
+
+# --START FIXED PART--------------------------
+def print_result():
+    global output_file, result_for_output  # import more global variables your own (if you need)
+    with open(output_file, 'w') as file:
+        # --END FIXED PART--------------------------
+        # ALGORITHM - @STUDENT: ADD YOUR CODE HERE:
+        file.write(result_for_output)
+
+
+# --START FIXED PART--------------------------
+if __name__ == "__main__":
+    set_file()
+    read_file()
+    solve()
+    print_result()
+    # --END FIXED PART--------------------------
+```
+
 ## Assignment 1: Binary Search Tree with Structural Duplicate Handling
 
 Implement a Binary Search Tree (BST) that stores numeric values and supports multiple queries.
