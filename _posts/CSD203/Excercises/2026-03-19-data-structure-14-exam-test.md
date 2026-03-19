@@ -3,7 +3,7 @@ title: "Exam Test"
 description: >-
   TIC-TAC-TOE Game using Heuristic Alpha-Beta Tree Search Algorithm
 author: [shandy]
-date: 2026-03-17
+date: 2026-03-19
 categories: [(Python) Data Structure and Algorithms, Exercises]
 tags: [(Python) Data Structure and Algorithms - Exercises]
 sort_index: 413
@@ -274,10 +274,9 @@ PRINT_LEVEL
 10 -> 12 -> 20 -> 15 -> 13
 4 5 7 8 10 13 15 20
 10
-5 12
-4 8 20
-7 15
-13
+5 20
+4 8 15
+7 13
 ```
 
 ## Assignment 2: Dynamic Graph Query System
