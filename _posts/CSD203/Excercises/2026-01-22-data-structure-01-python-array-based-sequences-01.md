@@ -4,6 +4,7 @@ description: >-
   Practice for Array-based Sequences such as 
 author: [shandy]
 date: 2025-09-05
+update: 2025-04-13
 categories: [(Python) Data Structure and Algorithms, Exercises]
 tags: [(Python) Data Structure and Algorithms - Exercises]
 sort_index: 402
@@ -487,7 +488,7 @@ print(stack.size()) # 1
 ## 3. Excercises
 ### 3.1. Applying the Queue Data Structure – Service Queue Management System
 
-#### 3.1.1. Problems
+#### Problems
 
 In many real-world service systems such as banks, public service centers, hospitals, and customer support offices, service requests are typically processed in a First In – First Out (FIFO) order.
 
@@ -503,26 +504,18 @@ Therefore, the problem is to design and implement a queue-based service manageme
 
 The system must operate in a console-based environment and must not use any database.
 
-#### 3.1.2. System Requirements
+#### System Requirements
 
-The system must support the following functions:
+Simulate a service queue system that processes customers in First-In-First-Out (FIFO) order.
 
-1. Add a customer to the queue
-   - A new customer is added to the end of the queue
-   - The service order must strictly follow the FIFO principle
-2. Serve a customer
-   - Remove and process the customer at the front of the queue
-   - If the queue is empty, the system must display an appropriate message
-3. View the next customer
-   - Display the information of the customer at the front of the queue
-   - The customer must not be removed from the queue
-4. Display the entire queue: show all waiting customers in the correct order
-5. System statistics
-   - Total number of customers served
-   - Number of customers currently waiting
-   - Average waiting time (can be simulated)
+The system must support the following operations:
+- ADD id name service_type arrival_time: add a customer to the queue
+- SERVE: remove and process the front customer
+- NEXT: view the front customer (do not remove)
+- COUNT: print number of customers currently waiting
+- SERVED: print total number of customers served
 
-#### 3.1.3. Data Requirements
+#### Data Requirements
 
 | Attribute    | Data Type    | Description         |
 | ------------ | ------------ | ------------------- |
@@ -531,91 +524,155 @@ The system must support the following functions:
 | service_type | string       | Type of service     |
 | arrival_time | int or float | Arrival time        |
 
-#### 3.1.4. Technical Requirements
+#### Technical Requirements
 
 - The Queue data structure must be used collections.deque
 - No database is allowed
 - The program must run in the terminal
 - The code must be well-structured and commented
 
-#### 3.1.5 Input / Output Specification
+#### Input / Output Specification
 
---- Input ---
+**Input** (input.txt)
 
-**Main menu:**
+- Line 1: integer N – number of operations
+- Next N lines: each line is a command
 
+**Output** (output.txt)
 
-```text
-===== SERVICE QUEUE MANAGEMENT =====
-1. Add customer to queue
-2. Serve next customer
-3. View next customer
-4. Display queue
-5. Show statistics
-6. Exit
-===================================
-```
+| Command | Condition       | Output Format                                   |
+| ------- | --------------- | ----------------------------------------------- |
+| ADD     | Always          | *(No output)*                                   |
+| SERVE   | Queue not empty | `ID: <id> Name: <name> Service: <service_type>` |
+| SERVE   | Queue is empty  | `EMPTY`                                         |
+| NEXT    | Queue not empty | `ID: <id> Name: <name> Service: <service_type>` |
+| NEXT    | Queue is empty  | `EMPTY`                                         |
+| COUNT   | Always          | `<number_of_waiting_customers>`                 |
+| SERVED  | Always          | `<total_customers_served>`                      |
 
-Input for adding a customer:
+#### Examples:
 
-```text
-Customer ID: 101
-Customer Name: Nguyen Van A
-Service Type: Payment
-Arrival Time: 12.5
-```
-
---- Output ---
-
-When a customer is successfully added:
-
-```text
-Customer added to queue successfully.
-```
-
-When serving a customer:
+Input:
 
 ```
-Serving customer:
-ID: 101
-Name: Nguyen Van A
-Service Type: Payment
+10
+ADD 101 A Payment 12.5
+ADD 102 B Registration 13.0
+NEXT
+SERVE
+NEXT
+SERVE
+SERVE
+COUNT
+SERVED
+NEXT
 ```
 
-When viewing the next customer:
+Output:
 
 ```
-Next customer in queue:
-ID: 102
-Name: Tran Thi B
-Service Type: Registration
+ID: 101 Name: A Service: Payment
+ID: 101 Name: A Service: Payment
+ID: 102 Name: B Service: Registration
+EMPTY
+0
+2
+EMPTY
 ```
 
-When the queue is empty:
+#### Manual Code:
+
+1. Queue.py
+
+```python
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if self.is_empty():
+            raise IndexError("Queue is empty")
+        return self.items.pop(0)
+
+    def peek(self):
+        if self.is_empty():
+            raise IndexError("Queue is empty")
+        return self.items[0]
+
+    def size(self):
+        return len(self.items)
+```
+
+2. Import Queue into templates
+
+```python
+from queue import Queue
+```
+
+3. Initialize in solve()
 
 ```
-The queue is empty. No customer to serve.
+q = Queue()
+served_count = 0
+res = []
 ```
 
-When displaying the entire queue:
+4. Loop through input and Handle each command
 
-```
-Current Queue:
-1. ID: 102 - Tran Thi B - Registration
-2. ID: 103 - Le Van C - Inquiry
+```python
+def solve():
+    ...
+    for i in range(1, n + 1):
+
+        parts = lines[i].split()
+        cmd = parts[0]
+
+        if cmd == "ADD":
+            id = parts[1]
+            name = parts[2]
+            service = parts[3]
+            q.enqueue((id, name, service))
+
+        elif cmd == "SERVE":
+            if not q.is_empty():
+                id, name, service = q.dequeue()
+                served_count += 1
+                res.append(f"ID: {id} Name: {name} Service: {service}")
+            else:
+                res.append("EMPTY")
+
+        elif cmd == "NEXT":
+            if not q.is_empty():
+                id, name, service = q.peek()
+                res.append(f"ID: {id} Name: {name} Service: {service}")
+            else:
+                res.append("EMPTY")
+
+        elif cmd == "COUNT":
+            res.append(str(q.size()))
+
+        elif cmd == "SERVED":
+            res.append(str(served_count))
 ```
 
-When showing statistics:
+5. Final Output
 
+Put code in the last line in **solve()** function:
 ```
-Total customers served: 5
-Customers waiting: 2
-Average waiting time: 4.2 minutes
+def solve():
+    ...
+    result_for_output = "\n".join(res)
 ```
 
 ### 3.2. Applying the Stack Data Structure – Expression Processing System
 
-#### 3.2.1. Problems
+#### Problems
 
 In many areas of computer science such as compilers, calculators, and programming language interpreters, expressions (arithmetic or logical) must be processed in a specific order.
 
@@ -628,77 +685,199 @@ The problem is to design a system that:
 
 The system must be implemented as a console-based program without using any external libraries for expression evaluation.
 
-#### 3.2.2. Requirements
+#### Requirements
 
-1. Input an infix expression
-   - The expression may contain:
-     - Integers
-     - Operators: +, -, *, /
-     - Parentheses: ( and )
-   - Example: 3 + (4 * 5)
+Given several infix expressions, perform the following tasks for each expression:
 
-2. Convert infix expression to postfix notation
-   - Use a stack to handle operators and parentheses
-   - Operator precedence rules must be respected
+1. Convert the infix expression to postfix notation
+2. Evaluate the postfix expression
 
-3. Display the postfix expression: output the converted postfix expression as a string
-4. Evaluate the postfix expression
-   - Use a stack to compute the final result
-   - Each operator must pop operands from the stack
-5. Handle invalid expressions
-   - Mismatched parentheses
-   - Invalid characters
-   - Division by zero
+The program must use the Stack data structure for both conversion and evaluation.
 
-6. The system must use a Stack to store:
-   - Operators during infix-to-postfix conversion
-   - Operands during postfix evaluation
-7. Stack operations required: push, pop, peek, is_empty
+Expressions may contain:
+- Integers
+- Operators: + - * /
+- Parentheses: ( )
 
-#### 3.2.3. Input / Output Specification
+#### Input / Output Specification
 
----Input---
+**Input** (input.txt)
 
-Main menu:
+- Line 1: integer T – number of test cases
+- Next T lines: each line is an infix expression
 
-```
-===== STACK EXPRESSION PROCESSOR =====
-1. Enter infix expression
-2. Convert infix to postfix
-3. Display postfix expression
-4. Evaluate postfix expression
-0. Exit
-=====================================
-```
+**Output** (output.txt)
 
-Example input:
+For each test case:
+- If the expression is valid:
+  - Line 1: postfix expression
+  - Line 2: evaluation result
+- If the expression is invalid:
+  - Print: Error: Mismatched parentheses.
+- If division by zero occurs:
+  - Print: Error: Division by zero.
+
+### Example:
+
+Input:
 
 ```
-Enter infix expression: 3 + (4 * 5)
+3
+3 + (4 * 5)
+10 + 2 * 6
+(1 + 2
 ```
 
----Output---
-
-After converting infix to postfix:
+Output:
 
 ```
-Postfix expression: 3 4 5 * +
-```
-
-After evaluating postfix expression:
-
-```
-Evaluation result: 23
-```
-
-If the expression is invalid:
-
-```
+3 4 5 * +
+23
+10 2 6 * +
+22
 Error: Mismatched parentheses.
 ```
 
-If division by zero occurs:
+### Manual Code:
 
+1. Using stack.py:
+
+```python
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.is_empty():
+            raise IndexError("Stack is empty")
+        return self.items.pop()
+
+    def peek(self):
+        if self.is_empty():
+            raise IndexError("Stack is empty")
+        return self.items[-1]
+
+    def size(self):
+        return len(self.items)
 ```
-Error: Division by zero.
+
+2. Update stack.py (make it safer & easier)
+
+```python
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop() if not self.is_empty() else None
+
+    def peek(self):
+        return self.items[-1] if not self.is_empty() else None
+
+    def size(self):
+        return len(self.items)
+```
+
+3. Write a function Simple Infix as Postfix in templates
+
+```python
+def to_postfix(expr):
+    stack = Stack()
+    output = []
+
+    for token in expr.split():
+        if token.isdigit():
+            output.append(token)
+
+        elif token == '(':
+            stack.push(token)
+
+        elif token == ')':
+            while stack.peek() != '(':
+                output.append(stack.pop())
+            stack.pop()  # remove '('
+
+        else:  # operator
+            while (stack.peek() and stack.peek() != '(' and
+                   (token in '+-' and stack.peek() in '+-*/' or
+                    token in '*/' and stack.peek() in '*/')):
+                output.append(stack.pop())
+
+            stack.push(token)
+
+    while not stack.is_empty():
+        output.append(stack.pop())
+
+    return output
+```
+
+4. Simple Evaluate Postfix
+
+```python
+def eval_postfix(postfix):
+    stack = Stack()
+
+    for token in postfix:
+        if token.isdigit():
+            stack.push(int(token))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+
+            if token == '+':
+                stack.push(a + b)
+            elif token == '-':
+                stack.push(a - b)
+            elif token == '*':
+                stack.push(a * b)
+            elif token == '/':
+                if b == 0:
+                    return "Error: Division by zero."
+                stack.push(a // b)
+
+    return stack.pop()
+```
+
+5. Very Clean solve()
+
+```python
+def solve():
+    global all_lines_of_input, result_for_output
+
+    lines = [line.strip() for line in all_lines_of_input if line.strip()]
+    t = int(lines[0])
+
+    idx = 1
+    res = []
+
+    for _ in range(t):
+        expr = lines[idx]
+        idx += 1
+
+        try:
+            postfix = to_postfix(expr)
+            result = eval_postfix(postfix)
+
+            if isinstance(result, str):  # error message
+                res.append(result)
+            else:
+                res.append(" ".join(postfix))
+                res.append(str(result))
+
+        except:
+            res.append("Error: Mismatched parentheses.")
+
+    result_for_output = "\n".join(res)
 ```
