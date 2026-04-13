@@ -574,6 +574,7 @@ Output:
 ID: 101 Name: A Service: Payment
 ID: 101 Name: A Service: Payment
 ID: 102 Name: B Service: Registration
+ID: 102 Name: B Service: Registration
 EMPTY
 0
 2
@@ -618,9 +619,9 @@ from queue import Queue
 3. Initialize in solve()
 
 ```
-q = Queue()
-served_count = 0
-res = []
+n = int(all_lines_of_input[0])
+countServed = 0
+queueTmp = Queue()
 ```
 
 4. Loop through input and Handle each command
@@ -629,45 +630,24 @@ res = []
 def solve():
     ...
     for i in range(1, n + 1):
-
-        parts = lines[i].split()
-        cmd = parts[0]
-
-        if cmd == "ADD":
-            id = parts[1]
-            name = parts[2]
-            service = parts[3]
-            q.enqueue((id, name, service))
-
-        elif cmd == "SERVE":
-            if not q.is_empty():
-                id, name, service = q.dequeue()
-                served_count += 1
-                res.append(f"ID: {id} Name: {name} Service: {service}")
+        words = all_lines_of_input[i].rstrip("\n").split(" ")
+        if words[0] == 'ADD':
+            queueTmp.enqueue(ServeModel(words[1], words[2], words[3], words[4]))
+        elif words[0] == 'NEXT':
+            if queueTmp.is_empty():
+                result_for_output += "Empty\n"
             else:
-                res.append("EMPTY")
-
-        elif cmd == "NEXT":
-            if not q.is_empty():
-                id, name, service = q.peek()
-                res.append(f"ID: {id} Name: {name} Service: {service}")
+                result_for_output += queueTmp.peek().print() + "\n"
+        elif words[0] == 'SERVE':
+            if queueTmp.is_empty():
+                result_for_output += "Empty\n"
             else:
-                res.append("EMPTY")
-
-        elif cmd == "COUNT":
-            res.append(str(q.size()))
-
-        elif cmd == "SERVED":
-            res.append(str(served_count))
-```
-
-5. Final Output
-
-Put code in the last line in **solve()** function:
-```
-def solve():
-    ...
-    result_for_output = "\n".join(res)
+                countServed += 1
+                result_for_output += queueTmp.dequeue().print() + "\n"
+        elif words[0] == 'COUNT':
+            result_for_output += str(queueTmp.size()) + "\n"
+        elif words[0] == 'SERVED':
+            result_for_output += str(countServed) + "\n"
 ```
 
 ### 3.2. Applying the Stack Data Structure – Expression Processing System
