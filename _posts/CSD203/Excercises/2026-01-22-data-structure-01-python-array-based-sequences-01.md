@@ -583,7 +583,7 @@ EMPTY
 
 #### Manual Code:
 
-1. Queue.py
+**Step 1: Queue.py**
 
 ```python
 class Queue:
@@ -610,13 +610,13 @@ class Queue:
         return len(self.items)
 ```
 
-2. Import Queue into templates
+**Step 2: Import Queue into templates**
 
 ```python
 from queue import Queue
 ```
 
-3. Initialize in solve()
+Step 3: Initialize in solve()
 
 ```
 n = int(all_lines_of_input[0])
@@ -624,7 +624,7 @@ countServed = 0
 queueTmp = Queue()
 ```
 
-4. Loop through input and Handle each command
+1. Loop through input and Handle each command
 
 ```python
 def solve():
@@ -697,7 +697,7 @@ For each test case:
 - If division by zero occurs:
   - Print: Error: Division by zero.
 
-### Example:
+#### Example:
 
 Input:
 
@@ -718,9 +718,9 @@ Output:
 Error: Mismatched parentheses.
 ```
 
-### Manual Code:
+#### Manual Code:
 
-1. Using stack.py:
+**Step 1: Using stack.py**
 
 ```python
 class Stack:
@@ -747,7 +747,7 @@ class Stack:
         return len(self.items)
 ```
 
-2. Update stack.py (make it safer & easier)
+**Step 2: Update stack.py (make it safer & easier)**
 
 ```python
 class Stack:
@@ -770,14 +770,49 @@ class Stack:
         return len(self.items)
 ```
 
-3. Write a function Simple Infix as Postfix in templates
+**Step 3: Write a function Simple Infix as Postfix in templates**
 
 ```python
-def to_postfix(expr):
+def precedence(op):
+    if op == '^':
+        return 3
+    elif op in ('*', '/'):
+        return 2
+    elif op in ('+', '-'):
+        return 1
+    return 0
+
+
+def tokenize(expression):
+    tokens = []
+    i = 0
+    n = len(expression)
+
+    while i < n:
+        if expression[i] == ' ':
+            i += 1
+            continue
+
+        if expression[i].isdigit():
+            num = []
+            while i < n and expression[i].isdigit():
+                num.append(expression[i])
+                i += 1
+            tokens.append(''.join(num))
+            continue
+
+        tokens.append(expression[i])
+        i += 1
+
+    return tokens
+
+
+def infixToPostfix(expression):
     stack = Stack()
     output = []
+    tokens = tokenize(expression)
 
-    for token in expr.split():
+    for token in tokens:
         if token.isdigit():
             output.append(token)
 
@@ -785,32 +820,31 @@ def to_postfix(expr):
             stack.push(token)
 
         elif token == ')':
-            while stack.peek() != '(':
+            while not stack.is_empty() and stack.peek() != '(':
                 output.append(stack.pop())
-            stack.pop()  # remove '('
+            stack.pop()  # bỏ '('
 
         else:  # operator
-            while (stack.peek() and stack.peek() != '(' and
-                   (token in '+-' and stack.peek() in '+-*/' or
-                    token in '*/' and stack.peek() in '*/')):
+            while (not stack.is_empty() and
+                   precedence(stack.peek()) >= precedence(token)):
                 output.append(stack.pop())
-
             stack.push(token)
 
     while not stack.is_empty():
         output.append(stack.pop())
 
-    return output
+    return ' '.join(output)
 ```
 
-4. Simple Evaluate Postfix
+**Step 4: Simple Evaluate Postfix**
 
 ```python
-def eval_postfix(postfix):
+def evaluatePostfix(expression):
     stack = Stack()
+    tokens = expression.split()
 
-    for token in postfix:
-        if token.isdigit():
+    for token in tokens:
+        if token.lstrip('-').isdigit():
             stack.push(int(token))
         else:
             b = stack.pop()
@@ -823,41 +857,36 @@ def eval_postfix(postfix):
             elif token == '*':
                 stack.push(a * b)
             elif token == '/':
-                if b == 0:
-                    return "Error: Division by zero."
-                stack.push(a // b)
+                stack.push(int(a / b))
+            elif token == '^':
+                stack.push(a ** b)
 
     return stack.pop()
 ```
 
-5. Very Clean solve()
+**Step 5. Very Clean solve()**
 
 ```python
 def solve():
-    global all_lines_of_input, result_for_output
-
-    lines = [line.strip() for line in all_lines_of_input if line.strip()]
-    t = int(lines[0])
-
-    idx = 1
+    ...
+    n = int(all_lines_of_input[0])
     res = []
 
-    for _ in range(t):
-        expr = lines[idx]
-        idx += 1
+    for i in range(1, n + 1):
+        words = all_lines_of_input[i].rstrip("\n")
 
         try:
-            postfix = to_postfix(expr)
-            result = eval_postfix(postfix)
+            postfix = infixToPostfix(words)
+            result = evaluatePostfix(postfix)
 
-            if isinstance(result, str):  # error message
+            if isinstance(result, str):
                 res.append(result)
             else:
-                res.append(" ".join(postfix))
+                res.append(postfix)
                 res.append(str(result))
 
         except:
             res.append("Error: Mismatched parentheses.")
 
-    result_for_output = "\n".join(res)
+        result_for_output = "\n".join(res)
 ```
