@@ -1,7 +1,6 @@
 ---
 title: "Exam Test"
-description: >-
-  TIC-TAC-TOE Game using Heuristic Alpha-Beta Tree Search Algorithm
+description: ""
 author: [shandy]
 date: 2026-03-19
 categories: [(Python) Data Structure and Algorithms, Exercises]
@@ -83,22 +82,7 @@ def read_file():
 def solve():
     global all_lines_of_input, result_for_output  # import more global variables your own (if you need)
     
-    for line in all_lines_of_input:
-        words = line.split(" ")
-
-        if words[0] == 'INSERT':
-            print("INSERT")
-            result_for_output += "INSERT\n"
-        elif words[0] == 'TRAVERSE':
-            print("TRAVERSE")
-            result_for_output += "TRAVERSE\n"
-        elif words[0] == 'KTH':
-            print("KTH")
-            result_for_output += "KTH\n"
-        else:
-            print("Order")
-    
-    # result_for_output = ""
+    result_for_output = ""
     # --END FIXED PART--------------------------
     # ALGORITHM - @STUDENT: ADD YOUR CODE HERE:
 

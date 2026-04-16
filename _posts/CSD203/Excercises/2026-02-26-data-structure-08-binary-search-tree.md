@@ -17,10 +17,10 @@ sort_index: 407
 
 You are given a sequence of distinct integers. Your task is to construct a Binary Search Tree (BST) using the standard insertion rule:
 
-- If the inserted value is less than the current node → go to the left subtree
-- If the inserted value is greater than the current node → go to the right subtree
+- If the inserted value is less than the current node -> go to the left subtree
+- If the inserted value is greater than the current node -> go to the right subtree
 
-After constructing the BST, instead of performing a standard preorder traversal (Root → Left → Right), you must implement a Parity-Based Preorder Traversal defined as follows:
+After constructing the BST, instead of performing a standard preorder traversal (Root -> Left -> Right), you must implement a Parity-Based Preorder Traversal defined as follows:
 
 ### Parity-Based Preorder Traversal Rule
 
@@ -35,7 +35,7 @@ Root -> Right -> Left
 - If the node's value is odd, visit in this order:
 
 ```
-Root → Left → Right
+Root -> Left -> Right
 ```
 
 This means that the traversal order dynamically changes depending on whether the current node contains an even or odd value.
@@ -337,3 +337,73 @@ Found: 60(1)
 ---Range---
 From 30 to 80: 30(2) 50(1) 60(1) 70(2) 80(1)
 ```
+
+## Assignment 3: ASSIGNMENT: AVL TREE (SELF-BALANCING BST)
+
+Implement an AVL Tree that supports insertion, deletion, searching, and traversal operations.
+
+The tree must automatically rebalance itself after every insertion or deletion to maintain:
+
+Balance factor in { -1, 0, +1 }
+
+**INPUT FORMAT**
+
+| Line    | Content  | Description                    |
+| ------- | -------- | ------------------------------ |
+| 1       | `n`      | Number of commands             |
+| 2 to n+1 | Commands | Each line contains one command |
+
+**COMMAND TABLE**
+
+| Command | Description | Rules  | Output |
+| ---- | ---- | --- | --- |
+| **ADD x**     | Insert value `x` into AVL Tree | - Insert like BST<br>- Rebalance using rotations (LL, RR, LR, RL)<br>- Ignore if duplicate | **No output** |
+| **REMOVE x**  | Delete value `x` from AVL Tree | - Delete like BST<br>- Rebalance after deletion<br>- Ignore if not found | **No output** |
+| **SEARCH x**  | Check if `x` exists | Traverse AVL Tree | `"Found"` / `"Not Found"` |
+| **INORDER**   | In-order traversal             | Left -> Root ->  Right | Print values in ascending order |
+| **PREORDER**  | Pre-order traversal | Root -> Left -> Right | Print values separated by spaces |
+| **POSTORDER** | Post-order traversal | Left -> Right -> Root | Print values separated by spaces |
+| **HEIGHT**  | Get height of tree  | Height of empty tree = 0 | Print integer height |
+| **BALANCE x** | Get balance factor of node `x` | balance = height(left) - height(right) | Print balance factor or `"Not Found"` |
+
+**SAMPLE TEST CASE**
+25
+ADD 50
+ADD 30
+ADD 70
+ADD 20
+ADD 40
+ADD 60
+ADD 80
+ADD 10
+ADD 25
+ADD 35
+ADD 45
+ADD 55
+ADD 65
+ADD 75
+ADD 85
+INORDER
+PREORDER
+HEIGHT
+BALANCE 50
+BALANCE 30
+SEARCH 65
+SEARCH 100
+REMOVE 70
+REMOVE 30
+INORDER
+POSTORDER
+HEIGHT
+
+**Output**
+10 20 25 30 35 40 45 50 55 60 65 70 75 80 85
+50 30 20 10 25 40 35 45 70 60 55 65 80 75 85
+4
+0
+0
+Found
+Not Found
+10 20 25 35 40 45 50 55 60 65 75 80 85
+10 25 20 35 45 40 55 65 60 75 85 80 50
+4

@@ -75,6 +75,15 @@ A new key is inserted at the position that maintains the BST property. We start 
 
 ....
 
+> **Pseudo:**
+> - **Step 1**: Initialize: **key** and **curentNode <- rootNode**
+> - **Step 2**: If **currentNode** is **None**
+>   + **Step 2.1**: If **True**, **currentNode <- Node(key)**
+>   + **Step 2.2**: If **False**, **compare** between **key** and **currentNode.data** 
+>     + **Step 2.2.1**: **Equal**, return
+>     + **Step 2.2.2**: **Less**, **currentNode <- currentNode.left**. Back to **Step 2**.
+>     + **Step 2.2.3**: **Great**, **currentNode <- currentNode.right**. Back to **Step 2**.    
+
 ```python
 from collections import deque
 
@@ -191,6 +200,15 @@ Let's say we want to search for the number key, We start at the root. Then:
 5. Repeat the above step till no more traversal is possible
 6. If at any iteration, key is found, return True. If the node is null, return False.
 
+> **Pseudo:**
+> - **Step 1**: Initialize: **key** and **curentNode <- rootNode**
+> - **Step 2**: If **currentNode** is **None**
+>   + **Step 2.1**: If **True**, return None
+>   + **Step 2.2**: If **False**, **compare** between **key** and **currentNode.data** 
+>     + **Step 2.2.1**: **Equal**, return **currentNode**
+>     + **Step 2.2.2**: **Less**, **currentNode <- currentNode.left**. Back to **Step 2**.
+>     + **Step 2.2.3**: **Great**, **currentNode <- currentNode.right**. Back to **Step 2**.  
+
 ```python
 # Node structure
 class Node:
@@ -301,6 +319,23 @@ The deletion process in BST depends on the number of children of the node.
 - Two children means replace the node with its inorder successor/predecessor and delete that node.
 
 This ensures that the BST property remains intact after every deletion.
+
+> **Pseudo:**
+> - **Step 1**: Initialize: **key** and **curentNode <- rootNode**
+> - **Step 2**: If **currentNode** is **None**
+>   + **Step 2.1**: If **True**, return False
+>   + **Step 2.2**: If **False**, **compare** between **key** and **currentNode.data** 
+>     + **Step 2.2.1**: **Equal**, findNode <= currentNode
+>     + **Step 2.2.2**: **Less**, **currentNode <- currentNode.left**. Back to **Step 2**.
+>     + **Step 2.2.3**: **Great**, **currentNode <- currentNode.right**. Back to **Step 2**. 
+> - **Step 3:** if findNode is None:
+>   + True, return False
+>   + False, check missing leaf in findNode:
+>       + LeftNode, parendFindNode <- findNode.right
+>       + RightNode, parendFindNode <- findNode.left
+>       + None, Find Max in left node (Min in right node) (Successor).
+>           + Swap successorNode and findNode
+>           + Delete findNode
 
 ```python
 # Get inorder successor (smallest in right subtree)
