@@ -91,7 +91,7 @@ The model must:
 - Generalize to unseen houses
 - Produce a numeric price estimate
 
-> **Not:**
+> **Note:**
 > - Classify houses
 > - Rank houses
 > - Recommend houses
@@ -101,6 +101,7 @@ The model must:
 Business Success Criteria: **“Average prediction error below an acceptable threshold”**
 
 Mapping:
+
 | Business Concern             | Analytics Metric               |
 | ---------------------------- | ------------------------------ |
 | How far off is the estimate? | MAE (Mean Absolute Error)      |

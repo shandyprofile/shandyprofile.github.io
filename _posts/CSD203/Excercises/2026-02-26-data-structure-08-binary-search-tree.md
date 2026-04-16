@@ -367,6 +367,8 @@ Balance factor in { -1, 0, +1 }
 | **BALANCE x** | Get balance factor of node `x` | balance = height(left) - height(right) | Print balance factor or `"Not Found"` |
 
 **SAMPLE TEST CASE**
+
+```
 25
 ADD 50
 ADD 30
@@ -395,8 +397,11 @@ REMOVE 30
 INORDER
 POSTORDER
 HEIGHT
+```
 
 **Output**
+
+```
 10 20 25 30 35 40 45 50 55 60 65 70 75 80 85
 50 30 20 10 25 40 35 45 70 60 55 65 80 75 85
 4
@@ -407,3 +412,4 @@ Not Found
 10 20 25 35 40 45 50 55 60 65 75 80 85
 10 25 20 35 45 40 55 65 60 75 85 80 50
 4
+```
