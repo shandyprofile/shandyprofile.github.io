@@ -107,7 +107,9 @@ To make sure that the given tree remains AVL after every insertion, we must augm
         return self._getHeight(node.left) - self._getHeight(node.right) if node else 0
 
     def _updateHeight(self, node):
-        node.height = 1 + max(self._getHeight(node.left), self._getHeight(node.right))
+        if currNode:
+            currNode.height =  1 + max(self._updateHeight(node.left), self._updateHeight(node.right))
+
         return self._getHeight(node)
 
     def _rightRotate(self, y):
