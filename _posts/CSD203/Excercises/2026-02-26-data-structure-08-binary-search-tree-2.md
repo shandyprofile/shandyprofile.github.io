@@ -49,7 +49,31 @@ query_q
 | `VALIDATE`           | Check BST validity (duplicate rule applied) | `VALID` / `INVALID`     | —                                  |
 | `PRINT_LEVEL_ZIGZAG` | Zigzag level order traversal                | Each level on new line  | —                                  |
 
-**PRINT_LEVEL_ZIGZAG**:
+- **LCA**: The deepest node that has both x and y as descendants
+
+Example:
+
+```
+        10
+       /  \
+      5    20
+     / \   / \
+    4   8 15 25
+```
+
+LCA(4, 8)
+- Path to 4: 10 -> 5 -> 4
+- Path to 8: 10 -> 5 -> 8
+
+> The lowest common node is 5
+
+LCA(4, 15)
+- Path to 4: 10 -> 5 -> 4
+- Path to 15: 10 -> 20 -> 15
+
+> The lowest common node is 10
+
+- **PRINT_LEVEL_ZIGZAG**:
 
 This involves traversing the tree in level-order, but with alternating directions between levels.
 
@@ -86,12 +110,13 @@ ZIGZAG:
 ```
 12
 10 5 15 3 7 12 18 7 6 8 20 1
-7
+8
+WIDTH
+LONGEST_PATH
 KTH 5
 RANGE_SUM 5 15
 LCA 6 8
 PATH_SUM 8
-VALIDATE
 DELETE 7
 PRINT_LEVEL_ZIGZAG
 ```
@@ -99,11 +124,12 @@ PRINT_LEVEL_ZIGZAG
 **Output 1**
 
 ```
+4
+10 -> 5 -> 7 -> 7 -> 8
 7
 70
 7
-30
-VALID
+37
 10
 15 5
 3 7 12 18
@@ -116,9 +142,10 @@ VALID
 ```
 10
 8 8 8 8 4 12 2 6 10 14
-8
+9
+WIDTH
+LONGEST_PATH
 KTH 3
-KTH 20
 RANGE_SUM 8 8
 LCA 2 14
 PATH_SUM 10
@@ -130,17 +157,19 @@ PRINT_LEVEL_ZIGZAG
 **Output 2**
 
 ```
-10
-8 8 8 8 4 12 2 6 10 14
+4
+8 -> 8 -> 8 -> 8 -> 12 -> 10
+6
+32
 8
-KTH 3
-KTH 20
-RANGE_SUM 8 8
-LCA 2 14
-PATH_SUM 10
-DELETE 8
-VALIDATE
-PRINT_LEVEL_ZIGZAG
+54
+VALID
+8
+8
+8
+8
+12 4
+2 6 10 14
 ```
 
 ## Assignment 2: AVL Tree with Augmented Operations
