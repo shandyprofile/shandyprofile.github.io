@@ -134,7 +134,6 @@ PRINT_LEVEL_ZIGZAG
 15 5
 3 7 12 18
 20 8 6 1
-7
 ```
 
 **Input 2**

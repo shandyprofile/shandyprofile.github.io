@@ -796,3 +796,344 @@ Rear: Position of the last entry in the queue, that is, the one most recently ad
 Size: Size refers to the current number of elements in the queue.
 
 Capacity: Capacity refers to the maximum number of elements the queue can hold.
+
+## Hash Table
+
+A Hash table is defined as a data structure used to insert, look up, and remove key-value pairs quickly. It operates on the hashing concept, where each key is translated by a hash function into a distinct index in an array. The index functions as a storage location for the matching value. In simple words, it maps the keys with the value.
+
+![](/assets/img/2026-04-20-10-37-56.png)
+
+Input: Data goes into the hashing algorithm.
+Hash Function: Math magic creates a fixed-size hash.
+Output: Hash becomes the index for data storage or retrieval.
+
+### Hash function
+
+There are many hash functions that use numeric or alphanumeric keys. This article focuses on discussing different hash functions:
+
+- Division Method.
+- Mid Square Method.
+- Folding Method.
+- Multiplication Method
+
+#### 1. Division Method
+
+This is the most simple and easiest method to generate a hash value. The hash function divides the value k by M and then uses the remainder obtained.
+
+```
+**h(K) = k mod M**
+```
+
+> Here,
+> - k is the key value, and 
+> - M is the size of the hash table.
+
+#### 2. Mid Square Method
+
+The mid-square method is a very good hashing method. It involves two steps to compute the hash value-
+
+- Square the value of the key k i.e. k2
+- Extract the middle r digits as the hash value.
+
+```
+h(k) = h(k x k)
+```
+
+> Here, k is the key value.  
+
+#### 3. Folding Method
+
+This method involves two steps:
+
+Divide the key-value k into a number of parts i.e. k1, k2, k3,….,kn, where each part has the same number of digits except for the last part that can have lesser digits than the other parts.
+Add the individual parts. The hash value is obtained by ignoring the last carry if any.
+
+```
+k = k1, k2, k3, k4, ….., kn
+s = k1+ k2 + k3 + k4 +….+ kn
+h(K)= s
+```
+
+> Here, s is obtained by adding the parts of the key k
+
+Example:
+
+```
+k = 12345
+k1 = 12, k2 = 34, k3 = 5
+s = k1 + k2 + k3
+  = 12 + 34 + 5
+  = 51 
+h(K) = 51
+```
+
+#### 4. Multiplication Method
+
+This method involves the following steps:
+
+1. Choose a constant value A such that 0 < A < 1.
+2. Multiply the key value with A.
+3. Extract the fractional part of kA.
+4. Multiply the result of the above step by the size of the hash table i.e. M.
+5. The resulting hash value is obtained by taking the floor of the result obtained in step 4.
+
+```
+h(K) = floor (M (kA mod 1))
+```
+
+> Here,
+> - M is the size of the hash table.
+> - k is the key value.
+> - A is a constant value.
+
+Example:
+
+```
+k = 12345
+A = 0.357840
+M = 100
+
+h(12345) = floor[ 100 (12345*0.357840 mod 1)]
+               = floor[ 100 (4417.5348 mod 1) ]
+               = floor[ 100 (0.5348) ]
+               = floor[ 53 ]
+```
+
+### Collision resolution techniques:
+
+![](/assets/img/2026-04-20-10-54-00.png)
+
+- Open Addressing
+- Separate Chaining
+
+#### 1. Open Addressing
+
+
+
+#### 2. Separate Chaining
+
+The idea behind Separate Chaining is to make each cell of the hash table point to a linked list of records that have the same hash function value. Chaining is simple but requires additional memory outside the table.
+
+Example: We have given a hash function and we have to insert some elements in the hash table using a separate chaining method for collision resolution technique.
+
+Below are different options to create chains.
+
+- The advantage of linked list implementation is insert is O(1) in the worst case.
+- The advantage of array is cache friendliness, but the insert operation can be O(1) in cases when we have to resize the array.
+- The advantage of Self Balancing BST is the worst case is bounded by O(Log (len)) for all operations
+
+| Data Structure                      | Search   | Delete   | Insert           | Notes                     |
+| ----------------------------------- | -------- | -------- | ---------------- | ------------------------- |
+| Linked List                         | O(n)     | O(n)     | O(1)             | Sequential access         |
+| Dynamic Array                       | O(n)     | O(n)     | O(1) (amortized) | Cache-friendly            |
+| Self-Balancing BST (AVL, Red-Black) | O(log n) | O(log n) | O(log n)         | Maintains balanced height |
+
+![](/assets/img/2026-04-20-10-59-12.png)
+
+![](/assets/img/2026-04-20-11-00-13.png)
+
+![](/assets/img/2026-04-20-11-00-46.png)
+
+## Priority Queue
+
+A priority queue is a special type of queue in which each element is associated with a priority value. And, elements are served on the basis of their priority. That is, higher priority elements are served first.
+
+However, if elements with the same priority occur, they are served according to their order in the queue.
+
+**Assigning Priority Value**
+
+Generally, the value of the element itself is considered for assigning the priority. For example,
+
+The element with the highest value is considered the highest priority element. However, in other cases, we can assume the element with the lowest value as the highest priority element.
+
+We can also set priorities according to our needs.
+
+![](/assets/img/2026-04-20-10-13-04.png)
+
+### Difference between Priority Queue and Normal Queue
+
+> Queue: The **first-in-first-out** rule is implemented whereas, 
+> 
+> Priority queue, the values are removed on the **basis of priority**. The element with the highest priority is removed first.
+
+**Main Operations on Priority Queues**
+
+A priority queue is a container of elements, where each element is associated with a key.
+- Insert (key, data): Add an element with its key into the priority queue.
+- DeleteMin / DeleteMax: Remove and return the element with the smallest/largest key.
+- GetMinimum / GetMaximum: Return the element with the smallest/largest key without removing it.
+
+**Auxiliary Operations on Priority Queues**
+
+- kth Smallest / kth Largest: Return the k-th smallest/largest key in the priority queue.
+- Size: Return the number of elements in the priority queue.
+- Heap Sort: Sort the elements in the priority queue based on their priority (key).
+
+A comparative analysis of different implementations of priority queue is given below.
+
+| Data Structure     | Peek | Insert(enqueue)   | Delete (dequeue)   |
+| ------------------ | ---- | -------- | -------- |
+| Linked List        | O(1) | O(n)     | O(1)     |
+| Binary Heap        | O(1) | O(log n) | O(log n) |
+| Binary Search Tree | O(1) | O(log n) | O(log n) |
+
+
+### Implements Priority Queue:
+
+**Priority Queue implement by Linked List**
+
+```python
+class PriorityQueueLinkedList:
+    class Node:
+        def __init__(self, key, data):
+            self.key = key
+            self.data = data
+            self.next = None
+    
+    def __init__(self):
+        self.root = None
+
+    def isEmpty(self):
+        return self.root is None
+
+    def enqueue(self, key, data):
+        newNode = self.Node(key, data)
+
+        if self.isEmpty() or key < self.root.key:
+            newNode.next = self.root
+            self.root = newNode
+        else:
+            current = self.root
+            while current.next and current.next.key <= key:
+                current = current.next
+            
+            newNode.next = current.next
+            current.next = newNode
+
+    def dequeue(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+
+        node = self.root
+        self.root = self.root.next
+        return (node.key, node.data)
+
+    def peek(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+        return (self.root.key, self.root.data)
+```
+
+**Priority Queue implement by Binary Heap**
+
+```python
+class PriorityQueueHeap:
+    def __init__(self):
+        self.heap = []
+
+    def isEmpty(self):
+        return len(self.heap) == 0
+
+    def enqueue(self, key, data):
+        self.heap.append((key, data))
+        self._heapify_up(len(self.heap) - 1)
+
+    def _heapify_up(self, i):
+        parent = (i - 1) // 2
+        while i > 0 and self.heap[i][0] < self.heap[parent][0]:
+            self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
+            i = parent
+            parent = (i - 1) // 2
+
+    def dequeue(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+
+        root = self.heap[0]
+        last = self.heap.pop()
+
+        if not self.isEmpty():
+            self.heap[0] = last
+            self._heapify_down(0)
+
+        return root
+
+    def _heapify_down(self, i):
+        size = len(self.heap)
+
+        while True:
+            smallest = i
+            left = 2 * i + 1
+            right = 2 * i + 2
+
+            if left < size and self.heap[left][0] < self.heap[smallest][0]:
+                smallest = left
+            if right < size and self.heap[right][0] < self.heap[smallest][0]:
+                smallest = right
+
+            if smallest != i:
+                self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
+                i = smallest
+            else:
+                break
+
+    def peek(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+        return self.heap[0]
+```
+
+**Priority Queue (Binary Search Tree)**
+
+```python
+class PriorityQueueBST:
+    class Node:
+        def __init__(self, key, data):
+            self.key = key
+            self.data = data
+            self.left = None
+            self.right = None
+
+    def __init__(self):
+        self.root = None
+
+    def isEmpty(self):
+        return self.root is None
+
+    def enqueue(self, key, data):
+        self.root = self._insert(self.root, key, data)
+
+    def _insert(self, node, key, data):
+        if node is None:
+            return self.Node(key, data)
+
+        if key < node.key:
+            node.left = self._insert(node.left, key, data)
+        else:
+            node.right = self._insert(node.right, key, data)
+
+        return node
+
+    def dequeue(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+
+        self.root, minNode = self._deleteMin(self.root)
+        return (minNode.key, minNode.data)
+
+    def _deleteMin(self, node):
+        if node.left is None:
+            return node.right, node
+
+        node.left, minNode = self._deleteMin(node.left)
+        return node, minNode
+
+    def peek(self):
+        if self.isEmpty():
+            raise IndexError("Priority Queue is empty")
+
+        current = self.root
+        while current.left:
+            current = current.left
+        return (current.key, current.data)
+```
