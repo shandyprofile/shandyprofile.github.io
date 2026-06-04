@@ -133,7 +133,6 @@ def levelOrder(root):
             queue.append((Node(-1), lvl + 1))
         else:
             queue.append((node.right, lvl + 1))
-#Driver Code Ends
 
 def insert(root, key):
  
@@ -149,7 +148,6 @@ def insert(root, key):
 
     # Return the (unchanged) node pointer
     return root
-#Driver Code Starts
 
 # Create BST
 #       22
@@ -454,7 +452,6 @@ def printInorder(root):
         # Traverse right subtree
         printInorder(root.right)
 
-# Driver code
 if __name__ == "__main__":
     # Build the tree
     root = Node(100)
@@ -510,7 +507,6 @@ def printPreOrder(node):
     # Traverse right subtree
     printPreOrder(node.right)
 
-# Driver code
 if __name__ == "__main__":
     # Build the tree
     root = Node(100)
@@ -568,7 +564,6 @@ def printPostOrder(node):
     # Visit Node
     print(node.data, end = " ")
 
-# Driver code
 if __name__ == "__main__":
     # Build the tree
     root = Node(100)

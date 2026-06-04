@@ -1,12 +1,12 @@
 ---
-title: "Binary Search Tree"
+title: "Binary Search Tree advance"
 description: >-
   Practice for Binary Search Tree
 author: [shandy]
 date: 2026-02-24
 categories: [(Python) Data Structure and Algorithms, Exercises]
 tags: [(Python) Data Structure and Algorithms - Exercises]
-sort_index: 407
+sort_index: 408
 # pin: true
 # media_subpath: '/posts/01'
 ---
@@ -17,8 +17,8 @@ Implement an enhanced Binary Search Tree (BST) that supports complex analytical 
 
 The BST must still follow the structural duplicate rule:
 
-- If x < node.value → go LEFT
-- If x ≥ node.value → go RIGHT
+- If x < node.value -> go LEFT
+- If x ≥ node.value -> go RIGHT
 
 This creates **right-skewed duplicate chains**.
 
