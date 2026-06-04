@@ -19,7 +19,7 @@ Students are ONLY allowed to use:
 
 **Instructions**
 
-![Download material here](https://drive.google.com/file/d/1xkJLeP1WhApQPV7ms415Gv09RVqltgvA/view?usp=sharing)
+[Download material here](https://drive.google.com/file/d/1xkJLeP1WhApQPV7ms415Gv09RVqltgvA/view?usp=sharing)
 
 1. Step 1: Naming the main file with Qx.py, for example: Q1.py, Q2.py, Q3.py...
 2. Step 2:
