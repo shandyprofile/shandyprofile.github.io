@@ -12,134 +12,58 @@ sort_index: 104
 # media_subpath: '/posts/01'
 ---
 
-## Introduction to Object-Oriented Programming (OOP)
+## Examples:
 
-Object-Oriented Programming (OOP) is a programming paradigm that organizes software design around objects rather than functions.
+### Problem 1: Fibonacci 
 
-An object represents a real-world entity and contains:
-- Attributes: data (what the object has)
-- Methods: behavior (what the object does)
+The Fibonacci sequence is a series where each number is the sum of the two preceding ones, typically starting with 0 and 1. 
 
-OOP helps developers build programs that are:
-- Modular
-- Reusable
-- Easy to maintain and extend
+- **Recursive (Simple but Inefficient):** 
 
-OOP is based on four fundamental principles:
-- Encapsulation
-- Abstraction
-- Inheritance
-- Polymorphism
-
-### 1. Encapsulation
-
-Encapsulation means bundling data and methods together inside a class and restricting direct access to some of the object’s data.
-
-**Purpose**
-
-- Protect data from unintended modification
-- Control how data is accessed or changed
-- Improve code reliability and security
-
-**Python Example**
+This follows the mathematical definition but is slow for large n due to redundant calculations, running in O(2^n) time.
 
 ```python
-class BankAccount:
-    def __init__(self, balance):
-        self.__balance = balance   # private attribute
-
-    def deposit(self, amount):
-        self.__balance += amount
-
-    def get_balance(self):
-        return self.__balance
+def fibonacci_recursive(n):
+    if n <= 1:
+        return n
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 ```
 
-**Explanation**
-- __balance is private
-- Users cannot access it directly
-- Data is accessed through public methods like get_balance()
+- **Memoization (Optimized Recursion):**
 
-### 2. Abstraction
-
-Abstraction means showing only essential features of an object while hiding implementation details.
-
-**Purpose**
-- Reduce complexity
-- Focus on what an object does, not how it does it
-
-Python Example (Abstract Class)
+Stores previously computed values to avoid recalculation, drastically improving performance to O(n) time.
 
 ```python
-from abc import ABC, abstractmethod
+from functools import lru_cache
 
-class Vehicle(ABC):
-    @abstractmethod
-    def move(self):
-        pass
-
-class Car(Vehicle):
-    def move(self):
-        print("The car is moving")
-
+@lru_cache(maxsize=None)
+def fibonacci_memoized(n):
+    if n <= 1:
+        return n
+    return fibonacci_memoized(n - 1) + fibonacci_memoized(n - 2)
 ```
 
-**Explanation**
+- **Common Implementation Methods**
 
-- Vehicle defines a common interface
-- Car provides its own implementation
-- The user only knows that a vehicle can move()
-
-### 3. Inheritance
-
-Inheritance allows a class (child) to reuse properties and methods from another class (parent).
-
-**Purpose**
-- Promote code reuse
-- Create logical class hierarchies
-- Reduce duplication
-
-**Python Example**
+Iterative (Most Efficient for Small to Medium 
+): This method uses a loop and two variables to track the sequence, running in O(n) time with O(1) space.
 
 ```python
-class Animal:
-    def speak(self):
-        print("Animal makes a sound")
-
-class Dog(Animal):
-    def speak(self):
-        print("Dog barks")
+def fibonacci_iterative(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=' ')
+        a, b = b, a + b
 ```
 
-**Explanation**
-- Dog inherits from Animal
-- Dog overrides the speak() method
+- **Generators (Memory Efficient):** 
 
-### 4. Polymorphism
-
-Polymorphism means one method name, multiple behaviors, depending on the object.
-
-**Purpose**
-
-- Write flexible and extensible code
-- Allow different objects to respond differently to the same method call
-
-**Python Example**
+Yields numbers one at a time, which is useful for processing infinite sequences without storing them all in memory.
 
 ```python
-animals = [Dog(), Animal()]
-
-for animal in animals:
-    animal.speak()
+def fibonacci_generator(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
 ```
-
-**Output**
-
-```text
-Dog barks
-Animal makes a sound
-```
-
-**Explanation**
-- Same method call: speak()
-- Different behavior based on object type
