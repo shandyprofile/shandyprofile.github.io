@@ -4,8 +4,8 @@ description: >-
   TIC-TAC-TOE Game using Heuristic Alpha-Beta Tree Search Algorithm
 author: [shandy]
 date: 2026-03-16
-categories: [(Python) Data Structure and Algorithms, Exercises]
-tags: [(Python) Data Structure and Algorithms - Exercises]
+categories: [(Python) Data Structure and Algorithms, Games]
+tags: [(Python) Data Structure and Algorithms - Games]
 sort_index: 502
 # pin: true
 # media_subpath: '/posts/01'
