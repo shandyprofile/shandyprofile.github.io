@@ -6,7 +6,7 @@ author: [shandy]
 date: 2026-02-24
 categories: [(Python) Data Structure and Algorithms, Exercises]
 tags: [(Python) Data Structure and Algorithms - Exercises]
-sort_index: 406
+sort_index: 407
 # pin: true
 # media_subpath: '/posts/01'
 ---

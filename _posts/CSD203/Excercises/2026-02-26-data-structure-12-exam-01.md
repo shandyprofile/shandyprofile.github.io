@@ -1,12 +1,12 @@
 ---
-title: "Graphs Advance"
+title: "Examination 1 - Data Structure and Algorithms"
 description: >-
-  Practice for Graphs Advance
+  Examination 1 - Data Structure and Algorithms
 author: [shandy]
 date: 2026-03-10
 categories: [(Python) Data Structure and Algorithms, Exercises]
 tags: [(Python) Data Structure and Algorithms - Exercises]
-sort_index: 410
+sort_index: 412
 # pin: true
 # media_subpath: '/posts/01'
 ---

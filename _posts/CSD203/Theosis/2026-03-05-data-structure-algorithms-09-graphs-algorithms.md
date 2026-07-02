@@ -1387,7 +1387,7 @@ Edge 	Weight
 1 - 4 	5
 ```
 
-### Kruskal's Algorithm
+### 4.2 Kruskal's Algorithm
 
 A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected, and undirected graph is a spanning tree (no cycles and connects all vertices) that has minimum weight. The weight of a spanning tree is the sum of all edges in the tree.  
 
