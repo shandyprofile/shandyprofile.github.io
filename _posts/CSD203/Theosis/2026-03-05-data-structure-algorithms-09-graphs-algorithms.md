@@ -1154,7 +1154,7 @@ Priority Queue
 
 ---
 
-## Step 6 – Finish
+**Step 6 – Finish**
 
 The priority queue is empty.
 
