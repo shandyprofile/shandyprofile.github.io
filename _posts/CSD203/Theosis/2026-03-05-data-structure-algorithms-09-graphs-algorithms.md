@@ -979,6 +979,195 @@ The priority queue always selects the node with the smallest current distance, e
 
 ![](/assets/img/2026-03-05-08-04-25.png)
 
+**Trace solutions**
+
+```
+while (Unvisited ≠ ∅)
+    currNode = vertex có distance nhỏ nhất
+    for mỗi đỉnh kề v của currNode
+        newDistance = distance(currNode) + edgeWeight(currNode,v)
+        if newDistance < distance(v)
+            distance(v) = newDistance
+            parent(v) = currNode
+    Visited = Visited ∪ {currNode}
+```
+
+| Step | Current Node |     0     |     1     |     2     |      3     |      4     |
+| :--: | :----------: | :-------: | :-------: | :-------: | :--------: | :--------: |
+|   0  |       -      | **{0,-}** |   {∞,-}   |   {∞,-}   |    {∞,-}   |    {∞,-}   |
+|   1  |       0      | **{0,-}** | **{4,0}** | **{8,0}** |    {∞,-}   |    {∞,-}   |
+|   2  |       1      |   {0,-}   | **{4,0}** |   {8,0}   |    {∞,-}   | **{10,1}** |
+|   3  |       2      |   {0,-}   |   {4,0}   | **{8,0}** | **{10,2}** |   {10,1}   |
+|   4  |       3      |   {0,-}   |   {4,0}   |   {8,0}   | **{10,2}** |   {10,1}   |
+|   5  |       4      |   {0,-}   |   {4,0}   |   {8,0}   |   {10,2}   | **{10,1}** |
+
+**Dijkstra's Algorithm Trace**
+
+| Step | Current Node | Distance Table (`{distance, parent}`) | Priority Queue (Min -> Max) |
+|:---:|:------------:|------------------------------------------|----------------------------|
+| 0 | - | 0:{0,-}  1:{∞,-}  2:{∞,-}  3:{∞,-}  4:{∞,-} | {(0,0)} |
+| 1 | 0 | 0:{0,-}  1:{4,0}  2:{8,0}  3:{∞,-}  4:{∞,-} | {(4,1), (8,2)} |
+| 2 | 1 | 0:{0,-}  1:{4,0}  2:{8,0}  3:{∞,-}  4:{10,1} | {(8,2), (10,4)} |
+| 3 | 2 | 0:{0,-}  1:{4,0}  2:{8,0}  3:{10,2}  4:{10,1} | {(10,3), (10,4)} |
+| 4 | 3 | 0:{0,-}  1:{4,0}  2:{8,0}  3:{10,2}  4:{10,1} | {(10,4)} |
+| 5 | 4 | 0:{0,-}  1:{4,0}  2:{8,0}  3:{10,2}  4:{10,1} | {} |
+| 6 | Finish | **Final distances:** 0:{0,-}  1:{4,0}  2:{8,0}  3:{10,2}  4:{10,1} | Empty |
+
+**Step 0 – Initialization**
+
+Initialize the distance table.
+
+```text
+dist[0] = 0
+dist[1] = ∞
+dist[2] = ∞
+dist[3] = ∞
+dist[4] = ∞
+```
+
+Initialize the priority queue.
+
+```text
+pq = {(0,0)}
+```
+
+**Step 1**
+
+```text
+Pop: {0,0}
+Current Node = 0
+```
+
+Relax adjacent vertices.
+
+```text
+0 -> 1
+newDistance = 0 + 4 = 4
+Update:
+1 = {4,0}
+Push {4,1}
+```
+
+```text
+0 -> 2
+newDistance = 0 + 8 = 8
+Update:
+2 = {8,0}
+Push {8,2}
+```
+
+Priority Queue
+
+```text
+{(4,1), (8,2)}
+```
+
+**Step 2**
+
+```text
+Pop: {4,1}
+Current Node = 1
+```
+
+Relax adjacent vertices.
+
+```text
+1 -> 4
+newDistance = 4 + 6 = 10
+Update:
+4 = {10,1}
+Push {10,4}
+```
+
+Priority Queue
+
+```text
+{(8,2), (10,4)}
+```
+
+**Step 3**
+
+```text
+Pop: {8,2}
+Current Node = 2
+```
+
+Relax adjacent vertices.
+
+```text
+2 -> 3
+newDistance = 8 + 2 = 10
+Update:
+3 = {10,2}
+Push {10,3}
+```
+
+Priority Queue
+
+```text
+{(10,3), (10,4)}
+```
+
+**Step 4**
+
+```text
+Pop: {10,3}
+Current Node = 3
+```
+
+Relax adjacent vertices.
+
+```text
+3 -> 4
+newDistance = 10 + 10 = 20
+20 > 10
+No update
+```
+
+Priority Queue
+
+```text
+{(10,4)}
+```
+
+**Step 5**
+
+```text
+Pop: {10,4}
+Current Node = 4
+```
+
+Relax adjacent vertices.
+
+```text
+4 -> 3
+newDistance = 10 + 10 = 20
+20 > 10
+No update
+```
+
+Priority Queue
+
+```text
+{}
+```
+
+---
+
+## Step 6 – Finish
+
+The priority queue is empty.
+
+The final shortest distances from the source vertex are
+
+| Vertex | {Distance, Parent} | Shortest Path |
+|---------|--------------------|---------------|
+| 0 | {0,-} | 0 |
+| 1 | {4,0} | 0 -> 1 |
+| 2 | {8,0} | 0 -> 2 |
+| 3 | {10,2} | 0 -> 2 -> 3 |
+| 4 | {10,1} | 0 -> 1 -> 4 |
+
 ```python
 import heapq
 import sys
