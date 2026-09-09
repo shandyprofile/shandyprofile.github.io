@@ -193,14 +193,14 @@ flowchart TD
 
 ## 4.4 Compression
 
- **compression techniques** trong context của inverted-index storage.
+ **Compression techniques** trong context của inverted-index storage.
 
 Mục tiêu:
 - Large Index
 - Compression
 - Smaller Storage
 - Better Efficiency
-- 
+
 ## 5. Text Transformation
 
 Raw document không phải lúc nào cũng sẵn sàng để indexing.
@@ -285,11 +285,10 @@ computer
 computers
 computing
 compute
-        ↓
-    common stem
 ```
 
-Mục tiêu là giúp những word forms liên quan có thể được xử lý như một nhóm.
+> Đây là các **common stem** sử dụng cho mục đích tổng hợp kết quả
+> Mục tiêu là giúp những word forms liên quan có thể được xử lý như một nhóm.
 
 **Demo:**
 
@@ -605,8 +604,6 @@ Minimum requirements:
 - Display document IDs.
 
 ## Mini Project – Mini Search Engine
-
-## Goal
 
 Xây dựng một search engine nhỏ bằng Python.
 
