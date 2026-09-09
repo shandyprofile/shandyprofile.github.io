@@ -1,12 +1,12 @@
 ---
-title: 'Mongoose and query'
+title: 'JWT Authgentication'
 description: ""
 author: [shandy]
 date: 2025-10-12
 updateDate: 
 categories: [(ExpressJS) Server-Side development, Express JS]
 tags: [Express JS]
-sort_index: 105
+sort_index: 108
 # pin: true
 # media_subpath: '/posts/02'
 ---
