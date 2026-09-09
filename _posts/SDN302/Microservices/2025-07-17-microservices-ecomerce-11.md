@@ -10,6 +10,7 @@ tags: [(MicroServices) E-Commerce]
 sort_index: 912
 # pin: true
 # media_subpath: '/posts/02'
+render_with_liquid: false
 ---
 
 ## Objectives

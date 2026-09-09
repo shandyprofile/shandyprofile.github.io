@@ -13,6 +13,7 @@ tags: [(ExpressJS) E-Commerce]
 sort_index: 712
 # pin: true
 # media_subpath: '/posts/02'
+render_with_liquid: false
 ---
 
 ## 1. Extend the User Model with Role

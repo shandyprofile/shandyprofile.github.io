@@ -10,6 +10,7 @@ tags: [(ExpressJS) E-Commerce]
 sort_index: 709
 # pin: true
 # media_subpath: '/posts/02'
+render_with_liquid: false
 ---
 
 ## 1. Install and Use cookie-parser
