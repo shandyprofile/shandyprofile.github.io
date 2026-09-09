@@ -5,9 +5,9 @@ description: >-
 author: [shandy]
 date: 2025-06-16
 updateDate: 
-categories: [(SEG301) Search Engine, Theosis]
-tags: [(SEG301) Search Engine - Theosis]
-sort_index: 2
+categories: [(SEG301) Search Engine, (SEG) Theory]
+tags: [(SEG301) Search Engine - Theory]
+sort_index: 101
 # pin: true
 # media_subpath: '/posts/02'
 ---
@@ -281,7 +281,7 @@ for score, sentence in scores[:2]:
 > Đây là mô hình minh họa đơn giản cho ý tưởng chọn các sentence quan
 trọng.
 
-# 8. Information Extraction Systems
+## 8. Information Extraction Systems
 
 Information Extraction nhằm:
 
@@ -316,9 +316,7 @@ Pipeline:
 Unstructured Text > Entity Detection > Relation Extraction > Structured Data
 ```
 
-------------------------------------------------------------------------
-
-# 9. Topic Detection and Tracking
+## 9. Topic Detection and Tracking
 
 Topic Detection and Tracking nhằm:
 
@@ -338,7 +336,7 @@ News 5
 News 6
 ```
 
-# 10. Expert Search Systems
+## 10. Expert Search Systems
 
 Expert Search System nhằm xác định các thành viên trong một tổ chức có
 chuyên môn về một lĩnh vực cụ thể.
