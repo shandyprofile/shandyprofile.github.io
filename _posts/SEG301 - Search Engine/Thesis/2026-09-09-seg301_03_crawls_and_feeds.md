@@ -62,8 +62,6 @@ Crawling and Feeds
 5. Download Pages
 6. ...
 
----
-
 **Basic crawler architecture**
 
 ```text
@@ -245,8 +243,6 @@ Subscriber
 ```
 
 Source dùng **RSS** làm ví dụ về push feed cho news và blog updates.
-
----
 
 ### 4.2. Pull Feed
 
@@ -775,7 +771,9 @@ def extract_links(html, base_url):
 
 **Ví dụ:**
 
+```html
 <a href="/news/1">News</a>
+```
 
 **Seed:**
 
@@ -793,7 +791,7 @@ https://example.com/news/1
 
 Exact duplicate sử dụng SHA-256.
 
-```
+```python
 import hashlib
 
 def fingerprint(content):
@@ -900,7 +898,7 @@ documents/
 
 Đây là core của project.
 
-```
+```python
 from urllib.request import Request, urlopen
 
 import time
@@ -1037,7 +1035,7 @@ class Crawler:
 
 Entry point của chương trình:
 
-```
+```python
 from crawler import Crawler
 import config
 
@@ -1057,7 +1055,7 @@ if __name__ == "__main__":
 
 **Run**
 
-```bash
+```
 python main.py
 ```
 
