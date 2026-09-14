@@ -1,5 +1,5 @@
 ---
-title: 'JWT Authentication'
+title: 'Oauth 2.0'
 description: ""
 author: [shandy]
 date: 2025-10-12
