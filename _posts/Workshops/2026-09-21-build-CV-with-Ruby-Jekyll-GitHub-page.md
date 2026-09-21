@@ -2,9 +2,9 @@
 title: Build Your CV with Ruby, Jekyll & GitHub Pages
 description: >-
   This workshop will guide you through building a personal CV website using Ruby, Jekyll, and GitHub Pages:
-  - Part 01: Introduction to Jekyll and GitHub Pages
-  - Part 02: Finding and customizing a free Jekyll CV template
-  - Part 03: Deploying your CV with GitHub Pages and GitHub Actions
+  <br>- Part 01: Introduction to Jekyll and GitHub Pages
+  <br>- Part 02: Finding and customizing a free Jekyll CV template
+  <br>- Part 03: Deploying your CV with GitHub Pages and GitHub Actions
 author: [shandy]
 date: 2026-09-21
 categories: [Workshop, Jekyll, GitHub Pages]
@@ -21,9 +21,14 @@ render_with_liquid: false
 
 ### 1.1. Introduction
 
-Trong workshop này, bạn sẽ xây dựng một **Personal CV Website** sử dụng Jekyll và triển khai website lên GitHub Pages.
+Xây dựng một **Personal CV Website** sử dụng Jekyll và triển khai website lên GitHub Pages.
 
 Thay vì tạo toàn bộ website từ đầu, bạn sẽ sử dụng một **Jekyll CV Template** có sẵn, sau đó tùy chỉnh nội dung và giao diện theo CV cá nhân.
+
+> **Mục tiêu là:**
+> - Nhanh
+> - Miễn phí
+> - Dễ cập nhật
 
 Quy trình tổng quát:
 
